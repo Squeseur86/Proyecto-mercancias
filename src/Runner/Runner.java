@@ -212,7 +212,8 @@ public class Runner {
 															+ "\" no es valida. Intentelo de nuevo.");
 										}
 									}
-									while (true) {
+									opPublicacion=0;
+									while (opPublicacion!=1&&opPublicacion!=2) {
 										System.out.print("Desea realizar la publicacion: ");
 										System.out.print("1 si ");
 										System.out.print("2 no ");
@@ -221,8 +222,7 @@ public class Runner {
 										sc.nextLine();
 										switch (opPublicacion) {
 											case 1:
-												publiController.CrearPublicacion(origen, destino, fechaIda, categoria,
-														pesoEquipaje, espacioEquipaje);
+												publiController.CrearPublicacion(origen, destino, fechaIda, categoria, pesoEquipaje, espacioEquipaje);
 
 												//REINICIAMOS VALORES
 												origen = ""; destino = ""; fechaIda = null; categoria = ""; pesoEquipaje = "";

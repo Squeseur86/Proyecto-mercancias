@@ -9,7 +9,7 @@ public class Publicacion {
 	private String categoria;
 	private String pesoEquipaje;
 	private String EspacioEquipaje;
-	public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
+	/*public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
 			String espacioEquipaje) {
 		super();
 		this.origen = origen;
@@ -18,7 +18,7 @@ public class Publicacion {
 		this.categoria = categoria;
 		this.pesoEquipaje = pesoEquipaje;
 		EspacioEquipaje = espacioEquipaje;
-	}
+	}*/
 	public String getOrigen() {
 		return origen;
 	}
