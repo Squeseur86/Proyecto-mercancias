@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import Controller.OfertaControl;
 import Controller.PublicacionController;
 import Controller.usuarioController;
 
@@ -21,8 +22,13 @@ public class Runner {
 		Date fechaIda = null;
 		PublicacionController publiController = new PublicacionController();
 		usuarioController usuario = new usuarioController();
+		OfertaControl oferta = new OfertaControl();
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+		
+		String descripcion, tamaño;
+		boolean fragil = false; 
+		int valor; 
 
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0;
 		int con = 0;
@@ -152,8 +158,8 @@ public class Runner {
 						while (opMenuPrincipal != 3) { //MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Crear publicacion.");
 							System.out.println("2. Ver publicaciones.");
-							System.out.println("3. Cerrar sesion");
-							System.out.println("4. Salir");
+							System.out.println("3. Crear ofertas");
+							System.out.println("4.cerrar seccion");
 							System.out.print("Digite la opcion que desea realizar: ");
 							opMenuPrincipal = sc.nextInt();
 							sc.nextLine();
@@ -239,11 +245,65 @@ public class Runner {
 																+ "\" no es valida. Intentelo de nuevo.");
 										}
 									}
+									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									publiController.listarPublicaciones();
+									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
+										System.out.println((i+1)+" "+publiController.listarPublicaciones()[i]);
+									}
+									System.out.println("De cual publicacion desea ver ofertas");
+									op=sc.nextInt();
+									System.out.println(oferta.verListadoOfertas()[op]);
 									break;
 								case 3:
+									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
+										if(publiController.listarPublicaciones()!=null) {
+										System.out.println((i+1)+" "+publiController.listarPublicaciones()[i]);
+										}
+									}
+									System.out.println("a cual publicacion deseas ofertar");
+									
+									op=sc.nextInt();
+									
+									if(publiController.listarPublicaciones()[op]!=null)
+									{
+										System.out.println("Ingrese la descripcion de la oferta");
+										descripcion=sc.next();
+										System.out.println("ingrese el tamaño de su envio");
+										tamaño=sc.next();
+										System.out.print("su envio es fragil 1 para si 2 para no");
+										op=sc.nextInt();
+										while(op!=1&&op!=2) {
+											switch(op)
+											{
+											case 1:
+												fragil=true;
+												break;
+											case 2:
+												fragil=false;
+												break;
+											default:
+												System.out.println("valor incorrecto");
+											}
+										}
+										System.out.println("ingrese el precio de su oferta");
+										valor=sc.nextInt();
+										while (true) {
+											try {
+												System.out.print("Ingrese la fecha: ");
+												fechaIda = dateFormat.parse(sc.nextLine());
+												break;
+											} catch (ParseException e) {
+												System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
+											}
+										}
+										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,op))
+										{
+											System.out.println("oferta creada correctamente");
+										}else {
+											System.out.println("error al crear la oferta");
+										}
+									}
 									break;
 								case 4:
 									System.exit(0);

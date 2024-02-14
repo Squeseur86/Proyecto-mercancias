@@ -8,6 +8,7 @@ public class Oferta {
 	private boolean fragil;
 	private int valor;
 	private Date fechaCreacion;
+	private int id;
 	
 	public Oferta(String descripcion,String tamaño,boolean fragil,int valor,Date fechaCreacion)
 	{
@@ -16,6 +17,14 @@ public class Oferta {
 
 	public Oferta() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {

@@ -3,7 +3,7 @@ package Controller;
 import java.util.Date;
 
 import Model.Oferta;
-import co.edu.uptc.model.Contacto;
+
 
 public class OfertaControl {
 	Oferta of;
@@ -14,7 +14,8 @@ public class OfertaControl {
 		listaOfertas = new Oferta[1];
 		aux = new Oferta[1];
 	}
-	public boolean crearOferta(String descripcion, String tamaño, boolean fragil, int valor, Date fechaCreacion) {
+	public boolean crearOferta(String descripcion, String tamaño, boolean fragil, int valor, Date fechaCreacion
+			,int id) {
 		of = new Oferta();
 		try {
 			of.setDescripcion(descripcion);
@@ -22,6 +23,7 @@ public class OfertaControl {
 			of.setFragil(fragil);
 			of.setValor(valor);
 			of.setFechaCreacion(fechaCreacion);
+			of.setId(id);
 			listaOfertas[listaOfertas.length -1] = of;
 			aux = listaOfertas;
 			listaOfertas= new Oferta[aux.length +1];

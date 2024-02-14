@@ -41,10 +41,7 @@ public class PublicacionController {
 		}
 	}
 	
-	public void listarPublicaciones() {
-		for(int i=0;i< publicaciones.length-1;i++)
-		{
-			System.out.println( publicaciones[i].toString());
-		}
+	public Publicacion[] listarPublicaciones() {
+		return publicaciones;
 	}
 }
