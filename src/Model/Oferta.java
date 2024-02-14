@@ -14,6 +14,10 @@ public class Oferta {
 		
 	}
 
+	public Oferta() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
