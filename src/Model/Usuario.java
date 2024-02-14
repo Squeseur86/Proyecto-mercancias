@@ -6,14 +6,14 @@ public class Usuario {
     private String id;
     private String userName;
     private String email;
-    private Telefono phoneNumber;
+    private String phoneNumber;
     private String dni;
     private String fullName;
     private String password;
     private Date createdAT;
     private Date updateAT;
 
-    public Usuario(String id, String userName, String email, Telefono phoneNumber, String dni,
+  /*  public Usuario(String id, String userName, String email, String phoneNumber, String dni,
             String fullName, String password, Date createdAT, Date updateAT) {
         this.id = id;
         this.userName = userName;
@@ -25,7 +25,7 @@ public class Usuario {
         this.createdAT = createdAT;
         this.updateAT = updateAT;
     }
-
+*/
     //SET'S
     public void setId(String id) {
         this.id = id;
@@ -39,7 +39,7 @@ public class Usuario {
         this.email = email;
     }
 
-    public void setPhoneNumber(Telefono phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -77,7 +77,7 @@ public class Usuario {
         return email;
     }
 
-    public Telefono getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
