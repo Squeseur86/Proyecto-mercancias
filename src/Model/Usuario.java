@@ -13,7 +13,11 @@ public class Usuario {
     private Date createdAT;
     private Date updateAT;
 
-  /*  public Usuario(String id, String userName, String email, String phoneNumber, String dni,
+    public Usuario(String userName, String password){
+        this.userName = userName;
+        this.password = password;
+    }
+    public Usuario(String id, String userName, String email, String phoneNumber, String dni,
             String fullName, String password, Date createdAT, Date updateAT) {
         this.id = id;
         this.userName = userName;
@@ -25,7 +29,7 @@ public class Usuario {
         this.createdAT = createdAT;
         this.updateAT = updateAT;
     }
-*/
+
     //SET'S
     public void setId(String id) {
         this.id = id;
