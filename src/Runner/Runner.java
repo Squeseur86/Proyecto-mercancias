@@ -28,7 +28,7 @@ public class Runner {
 		
 		String descripcion, tamaño;
 		boolean fragil = false; 
-		int valor; 
+		int valor, opcseguro; 
 
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0;
 		int con = 0;
@@ -257,10 +257,31 @@ public class Runner {
 									// LISTA DE OFERTAS EN LA PUBLICACION
 									for(int i=0;i< oferta.verListadoOfertas().length;i++) {
 										if(oferta.verListadoOfertas()!= null) {
-									System.out.println("informacion del contacto"+ i);
-						        	System.out.println(oferta.verListadoOfertas()[i]);
+						        	System.out.println((i+1)+ "  "+oferta.verListadoOfertas()[i]);
 										}
 									}
+									opcseguro = 0;
+									System.out.println("Cual oferta quieres aceptar");
+									System.out.println("0 para ninguna");
+									op = sc.nextInt();
+									sc.nextLine();
+	
+									while(opcseguro == 0) {
+										System.out.println("Oferta aceptada :" + oferta.verOferta());
+										System.out.println("Estas seguro 1. si / 2. no");
+										opcseguro = sc.nextInt();
+										switch(opcseguro ) {
+										case 1:
+											System.out.println("oferta aceptada");
+											break;
+										case 2:
+											System.out.println("Oferta no aceptadas");
+											break;
+										default:
+											System.out.println("Opcion no valida");
+										}
+									}
+									
 									break;
 								case 3:
 									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
