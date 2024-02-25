@@ -12,18 +12,18 @@ public class PublicacionVista {
     private Scanner sc = new Scanner(System.in);
     private PublicacionController publicacionController;
 
-    public PublicacionVista(PublicacionController publicacionController){
+    public PublicacionVista(PublicacionController publicacionController) {
         this.publicacionController = publicacionController;
     }
+
     public void vistaCrearPublicacion() {
         // DATOS PUBLICACION
-		String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
-		Date fechaIda = null;
-        //MENU
+        String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
+        Date fechaIda = null;
+        // MENU
         int opPublicacion = 0;
         // FORMATEAR ENTRADA DATE
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         // CREAR PUBLICACION.
         while (inusualString(origen)) {
@@ -81,40 +81,41 @@ public class PublicacionVista {
 
         // FIN CREAR PUBLICACION
         // CONFIRMACION:
-        while (opPublicacion < 1|| opPublicacion > 2) {
-            System.out.print("Desea realizar la publicacion(Si: Digite 1. No: Digite 2.): ");
+        while (true) {
+            System.out.print("Desea realizar la publicacion (Si: Digite 1. No: Digite 2.): ");
             opPublicacion = sc.nextInt();
             sc.nextLine();
-            switch (opPublicacion) {
-                case 1:
-                    publicacionController.CrearPublicacion(origen, destino, fechaIda, categoria,
-                            pesoEquipaje, espacioEquipaje);
-                    // REINICIAMOS VALORES
-                    origen = "";
-                    destino = "";
-                    fechaIda = null;
-                    categoria = "";
-                    pesoEquipaje = "";
-                    espacioEquipaje = "";
+            if (opPublicacion == 1 || opPublicacion == 2) {
+                switch (opPublicacion) {
+                    case 1:
+                        publicacionController.crearPublicacion(origen, destino, fechaIda, categoria,
+                                pesoEquipaje, espacioEquipaje);
+                        // REINICIAMOS VALORES
+                        origen = "";
+                        destino = "";
+                        fechaIda = null;
+                        categoria = "";
+                        pesoEquipaje = "";
+                        espacioEquipaje = "";
 
-                    System.out.println("Publicacion realizada con exito.");
-                    break;
-                case 2:
-                    System.out.println("Publicacion cancelada.");
-                    break;
-                default:
-                    System.err.println(
-                            "La opcion \"" + opPublicacion
-                                    + "\" no es valida. Intentelo de nuevo.");
+                        System.out.println("Publicacion realizada con exito.");
+                        break;
+                    case 2:
+                        System.out.println("Publicacion cancelada.");
+                        break;
+                }
+                break; // SALIR WHILE
+            } else {
+                System.err.println("La opcion \"" + opPublicacion + "\" no es valida. Intentelo de nuevo.");
             }
         }
     }
 
     public static boolean inusualString(String string) {
-		if (string.isEmpty())
-			return true;
-		if (string.trim().isEmpty())
-			return true;
-		return false;
-	}
+        if (string.isEmpty())
+            return true;
+        if (string.trim().isEmpty())
+            return true;
+        return false;
+    }
 }

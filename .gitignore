@@ -1,0 +1,8 @@
+bin/Controller/OfertaControl.class
+bin/Controller/PublicacionController.class
+bin/Model/Oferta.class
+bin/Model/Publicacion.class
+bin/Controller/usuarioController.class
+bin/Model/Usuario.class
+bin/Runner/
+bin/Vista/
