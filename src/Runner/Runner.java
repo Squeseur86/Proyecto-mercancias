@@ -10,6 +10,7 @@ import java.util.Scanner;
 import Controller.OfertaControl;
 import Controller.PublicacionController;
 import Controller.usuarioController;
+import Vista.PublicacionVista;
 
 public class Runner {
 	public static void main(String[] args) {
@@ -18,10 +19,13 @@ public class Runner {
 		String phoneNumber, dni = "", fullName, ex;
 
 		// DATOS PUBLICACION
-		String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
-		Date fechaIda = null;
 		PublicacionController publiController = new PublicacionController();
+		PublicacionVista publicacionVista = new PublicacionVista(publiController);
+
+		Date fechaIda = null;
 		usuarioController usuario = new usuarioController();
+		//USUARIO TEST
+		usuario.crearUsuario("j", "123");
 		OfertaControl oferta = new OfertaControl();
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -164,87 +168,8 @@ public class Runner {
 							opMenuPrincipal = sc.nextInt();
 							sc.nextLine();
 							switch (opMenuPrincipal) {
-								case 1:
-									// CREAR PUBLICACION.
-									while (inusualString(origen)) {
-										System.out.print("Ingrese el origen del viaje: ");
-										origen = sc.nextLine();
-										if (inusualString(origen)) {
-											System.err
-													.println("La entrada \"" + origen
-															+ "\" no es valida. Intentelo de nuevo.");
-										}
-									}
-									while (inusualString(destino)) {
-										System.out.print("Ingrese el destino del viaje: ");
-										destino = sc.nextLine();
-										if (inusualString(destino)) {
-											System.err.println(
-													"La entrada \"" + destino + "\" no es valida. Intentelo de nuevo.");
-										}
-									}
-									while (true) {
-										try {
-											System.out.print("Ingrese la fecha: ");
-											fechaIda = dateFormat.parse(sc.nextLine());
-											break;
-										} catch (ParseException e) {
-											System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
-										}
-									}
-									while (inusualString(categoria)) {
-										System.out.print("Ingrese la categoria del viaje: ");
-										categoria = sc.nextLine();
-										if (inusualString(destino)) {
-											System.err.println(
-													"La entrada \"" + categoria + "\" no es valida. Intentelo de nuevo.");
-										}
-									}
-									while (inusualString(pesoEquipaje)) {
-										System.out.print("Ingrese el peso de equipaje disponible: ");
-										pesoEquipaje = sc.nextLine();
-										if (inusualString(pesoEquipaje)) {
-											System.err.println(
-													"La entrada \"" + pesoEquipaje
-															+ "\" no es valida. Intentelo de nuevo.");
-										}
-									}
-									while (inusualString(espacioEquipaje)) {
-										System.out.print("Ingrese el espacio de equipaje disponible: ");
-										espacioEquipaje = sc.nextLine();
-										if (inusualString(espacioEquipaje)) {
-											System.err.println(
-													"La entrada \"" + espacioEquipaje
-															+ "\" no es valida. Intentelo de nuevo.");
-										}
-									}
-									opPublicacion=0;
-									while (opPublicacion!=1&&opPublicacion!=2) {
-										System.out.print("Desea realizar la publicacion: ");
-										System.out.print("1 si ");
-										System.out.print("2 no ");
-
-										opPublicacion = sc.nextInt();
-										sc.nextLine();
-										switch (opPublicacion) {
-											case 1:
-												publiController.CrearPublicacion(origen, destino, fechaIda, categoria, pesoEquipaje, espacioEquipaje);
-
-												//REINICIAMOS VALORES
-												origen = ""; destino = ""; fechaIda = null; categoria = ""; pesoEquipaje = "";
-												espacioEquipaje = "";
-
-												System.out.println("Publicacion realizada con exito.");
-												break;
-											case 2:
-												System.out.println("Publicacion cancelada.");
-												break;
-											default:
-												System.err.println(
-														"La opcion \"" + opPublicacion
-																+ "\" no es valida. Intentelo de nuevo.");
-										}
-									}
+								case 1:// CREAR PUBLICACION.
+									publicacionVista.vistaCrearPublicacion();
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
