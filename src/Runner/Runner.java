@@ -155,11 +155,11 @@ public class Runner {
 					password=sc.next();
 					if(usuario.verificarUsuario(username, password)) {
 
-						while (opMenuPrincipal != 3) { //MENU UNA VEZ QUE INICIA SESION.
+						while (opMenuPrincipal != 4) { //MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Crear publicacion.");
 							System.out.println("2. Ver publicaciones.");
 							System.out.println("3. Crear ofertas");
-							System.out.println("4.cerrar seccion");
+							System.out.println("4.cerrar secion");
 							System.out.print("Digite la opcion que desea realizar: ");
 							opMenuPrincipal = sc.nextInt();
 							sc.nextLine();
@@ -254,6 +254,13 @@ public class Runner {
 									System.out.println("De cual publicacion desea ver ofertas");
 									op=sc.nextInt();
 									System.out.println(oferta.verListadoOfertas()[op]);
+									// LISTA DE OFERTAS EN LA PUBLICACION
+									for(int i=0;i< oferta.verListadoOfertas().length;i++) {
+										if(oferta.verListadoOfertas()!= null) {
+									System.out.println("informacion del contacto"+ i);
+						        	System.out.println(oferta.verListadoOfertas()[i]);
+										}
+									}
 									break;
 								case 3:
 									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
@@ -264,15 +271,17 @@ public class Runner {
 									System.out.println("a cual publicacion deseas ofertar");
 									
 									op=sc.nextInt();
+									sc.nextLine();
 									
-									if(publiController.listarPublicaciones()[op]!=null)
+									if(publiController.listarPublicaciones()[op-1]!=null)
 									{
 										System.out.println("Ingrese la descripcion de la oferta");
-										descripcion=sc.next();
+										descripcion=sc.nextLine();
 										System.out.println("ingrese el tamaño de su envio");
-										tamaño=sc.next();
+										tamaño=sc.nextLine();
 										System.out.print("su envio es fragil 1 para si 2 para no");
 										op=sc.nextInt();
+										sc.nextLine();
 										while(op!=1&&op!=2) {
 											switch(op)
 											{
@@ -288,6 +297,7 @@ public class Runner {
 										}
 										System.out.println("ingrese el precio de su oferta");
 										valor=sc.nextInt();
+										sc.nextLine();
 										while (true) {
 											try {
 												System.out.print("Ingrese la fecha: ");
