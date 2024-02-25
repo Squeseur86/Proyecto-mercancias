@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.Random;
 
 import Controller.PublicacionController;
 
@@ -20,6 +21,8 @@ public class PublicacionVista {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
         Date fechaIda = null;
+        //OBJECTO RANDOM
+        Random random = new Random();
         // MENU
         int opPublicacion = 0;
         // FORMATEAR ENTRADA DATE
@@ -88,8 +91,10 @@ public class PublicacionVista {
             if (opPublicacion == 1 || opPublicacion == 2) {
                 switch (opPublicacion) {
                     case 1:
+                    	 // Generar un número aleatorio de 4 dígitos
+                        int idRandom = random.nextInt(9000) + 1000; 
                         publicacionController.crearPublicacion(origen, destino, fechaIda, categoria,
-                                pesoEquipaje, espacioEquipaje);
+                                pesoEquipaje, espacioEquipaje,idRandom);
                         // REINICIAMOS VALORES
                         origen = "";
                         destino = "";

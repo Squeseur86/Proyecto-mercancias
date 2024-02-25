@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.Scanner;
 
 import Controller.OfertaControl;
@@ -18,7 +19,7 @@ public class Runner {
 		Scanner sc = new Scanner(System.in);
 		String username, email, password;
 		String phoneNumber, dni = "", fullName, ex;
-
+		
 		// DATOS PUBLICACION
 		PublicacionController publiController = new PublicacionController();
 		PublicacionVista publicacionVista = new PublicacionVista(publiController);
@@ -246,7 +247,7 @@ public class Runner {
 												System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
 											}
 										}
-										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,op))
+										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con)))
 										{
 											System.out.println("oferta creada correctamente");
 										}else {

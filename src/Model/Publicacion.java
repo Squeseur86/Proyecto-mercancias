@@ -9,8 +9,9 @@ public class Publicacion {
 	private String categoria;
 	private String pesoEquipaje;
 	private String EspacioEquipaje;
+	private int id;
 	public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
-			String espacioEquipaje) {
+			String espacioEquipaje, int id) {
 		super();
 		this.origen = origen;
 		this.destino = destino;
@@ -18,7 +19,17 @@ public class Publicacion {
 		this.categoria = categoria;
 		this.pesoEquipaje = pesoEquipaje;
 		EspacioEquipaje = espacioEquipaje;
+		this.id = id;
 	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getOrigen() {
 		return origen;
 	}

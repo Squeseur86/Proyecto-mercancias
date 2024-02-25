@@ -19,10 +19,6 @@ public class Oferta {
 		this.tamaño =tamaño;
 		this.valor = valor;
 	}
-
-	public Oferta() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	public int getId() {
 		return id;
