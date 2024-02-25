@@ -10,9 +10,14 @@ public class Oferta {
 	private Date fechaCreacion;
 	private int id;
 	
-	public Oferta(String descripcion,String tamaño,boolean fragil,int valor,Date fechaCreacion)
+	public Oferta(String descripcion,String tamaño,boolean fragil,int valor,Date fechaCreacion, int id)
 	{
-		
+		this.descripcion = descripcion;
+		this.fechaCreacion = fechaCreacion;
+		this.fragil = fragil;
+		this.id =id;
+		this.tamaño =tamaño;
+		this.valor = valor;
 	}
 
 	public Oferta() {
