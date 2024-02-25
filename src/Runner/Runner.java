@@ -10,6 +10,7 @@ import java.util.Scanner;
 import Controller.OfertaControl;
 import Controller.PublicacionController;
 import Controller.usuarioController;
+import Model.Publicacion;
 import Vista.PublicacionVista;
 
 public class Runner {
@@ -173,18 +174,12 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
-										System.out.println((i+1)+" "+publiController.listarPublicaciones()[i]);
+									for(Publicacion pubicacion : publiController.listarPublicaciones()){
+										System.out.println(pubicacion.toString());
 									}
 									System.out.println("De cual publicacion desea ver ofertas");
 									op=sc.nextInt();
-									System.out.println(oferta.verListadoOfertas()[op]);
-									// LISTA DE OFERTAS EN LA PUBLICACION
-									for(int i=0;i< oferta.verListadoOfertas().length;i++) {
-										if(oferta.verListadoOfertas()!= null) {
-						        	System.out.println((i+1)+ "  "+oferta.verListadoOfertas()[i]);
-										}
-									}
+									System.out.println(oferta.verListadoOfertas().get(op-1).toString());
 									opcseguro = 0;
 									System.out.println("Cual oferta quieres aceptar");
 									System.out.println("0 para ninguna");
@@ -209,17 +204,15 @@ public class Runner {
 									
 									break;
 								case 3:
-									for(int i=0;i<publiController.listarPublicaciones().length;i++) {
-										if(publiController.listarPublicaciones()!=null) {
-										System.out.println((i+1)+" "+publiController.listarPublicaciones()[i]);
-										}
+									for(Publicacion pubicacion : publiController.listarPublicaciones()){
+										System.out.println(pubicacion.toString());
 									}
 									System.out.println("a cual publicacion deseas ofertar");
 									
 									op=sc.nextInt();
 									sc.nextLine();
 									
-									if(publiController.listarPublicaciones()[op-1]!=null)
+									if(publiController.listarPublicaciones().get(op-1)!=null)
 									{
 										System.out.println("Ingrese la descripcion de la oferta");
 										descripcion=sc.nextLine();

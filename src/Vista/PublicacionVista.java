@@ -88,7 +88,7 @@ public class PublicacionVista {
             if (opPublicacion == 1 || opPublicacion == 2) {
                 switch (opPublicacion) {
                     case 1:
-                        publicacionController.CrearPublicacion(origen, destino, fechaIda, categoria,
+                        publicacionController.crearPublicacion(origen, destino, fechaIda, categoria,
                                 pesoEquipaje, espacioEquipaje);
                         // REINICIAMOS VALORES
                         origen = "";
