@@ -56,6 +56,10 @@ public class PublicacionController {
 		return null;
 	}
 
+	public Publicacion retornoPorIndice(int index){
+		return publicaciones.get(index-1);
+	}
+
 	public ArrayList<Publicacion> retornarPorIdUser(int idUserValid){
 		ArrayList<Publicacion> publicacionesUser = new ArrayList<Publicacion>();
 		for(Publicacion publicacion: publicaciones){

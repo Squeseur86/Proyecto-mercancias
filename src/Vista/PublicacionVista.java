@@ -160,7 +160,7 @@ public class PublicacionVista {
         // FORMATEAR ENTRADA DATE
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-        // CREAR PUBLICACION.
+        // EDITAR PUBLICACION.
         while (inusualString(origen)) {
             System.out.print("\nEnter the origin of the trip: ");
             origen = sc.nextLine();

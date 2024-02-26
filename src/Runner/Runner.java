@@ -43,7 +43,7 @@ public class Runner {
 
 		//OPCIONES
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0, opof = 0;
-		int con = 0, optionMenuMyPost = 0;
+		int con = 0, optionMenuMyPost = 0, postEdit = 0;
 		double peso = 0;
 		while (opc != 3) {
 			opOffer = 0;
@@ -198,19 +198,29 @@ public class Runner {
 
 									break;
 								case 3:
-									publicacionVista.verPublicacionesDelUsuario(idUserValid);
-									System.out.println("1. View offers for a publication.");
-									System.out.println("2. Edit a publication.");
-									System.out.println("3. Delete a post.");
-									System.out.println("Enter the number of the option you wish to perform:");
-									optionMenuMyPost = sc.nextInt();
-									sc.nextLine();
+									while (optionMenuMyPost<1 || optionMenuMyPost>3) {
+										try{
+											publicacionVista.verPublicacionesDelUsuario(idUserValid);
+											System.out.println("1. View offers for a publication.");
+											System.out.println("2. Edit a publication.");
+											System.out.println("3. Delete a post.");
+											System.out.println("Enter the number of the option you wish to perform:");
+											optionMenuMyPost = sc.nextInt();
+											sc.nextLine();
+										}catch(Exception e){
+											System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
+										}
+									}
 									switch (optionMenuMyPost) {
 										case 1: //VER OFERTAS
 											
 											break;
 										case 2: //EDITAR PUBLICACION
-											
+											System.out.print("Enter the publication number to edit: ");//TRY/IF POR SI DIGITA UN NUMERO <1
+											postEdit = sc.nextInt();
+											sc.nextLine();
+											publicacionVista.editarPublicacion(publiController.retornoPorIndice(postEdit).getId());//IF POR SI RETORNA FALSE/ALTERNAR POR STRING
+											//REVISAR METODO RETORNAR POR ID, INNECESARIO
 											break;
 										case 3://BORRAR PUBLICACION
 											
