@@ -78,6 +78,7 @@ public class PublicacionVista {
                 while (peso > 24.0) {
                     System.out.println("Invalid weight");
                     pesoEquipaje = sc.nextLine();
+                    peso = Double.parseDouble(pesoEquipaje);
                     if (inusualString(pesoEquipaje)) {
                         System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
                     }

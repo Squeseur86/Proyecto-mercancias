@@ -217,7 +217,8 @@ public class Runner {
 										System.out.println("ingrese el tamaño de su envio");
 										tamaño=sc.nextLine();
 										double tam = Double.parseDouble(tamaño);
-										if(tam >= peso) {
+										double pesoe = Double.parseDouble(publiController.listarPublicaciones().get(op-1).getPesoEquipaje());
+										if(tam >= pesoe) {
 											System.out.println("Tamaño no valido");
 											tamaño = "";
 										}else {
@@ -253,24 +254,29 @@ public class Runner {
 												System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
 											}
 										}
-										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con),idUserValid))
-										{
-											System.out.println("oferta creada correctamente");
-										}else {
-											System.out.println("error al crear la oferta");
-										}
-										while(opof !=1 || opof!=2) {
+										
+										while(opof !=1 && opof!=2) {
 										System.out.println("You´re sure?, 1.yes, 2.delete");
 										opof = sc.nextInt();
 										sc.nextLine();
 										switch(opof) {
-										case 1:
-											System.out.println("oferta creada correctamente");
+										case 1:	
+											if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con),idUserValid))
+											{
+												System.out.println("oferta creada correctamente");
+											}else {
+												System.out.println("error al crear la oferta");
+											}
 										break;
 										case 2:
-											oferta.borrarOferta();
+											descripcion = "";
+											tamaño = "";
+											fragil = false;
+											valor = 0;
+											fechaIda = null;
 										break;
-										
+										default:
+											System.err.println("Valor invorrecto");
 										}
 										}
 									}
