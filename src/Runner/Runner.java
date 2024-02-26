@@ -41,7 +41,7 @@ public class Runner {
 		boolean fragil = false; 
 		int valor, opcseguro, opOffer =0 ; 
 
-		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0;
+		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0, opof = 0;
 		int con = 0;
 		double peso = 0;
 		while (opc != 3) {
@@ -291,6 +291,20 @@ public class Runner {
 											System.out.println("oferta creada correctamente");
 										}else {
 											System.out.println("error al crear la oferta");
+										}
+										while(opof !=1 || opof!=2) {
+										System.out.println("You´re sure?, 1.yes, 2.delete");
+										opof = sc.nextInt();
+										sc.nextLine();
+										switch(opof) {
+										case 1:
+											System.out.println("oferta creada correctamente");
+										break;
+										case 2:
+											oferta.borrarOferta();
+										break;
+										
+										}
 										}
 									}
 									break;
