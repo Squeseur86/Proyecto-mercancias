@@ -241,4 +241,13 @@ public class PublicacionVista {
             }
         }
     }
+
+    public void mostrarPublicacionesGenerales(){
+        for (Publicacion publicacion : publicacionController.listarPublicaciones()) { 
+            if(publicacion.getEspacioEquipaje().equals("0") || publicacion.getPesoEquipaje().equals("0")){
+                continue;
+            }
+            System.out.println(publicacion.toString());
+        }
+    }
 }
