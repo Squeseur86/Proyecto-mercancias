@@ -32,94 +32,87 @@ public class PublicacionVista {
 
         // CREAR PUBLICACION.
         while (inusualString(origen)) {
-            System.out.print("\nIngrese el origen del viaje: ");
+            System.out.print("\nEnter the origin of the trip: ");
             origen = sc.nextLine();
             if (inusualString(origen)) {
-                System.err
-                        .println("La entrada \"" + origen
-                                + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + origen + "\" is not valid. Please try again.");
             }
         }
         while (inusualString(destino)) {
-            System.out.print("Ingrese el destino del viaje: ");
+            System.out.print("Enter the destination of the trip: ");
             destino = sc.nextLine();
             if (inusualString(destino)) {
-                System.err.println(
-                        "La entrada \"" + destino + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + destino + "\" is not valid. Please try again.");
             }
         }
         while (true) {
             try {
-                System.out.print("Ingrese la fecha: ");
+                System.out.print("Enter the date: ");
                 fechaIda = dateFormat.parse(sc.nextLine());
                 break;
             } catch (ParseException e) {
-                System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
+                System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
             }
         }
         while (inusualString(categoria)) {
-            System.out.print("Ingrese la categoria del viaje: ");
+            System.out.print("Enter the category of the trip: ");
             categoria = sc.nextLine();
             if (inusualString(destino)) {
-                System.err.println(
-                        "La entrada \"" + categoria + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + categoria + "\" is not valid. Please try again.");
             }
         }
         while (inusualString(pesoEquipaje)) {
-            System.out.print("Ingrese el peso de equipaje disponible: ");
-            pesoEquipaje = sc.nextLine();
-            if (inusualString(pesoEquipaje)) {
-                System.err.println(
-                        "La entrada \"" + pesoEquipaje
-                                + "\" no es valida. Intentelo de nuevo.");
-            }
-            peso = Double.parseDouble(pesoEquipaje);
-            while(peso> 24.0) {
-            	System.out.println("peso no valido");
+            try {
+                System.out.print("Enter the available luggage weight: ");
                 pesoEquipaje = sc.nextLine();
                 if (inusualString(pesoEquipaje)) {
-                    System.err.println(
-                            "La entrada \"" + pesoEquipaje
-                                    + "\" no es valida. Intentelo de nuevo.");
+                    System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
                 }
                 peso = Double.parseDouble(pesoEquipaje);
+                while (peso > 24.0) {
+                    System.out.println("Invalid weight");
+                    pesoEquipaje = sc.nextLine();
+                    if (inusualString(pesoEquipaje)) {
+                        System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
             }
-   
-           
+
         }
         while (inusualString(espacioEquipaje)) {
-            System.out.print("Ingrese el espacio de equipaje disponible: ");
+            System.out.print("Enter the available luggage space: ");
             espacioEquipaje = sc.nextLine();
             if (inusualString(espacioEquipaje)) {
                 System.err.println(
-                        "La entrada \"" + espacioEquipaje
-                                + "\" no es valida. Intentelo de nuevo.");
+                        "The entry \"" + espacioEquipaje
+                                + "\" is not valid. Please try again.");
             }
         }
-
         // FIN CREAR PUBLICACION
         // CONFIRMACION:
         while (true) {
-            System.out.print("Desea realizar la publicacion (Si: Digite 1. No: Digite 2.): ");
+            System.out.print("Do you want to post (Yes: Enter 1. No: Enter 2.): ");
             opPublicacion = sc.nextInt();
             sc.nextLine();
             if (opPublicacion == 1 || opPublicacion == 2) {
                 switch (opPublicacion) {
                     case 1:
-                        // Generar un número aleatorio de 4 dígitos
+                        // Generate a 4-digit random number
                         int idRandom = random.nextInt(9000) + 1000;
-                        publicacionController.crearPublicacion(origen, destino, fechaIda, categoria,
-                                pesoEquipaje, espacioEquipaje, idRandom);
+                        publicacionController.crearPublicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
+                                espacioEquipaje, idRandom);
 
-                        System.out.println("Publicacion realizada con exito.");
+                        System.out.println("Post successfully created.");
                         break;
                     case 2:
-                        System.out.println("Publicacion cancelada.");
+                        System.out.println("Post canceled.");
                         break;
                 }
-                break; // SALIR WHILE
+                break; // EXIT WHILE
             } else {
-                System.err.println("La opcion \"" + opPublicacion + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The option \"" + opPublicacion + "\" is not valid. Please try again.");
             }
         }
         // REINICIAMOS VALORES
@@ -129,6 +122,7 @@ public class PublicacionVista {
         pesoEquipaje = "";
         espacioEquipaje = "";
         fechaIda = null;
+
     }
 
     public static boolean inusualString(String string) {
@@ -138,6 +132,7 @@ public class PublicacionVista {
             return true;
         return false;
     }
+
     public boolean editarPublicacion(int idPublicacion) {
         Publicacion publicacionEditar = publicacionController.retornarPorId(idPublicacion);
         if (publicacionEditar == null) {
@@ -159,70 +154,62 @@ public class PublicacionVista {
 
         // CREAR PUBLICACION.
         while (inusualString(origen)) {
-            System.out.print("\nIngrese el origen del viaje: ");
+            System.out.print("\nEnter the origin of the trip: ");
             origen = sc.nextLine();
             if (inusualString(origen)) {
-                System.err
-                        .println("La entrada \"" + origen
-                                + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + origen + "\" is not valid. Please try again.");
             }
         }
         while (inusualString(destino)) {
-            System.out.print("Ingrese el destino del viaje: ");
+            System.out.print("Enter the destination of the trip: ");
             destino = sc.nextLine();
             if (inusualString(destino)) {
-                System.err.println(
-                        "La entrada \"" + destino + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + destino + "\" is not valid. Please try again.");
             }
         }
         while (true) {
             try {
-                System.out.print("Ingrese la fecha: ");
+                System.out.print("Enter the date: ");
                 fechaIda = dateFormat.parse(sc.nextLine());
                 break;
             } catch (ParseException e) {
-                System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
+                System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
             }
         }
         while (inusualString(categoria)) {
-            System.out.print("Ingrese la categoria del viaje: ");
+            System.out.print("Enter the category of the trip: ");
             categoria = sc.nextLine();
             if (inusualString(destino)) {
-                System.err.println(
-                        "La entrada \"" + categoria + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + categoria + "\" is not valid. Please try again.");
             }
         }
         while (inusualString(pesoEquipaje)) {
-            System.out.print("Ingrese el peso de equipaje disponible: ");
+            System.out.print("Enter the available luggage weight: ");
             pesoEquipaje = sc.nextLine();
             if (inusualString(pesoEquipaje)) {
-                System.err.println(
-                        "La entrada \"" + pesoEquipaje
-                                + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
             }
         }
         while (inusualString(espacioEquipaje)) {
-            System.out.print("Ingrese el espacio de equipaje disponible: ");
+            System.out.print("Enter the available luggage space: ");
             espacioEquipaje = sc.nextLine();
             if (inusualString(espacioEquipaje)) {
-                System.err.println(
-                        "La entrada \"" + espacioEquipaje
-                                + "\" no es valida. Intentelo de nuevo.");
+                System.err.println("The entry \"" + espacioEquipaje + "\" is not valid. Please try again.");
             }
         }
 
         // FIN EDICION PUBLICACION
         // CONFIRMACION:
         while (true) {
-            System.out.print("Desea realizar la edicion (Si: Digite 1. No: Digite 2.): ");
+            System.out.print("Do you want to edit (Yes: Enter 1. No: Enter 2.): ");
             opPublicacion = sc.nextInt();
             sc.nextLine();
             switch (opPublicacion) {
                 case 1:
                     publicacionController.editarPublicacion(publicacion, origen, categoria, destino, espacioEquipaje,
                             pesoEquipaje, fechaIda);
-                    System.out.println("Edicion realizada con exito realizada con exito.");
-                    // REINICIAMOS VALORES
+                    System.out.println("Edition successfully completed.");
+                    // RESET VALUES
                     origen = "";
                     destino = "";
                     categoria = "";
@@ -231,20 +218,19 @@ public class PublicacionVista {
                     fechaIda = null;
                     return true;
                 case 2:
-                    // REINICIAMOS VALORES
+                    // RESET VALUES
                     origen = "";
                     destino = "";
                     categoria = "";
                     pesoEquipaje = "";
                     espacioEquipaje = "";
                     fechaIda = null;
-                    System.out.println("Edicion cancelada.");
+                    System.out.println("Edition canceled.");
                     return false;
                 default:
-                    System.err.println("La opcion \"" + opPublicacion + "\" no es valida. Intentelo de nuevo.");
+                    System.err.println("The option \"" + opPublicacion + "\" is not valid. Please try again.");
                     break;
             }
         }
     }
 }
-
