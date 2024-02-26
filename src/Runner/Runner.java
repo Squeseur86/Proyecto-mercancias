@@ -175,8 +175,8 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									for(Publicacion pubicacion : publiController.listarPublicaciones()){
-										System.out.println(pubicacion.toString());
+									for(Publicacion publicacion : publiController.listarPublicaciones()){
+										System.out.println(publicacion.toString());
 									}
 									System.out.println("De cual publicacion desea ver ofertas");
 									op=sc.nextInt();
