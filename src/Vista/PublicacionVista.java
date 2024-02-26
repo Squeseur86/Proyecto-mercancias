@@ -139,7 +139,6 @@ public class PublicacionVista {
         return false;
     }
 
-<<<<<<< HEAD
     public boolean editarPublicacion(int idPublicacion) {
         Publicacion publicacionEditar = publicacionController.retornarPorId(idPublicacion);
         if (publicacionEditar == null) {
@@ -248,6 +247,5 @@ public class PublicacionVista {
             }
         }
     }
-=======
->>>>>>> feature12/VerificarPeso
 }
+

@@ -25,12 +25,7 @@ public class PublicacionController {
 		return publicaciones;
 	}
 
-<<<<<<< HEAD
-	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi) {
-=======
-
 	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi){
->>>>>>> feature12/VerificarPeso
 		double pesoDisponiblePublicacion = Double.parseDouble(publicacionModi.getPesoEquipaje());
 		double espacioDisponiblePublicacion = Double.parseDouble(publicacionModi.getEspacioEquipaje());
 		double pesoOferta = Double.parseDouble(oferta.getTamaño());
