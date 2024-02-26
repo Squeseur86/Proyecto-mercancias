@@ -11,6 +11,7 @@ import java.util.Scanner;
 import Controller.OfertaControl;
 import Controller.PublicacionController;
 import Controller.usuarioController;
+import Model.Oferta;
 import Model.Publicacion;
 import Vista.PublicacionVista;
 
@@ -32,12 +33,13 @@ public class Runner {
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		
-		String descripcion, tamaño;
+		String descripcion, tamaño = "";
 		boolean fragil = false; 
 		int valor, opcseguro; 
 
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0;
 		int con = 0;
+		double peso = 0;
 		while (opc != 3) {
 			try {
 				System.out.println("Binvenido");
@@ -172,6 +174,7 @@ public class Runner {
 							switch (opMenuPrincipal) {
 								case 1:// CREAR PUBLICACION.
 									publicacionVista.vistaCrearPublicacion();
+									peso = 23.0;
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
@@ -205,6 +208,7 @@ public class Runner {
 									
 									break;
 								case 3:
+									con= 0;
 									for(Publicacion pubicacion : publiController.listarPublicaciones()){
 										System.out.println(pubicacion.toString());
 									}
@@ -217,8 +221,18 @@ public class Runner {
 									{
 										System.out.println("Ingrese la descripcion de la oferta");
 										descripcion=sc.nextLine();
+										while(tamaño == "") {
 										System.out.println("ingrese el tamaño de su envio");
 										tamaño=sc.nextLine();
+										double tam = Double.parseDouble(tamaño);
+										if(tam >= peso) {
+											System.out.println("Tamaño no valido");
+											tamaño = "";
+										}else {
+											System.out.println("Tamaño valido");
+										}
+										}
+										System.out.println(tamaño);
 										System.out.print("su envio es fragil 1 para si 2 para no");
 										op=sc.nextInt();
 										sc.nextLine();

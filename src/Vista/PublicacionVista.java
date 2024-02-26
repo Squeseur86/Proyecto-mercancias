@@ -25,6 +25,7 @@ public class PublicacionVista {
         Random random = new Random();
         // MENU
         int opPublicacion = 0;
+        double peso;
         // FORMATEAR ENTRADA DATE
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -71,6 +72,19 @@ public class PublicacionVista {
                         "La entrada \"" + pesoEquipaje
                                 + "\" no es valida. Intentelo de nuevo.");
             }
+            peso = Double.parseDouble(pesoEquipaje);
+            while(peso> 24.0) {
+            	System.out.println("peso no valido");
+                pesoEquipaje = sc.nextLine();
+                if (inusualString(pesoEquipaje)) {
+                    System.err.println(
+                            "La entrada \"" + pesoEquipaje
+                                    + "\" no es valida. Intentelo de nuevo.");
+                }
+                peso = Double.parseDouble(pesoEquipaje);
+            }
+   
+           
         }
         while (inusualString(espacioEquipaje)) {
             System.out.print("Ingrese el espacio de equipaje disponible: ");
@@ -123,4 +137,5 @@ public class PublicacionVista {
             return true;
         return false;
     }
+
 }

@@ -7,6 +7,7 @@ import Model.Oferta;
 import Model.Publicacion;
 
 public class PublicacionController {
+	Publicacion pb = new Publicacion();
 
 	private ArrayList<Publicacion> publicaciones = new ArrayList<Publicacion>();
 	public void crearPublicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
@@ -22,6 +23,7 @@ public class PublicacionController {
 	public ArrayList<Publicacion> listarPublicaciones() {
 		return publicaciones;
 	}
+
 
 	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi){
 		double pesoDisponiblePublicacion = Double.parseDouble(publicacionModi.getPesoEquipaje());
