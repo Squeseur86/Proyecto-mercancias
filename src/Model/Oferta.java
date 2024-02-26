@@ -20,6 +20,9 @@ public class Oferta {
 		this.valor = valor;
 	}
 	
+	public Oferta() {
+	}
+
 	public int getId() {
 		return id;
 	}

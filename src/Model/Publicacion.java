@@ -22,6 +22,7 @@ public class Publicacion {
 		this.id = id;
 	}
 	
+
 	public int getId() {
 		return id;
 	}
@@ -71,6 +72,8 @@ public class Publicacion {
 		return "Publicacion [origen=" + origen + ", destino=" + destino + ", fechaIda=" + fechaIda + ", categoria="
 				+ categoria + ", pesoEquipaje=" + pesoEquipaje + ", EspacioEquipaje=" + EspacioEquipaje + "]";
 	}
-	
+	public Publicacion() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }
