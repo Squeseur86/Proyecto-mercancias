@@ -24,7 +24,9 @@ public class PublicacionController {
 		return publicaciones;
 	}
 
-	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi) {
+
+	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi){
+
 		double pesoDisponiblePublicacion = Double.parseDouble(publicacionModi.getPesoEquipaje());
 		double espacioDisponiblePublicacion = Double.parseDouble(publicacionModi.getEspacioEquipaje());
 		double pesoOferta = Double.parseDouble(oferta.getTamaño());

@@ -169,14 +169,20 @@ public class Runner {
 					System.out.println("ingrese su contraseña");
 					password=sc.next();
 					if(usuario.verificarUsuario(username, password)) {
+						System.out.print("\033[H\033[2J");
+						System.out.flush();
+						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
+						 try {
+					            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+					        } catch (Exception e) {
+					        }
 						for(int i=0;i<usuario.arrayListUser().size();i++)
 						{
 							if(username.equals(usuario.arrayListUser().get(i).getUserName())) {
 								idUserValid=usuario.arrayListUser().get(i).getId();
 							}
 						}
-						
-
+			
 						while (opMenuPrincipal != 5) { //MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Crear publicacion.");
 							System.out.println("2. Ver publicaciones.");

@@ -138,8 +138,6 @@ public class PublicacionVista {
             return true;
         return false;
     }
-
-
     public boolean editarPublicacion(int idPublicacion) {
         Publicacion publicacionEditar = publicacionController.retornarPorId(idPublicacion);
         if (publicacionEditar == null) {
@@ -248,5 +246,5 @@ public class PublicacionVista {
             }
         }
     }
-
 }
+
