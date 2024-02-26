@@ -56,6 +56,16 @@ public class PublicacionController {
 		return null;
 	}
 
+	public ArrayList<Publicacion> retornarPorIdUser(int idUserValid){
+		ArrayList<Publicacion> publicacionesUser = new ArrayList<Publicacion>();
+		for(Publicacion publicacion: publicaciones){
+			if(publicacion.getUserId()==idUserValid){
+				publicacionesUser.add(publicacion);
+			}
+		}
+		return publicacionesUser;
+	}
+
 	public void editarPublicacion(Publicacion publicacionEditar, String origen, String categoria, String destino, String espacioEquipaje, String pesoEquipaje, Date fechaIda) {
 		publicacionEditar.setOrigen(origen);
 		publicacionEditar.setCategoria(categoria);

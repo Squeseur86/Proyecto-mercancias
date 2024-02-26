@@ -18,6 +18,10 @@ public class PublicacionVista {
         this.publicacionController = publicacionController;
     }
 
+    public void verPublicacionesDelUsuario(){
+        
+    }
+
     public void vistaCrearPublicacion(int idUserValid) {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
