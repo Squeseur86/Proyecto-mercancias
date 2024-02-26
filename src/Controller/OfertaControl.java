@@ -40,6 +40,9 @@ public class OfertaControl {
 			of.setTamaño(tamaño);
 			return of;
 		}
+		public void borrarOferta() {
+			ofertas.clear();
+		}
 		
 
 }

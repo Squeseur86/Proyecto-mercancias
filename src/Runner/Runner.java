@@ -39,12 +39,13 @@ public class Runner {
 		
 		String descripcion, tamaño = "";
 		boolean fragil = false; 
-		int valor, opcseguro; 
+		int valor, opcseguro, opOffer =0 ; 
 
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0;
 		int con = 0;
 		double peso = 0;
 		while (opc != 3) {
+			opOffer = 0;
 			try {
 				System.out.println("Binvenido");
 				System.out.println("Elige una opcion");
@@ -172,10 +173,6 @@ public class Runner {
 						System.out.print("\033[H\033[2J");
 						System.out.flush();
 						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
-						 try {
-					            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-					        } catch (Exception e) {
-					        }
 						for(int i=0;i<usuario.arrayListUser().size();i++)
 						{
 							if(username.equals(usuario.arrayListUser().get(i).getUserName())) {
@@ -187,8 +184,8 @@ public class Runner {
 							System.out.println("1. Crear publicacion.");
 							System.out.println("2. Ver publicaciones.");
 							System.out.println("3. Crear ofertas");
-							System.out.println("4. editar ofertas");
-							System.out.println("5.cerrar secion");
+							System.out.println("4. editar o borrar ofertas");
+							System.out.println("5. cerrar secion");
 							System.out.print("Digite la opcion que desea realizar: ");
 							opMenuPrincipal = sc.nextInt();
 							sc.nextLine();
@@ -298,6 +295,14 @@ public class Runner {
 									}
 									break;
 								case 4:
+									while(opOffer == 0) {
+									System.out.println("what do you want to do?");
+									System.out.println("1. edit offer");
+									System.out.println("2. delete offer");
+									opOffer = sc.nextInt();
+									sc.nextLine();
+									switch(opOffer) {
+									case 1:
 									for(int i=0;i<oferta.verListadoOfertas().size();i++)
 									{
 										if(idUserValid == oferta.verListadoOfertas().get(i).getId())
@@ -307,6 +312,7 @@ public class Runner {
 										System.out.println("Which offer do you want to edit");
 										int indexOfferEdit=0;
 										indexOfferEdit=sc.nextInt();
+										sc.nextLine();
 										if(idUserValid == oferta.verListadoOfertas().get(indexOfferEdit).getId()) {
 											System.out.println("Ingrese la descripcion de la oferta");
 											descripcion=sc.nextLine();
@@ -344,9 +350,30 @@ public class Runner {
 											{
 												System.out.println("oferta creada correctamente");
 											}else {
-												System.out.println("error al crear la oferta");
+												System.err.println("error al crear la oferta");
 											}
 										}
+									}
+									break;
+									case 2:
+										for(int i=0;i<oferta.verListadoOfertas().size();i++)
+										{
+											if(idUserValid == oferta.verListadoOfertas().get(i).getId())
+											{
+												System.out.println(oferta.verListadoOfertas().get(i).toString());
+											}
+
+											System.out.println("Which offer do you want to edit");
+											int indexOfferdelet=0;
+											indexOfferdelet=sc.nextInt();
+											sc.nextLine();
+											if(idUserValid == oferta.verListadoOfertas().get(indexOfferdelet-1).getId()) {
+												oferta.borrarOferta();
+											}
+
+										}
+									break;
+									}
 									}
 									break;
 								case 5:
