@@ -18,8 +18,10 @@ public class PublicacionVista {
         this.publicacionController = publicacionController;
     }
 
-    public void verPublicacionesDelUsuario(){
-        
+    public void verPublicacionesDelUsuario(int idUserValid){
+        for(Publicacion publicacion: publicacionController.retornarPorIdUser(idUserValid)){
+            System.out.println(publicacion.toString());
+        }
     }
 
     public void vistaCrearPublicacion(int idUserValid) {
