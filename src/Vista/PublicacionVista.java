@@ -22,6 +22,7 @@ public class PublicacionVista {
         for(Publicacion publicacion: publicacionController.retornarPorIdUser(idUserValid)){
             System.out.println(publicacion.toString());
         }
+        System.out.println("\n");
     }
 
     public void vistaCrearPublicacion(int idUserValid) {
