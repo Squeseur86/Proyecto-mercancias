@@ -59,7 +59,7 @@ public class TelefonoController {
                 }
                 break;
             default:
-                System.out.println("No se ha implementado la validación para el país.");
+                
                 return null;
         }
         return null;

@@ -3,7 +3,7 @@ package Model;
 import java.util.Date;
 
 public class Usuario {
-    private String id;
+    private int id;
     private String userName;
     private String email;
     private String phoneNumber;
@@ -21,7 +21,7 @@ public class Usuario {
         this.userName = userName;
         this.password = password;
     }
-    public Usuario(String id, String userName, String email, String phoneNumber, String dni,
+    public Usuario(int id, String userName, String email, String phoneNumber, String dni,
             String fullName, String password, Date createdAT, Date updateAT) {
         this.id = id;
         this.userName = userName;
@@ -35,7 +35,7 @@ public class Usuario {
     }
 
     //SET'S
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,7 +73,7 @@ public class Usuario {
 
     //GET'S
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 

@@ -13,7 +13,7 @@ public class usuarioController {
         usuarios.add(new Usuario(userName,password));
     }
     
-    public void crearUsuario(String id, String userName, String email, String phoneNumber, String dni,
+    public void crearUsuario(int id, String userName, String email, String phoneNumber, String dni,
             String fullName, String password, Date createdAT, Date updateAT) {
         usuarios.add(new Usuario(id, userName, email, phoneNumber, dni, fullName, password, createdAT, updateAT));
     }
@@ -38,6 +38,10 @@ public class usuarioController {
             }
         }
         return false;
+    }
+    public ArrayList<Usuario> arrayListUser()
+    {
+    	return usuarios;
     }
     
 	

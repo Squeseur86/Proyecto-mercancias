@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 import java.util.Scanner;
 
@@ -19,6 +20,7 @@ public class Runner {
 		Scanner sc = new Scanner(System.in);
 		String username, email, password;
 		String phoneNumber, dni = "", fullName, ex;
+		int idUserValid=0;
 		
 		// DATOS PUBLICACION
 		PublicacionController publiController = new PublicacionController();
@@ -28,6 +30,8 @@ public class Runner {
 		usuarioController usuario = new usuarioController();
 		//USUARIO TEST
 		usuario.crearUsuario("j", "123");
+		//Objeto para numeros aleatorios
+		Random rand=new Random();
 		OfertaControl oferta = new OfertaControl();
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -152,7 +156,10 @@ public class Runner {
 					System.out.println("ingrese su nombre completo");
 					fullName = sc.nextLine();
 					fullName.replaceAll("\n", "");
-					usuario.crearUsuario("0", username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
+					// Generar un número aleatorio de 4 dígitos
+					int idUser =rand.nextInt(9000) + 1000; 
+	                         
+					usuario.crearUsuario(idUser, username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
 					break;
 				case 2:
 					System.out.println("ingrese su nombre de usuario");
@@ -160,12 +167,20 @@ public class Runner {
 					System.out.println("ingrese su contraseña");
 					password=sc.next();
 					if(usuario.verificarUsuario(username, password)) {
+						for(int i=0;i<usuario.arrayListUser().size();i++)
+						{
+							if(username.equals(usuario.arrayListUser().get(i).getUserName())) {
+								idUserValid=usuario.arrayListUser().get(i).getId();
+							}
+						}
+						
 
-						while (opMenuPrincipal != 4) { //MENU UNA VEZ QUE INICIA SESION.
+						while (opMenuPrincipal != 5) { //MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Crear publicacion.");
 							System.out.println("2. Ver publicaciones.");
 							System.out.println("3. Crear ofertas");
-							System.out.println("4.cerrar secion");
+							System.out.println("4. editar ofertas");
+							System.out.println("5.cerrar secion");
 							System.out.print("Digite la opcion que desea realizar: ");
 							opMenuPrincipal = sc.nextInt();
 							sc.nextLine();
@@ -180,7 +195,14 @@ public class Runner {
 									}
 									System.out.println("De cual publicacion desea ver ofertas");
 									op=sc.nextInt();
-									System.out.println(oferta.verListadoOfertas().get(op-1).toString());
+									for(int i=0;i<oferta.verListadoOfertas().size();i++)
+									{
+										if(publiController.listarPublicaciones().get(op-1).getId()==oferta.verListadoOfertas().get(i).getId())
+										{
+											System.out.println(oferta.verListadoOfertas().get(i).toString());
+										}
+									}
+									
 									opcseguro = 0;
 									System.out.println("Cual oferta quieres aceptar");
 									System.out.println("0 para ninguna");
@@ -247,7 +269,7 @@ public class Runner {
 												System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
 											}
 										}
-										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con)))
+										if(oferta.crearOferta(descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con),idUserValid))
 										{
 											System.out.println("oferta creada correctamente");
 										}else {
@@ -256,7 +278,60 @@ public class Runner {
 									}
 									break;
 								case 4:
+									for(int i=0;i<oferta.verListadoOfertas().size();i++)
+									{
+										if(idUserValid == oferta.verListadoOfertas().get(i).getId())
+										{
+											System.out.println(oferta.verListadoOfertas().get(i).toString());
+										}
+										System.out.println("Which offer do you want to edit");
+										int indexOfferEdit=0;
+										indexOfferEdit=sc.nextInt();
+										if(idUserValid == oferta.verListadoOfertas().get(indexOfferEdit).getId()) {
+											System.out.println("Ingrese la descripcion de la oferta");
+											descripcion=sc.nextLine();
+											System.out.println("ingrese el tamaño de su envio");
+											tamaño=sc.nextLine();
+											System.out.print("su envio es fragil 1 para si 2 para no");
+											op=sc.nextInt();
+											sc.nextLine();
+											while(op!=1&&op!=2) {
+												switch(op)
+												{
+												case 1:
+													fragil=true;
+													break;
+												case 2:
+													fragil=false;
+													break;
+												default:
+													System.out.println("valor incorrecto");
+												}
+											}
+											System.out.println("ingrese el precio de su oferta");
+											valor=sc.nextInt();
+											sc.nextLine();
+											while (true) {
+												try {
+													System.out.print("Ingrese la fecha: ");
+													fechaIda = dateFormat.parse(sc.nextLine());
+													break;
+												} catch (ParseException e) {
+													System.err.println("\n" + "Digite la fecha en formato: yyyy/mm/dd.");
+												}
+											}
+											if(oferta.editOferta(indexOfferEdit,descripcion, tamaño, fragil, valor, fechaIda,publiController.returnId(con),idUserValid))
+											{
+												System.out.println("oferta creada correctamente");
+											}else {
+												System.out.println("error al crear la oferta");
+											}
+										}
+									}
+									break;
+								case 5:
 									System.exit(0);
+									break;
 								default:
 									System.err.println(
 											"La opcion \"" + opMenuPrincipal
