@@ -74,38 +74,6 @@ public class Runner {
 					while (email.equals("") || email.equals("\n")) {
 						System.out.println("ingrese su correo");
 						email = sc.nextLine();
-						while (op != 0) {
-							try {
-								System.out.println("Cual es la extension de correo");
-								System.out.println("1. @gmail.com");
-								System.out.println("2. @Outlook.com");
-								System.out.println("3. @uptc.edu.co");
-								op = sc.nextInt();
-							} catch (Exception e) {
-								System.out.println("No es numero");
-								sc.next();
-							}
-							sc.nextLine();
-							switch (op) {
-								case 1:
-									ex = "@gmail.com";
-									email = email + ex;
-									op = 0;
-									break;
-								case 2:
-									ex = "@outlook.com";
-									email = email + ex;
-									op = 0;
-									break;
-								case 3:
-									ex = "@uptc.edu.co";
-									email = email + ex;
-									op = 0;
-									break;
-								default:
-									System.out.println("No hay mas opcion para extension");
-							}
-						}
 						if (email.isEmpty()) {
 							System.out.println("el correo no puede estar vacio");
 
@@ -382,7 +350,7 @@ public class Runner {
 											indexOfferdelet=sc.nextInt();
 											sc.nextLine();
 											if(idUserValid == oferta.verListadoOfertas().get(indexOfferdelet-1).getId()) {
-												oferta.borrarOferta();
+												oferta.borrarOferta(indexOfferdelet-1);
 											}
 
 										}
