@@ -127,10 +127,9 @@ public class Runner {
 					System.out.println("ingrese su nombre completo");
 					fullName = sc.nextLine();
 					fullName.replaceAll("\n", "");
-					// Generar un número aleatorio de 4 dígitos
-					int idUser =rand.nextInt(9000) + 1000; 
+					
 	                         
-					usuario.crearUsuario(idUser, username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
+					usuario.crearUsuario(username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
 					break;
 				case 2:
 					System.out.println("ingrese su nombre de usuario");
@@ -159,7 +158,7 @@ public class Runner {
 							sc.nextLine();
 							switch (opMenuPrincipal) {
 								case 1:// CREAR PUBLICACION.
-									publicacionVista.vistaCrearPublicacion();
+									publicacionVista.vistaCrearPublicacion(idUserValid);
 									peso = 23.0;
 									break;
 								case 2:

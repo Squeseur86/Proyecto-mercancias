@@ -11,9 +11,9 @@ public class PublicacionController {
 	private ArrayList<Publicacion> publicaciones = new ArrayList<Publicacion>();
 
 	public void crearPublicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
-			String espacioEquipaje, int id) {
+			String espacioEquipaje, int id, int idUserValid) {
 		publicaciones.add(new Publicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
-				espacioEquipaje, id));
+				espacioEquipaje, id,idUserValid));
 	}
 
 	public int returnId(int index) {

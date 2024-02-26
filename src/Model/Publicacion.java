@@ -10,16 +10,18 @@ public class Publicacion {
 	private String pesoEquipaje;
 	private String EspacioEquipaje;
 	private int id;
+	private int idUser;
 	public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
-			String espacioEquipaje, int id) {
+			String espacioEquipaje, int id, int idUser) {
 		super();
 		this.origen = origen;
 		this.destino = destino;
 		this.fechaIda = fechaIda;
 		this.categoria = categoria;
 		this.pesoEquipaje = pesoEquipaje;
-		EspacioEquipaje = espacioEquipaje;
+		this.EspacioEquipaje = espacioEquipaje;
 		this.id = id;
+		this.idUser = idUser;
 	}
 	
 
@@ -66,6 +68,13 @@ public class Publicacion {
 	}
 	public void setEspacioEquipaje(String espacioEquipaje) {
 		EspacioEquipaje = espacioEquipaje;
+	}
+
+	public int getUserId(){
+		return idUser;
+	}
+	public void setUserId(int userId){
+		this.idUser = userId;
 	}
 	@Override
 	public String toString() {

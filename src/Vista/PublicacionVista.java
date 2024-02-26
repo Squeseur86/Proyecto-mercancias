@@ -18,7 +18,7 @@ public class PublicacionVista {
         this.publicacionController = publicacionController;
     }
 
-    public void vistaCrearPublicacion() {
+    public void vistaCrearPublicacion(int idUserValid) {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
         Date fechaIda = null;
@@ -102,7 +102,7 @@ public class PublicacionVista {
                         // Generate a 4-digit random number
                         int idRandom = random.nextInt(9000) + 1000;
                         publicacionController.crearPublicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
-                                espacioEquipaje, idRandom);
+                                espacioEquipaje, idRandom, idUserValid);
 
                         System.out.println("Post successfully created.");
                         break;
