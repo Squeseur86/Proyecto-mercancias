@@ -22,12 +22,17 @@ public class Oferta {
 		this.idUser=idUser;
 	}
 	
+
 	public int getIdUser() {
 		return idUser;
 	}
 
 	public void setIdUser(int idUser) {
 		this.idUser = idUser;
+	}
+
+	public Oferta() {
+
 	}
 
 	public int getId() {
