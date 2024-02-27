@@ -11,6 +11,7 @@ public class Publicacion {
 	private String EspacioEquipaje;
 	private int id;
 	private int idUser;
+	private boolean isActive;
 	public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
 			String espacioEquipaje, int id, int idUser) {
 		super();
@@ -22,6 +23,7 @@ public class Publicacion {
 		this.EspacioEquipaje = espacioEquipaje;
 		this.id = id;
 		this.idUser = idUser;
+		this.isActive = true;
 	}
 	
 
@@ -75,6 +77,13 @@ public class Publicacion {
 	}
 	public void setUserId(int userId){
 		this.idUser = userId;
+	}
+
+	public boolean getState(){
+		return isActive;
+	}
+	public void setState(boolean isActive){
+		this.isActive = isActive;
 	}
 	@Override
 	public String toString() {

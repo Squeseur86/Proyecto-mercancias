@@ -24,6 +24,15 @@ public class PublicacionController {
 		return publicaciones;
 	}
 
+	public ArrayList<Publicacion> returnActivePublications(){
+		ArrayList<Publicacion> activePublications = new ArrayList<Publicacion>();
+		for(Publicacion publicacion: publicaciones){
+			if(publicacion.getState() == true){
+				activePublications.add(publicacion);
+			}
+		}
+		return activePublications;
+	}
 
 	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi){
 
