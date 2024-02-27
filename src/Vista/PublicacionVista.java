@@ -32,7 +32,8 @@ public class PublicacionVista {
         // OBJECTO RANDOM
         Random random = new Random();
         // MENU
-        int opPublicacion = 0;
+        int opPublicacion = 0, opCat = 0 ;
+        double largo, ancho, altura, volumen, voluOcu;
         double peso;
         // FORMATEAR ENTRADA DATE
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -62,8 +63,22 @@ public class PublicacionVista {
             }
         }
         while (inusualString(categoria)) {
+        	while(opCat !=1 && opCat !=2) {
             System.out.print("Enter the category of the trip: ");
-            categoria = sc.nextLine();
+            System.out.println("1. Cabin, 2. Store");
+            opCat = sc.nextInt();
+            sc.nextLine();
+            switch(opCat) {
+            case 1:
+            	categoria = "Cabin";
+            break;
+            case 2:
+            	categoria = "Store";
+            break;
+            default :
+            	System.err.println("is not valid");
+            }
+        	}
             if (inusualString(destino)) {
                 System.err.println("The entry \"" + categoria + "\" is not valid. Please try again.");
             }
@@ -76,27 +91,98 @@ public class PublicacionVista {
                     System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
                 }
                 peso = Double.parseDouble(pesoEquipaje);
-                while (peso > 24.0) {
-                    System.out.println("Invalid weight");
-                    pesoEquipaje = sc.nextLine();
-                    peso = Double.parseDouble(pesoEquipaje);
-                    if (inusualString(pesoEquipaje)) {
-                        System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
-                    }
-                }
+                if(categoria.contains("Cabin")){
+                	 while (peso > 16.0) {
+                         System.out.println("Invalid weight, 16 is maximum");
+                         System.out.print("Enter the available luggage weight: ");
+                         pesoEquipaje = sc.nextLine();
+                         peso = Double.parseDouble(pesoEquipaje);
+                         if (inusualString(pesoEquipaje)) {
+                             System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
+                         }
+                     }
+                }else if(categoria.contains("Store")){
+                	 while (peso > 32.0) {
+                         System.out.println("Invalid weight, 32 is maximum");
+                         System.out.print("Enter the available luggage weight: ");
+                         pesoEquipaje = sc.nextLine();
+                         peso = Double.parseDouble(pesoEquipaje);
+                         if (inusualString(pesoEquipaje)) {
+                             System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
+                         }
+                     }
+                }            
             } catch (Exception e) {
                 System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
             }
 
         }
         while (inusualString(espacioEquipaje)) {
-            System.out.print("Enter the available luggage space: ");
-            espacioEquipaje = sc.nextLine();
-            if (inusualString(espacioEquipaje)) {
-                System.err.println(
-                        "The entry \"" + espacioEquipaje
-                                + "\" is not valid. Please try again.");
-            }
+            if(categoria.contains("Cabin")){
+                System.out.print("Enter the broad luggage : ");
+                ancho = sc.nextDouble();
+                sc.nextLine();
+            	while(ancho > 20 || ancho <0  ) {	
+                    System.err.print("The borad is invalid 20 is maximum. Enter the broad luggage : ");
+                    ancho = sc.nextDouble();
+                    sc.nextLine();
+            	}
+                System.out.println("Enter the long luggage : ");
+                largo = sc.nextDouble();
+                sc.nextLine();
+                while(largo> 35 || largo< 0) {
+                	 System.err.println("The long is invalid 35 is maximum. Enter the long luggage : ");
+                    largo = sc.nextDouble();
+                    sc.nextLine();
+                }
+                System.out.println("Enter the high luggage :");
+                altura = sc.nextDouble();
+                sc.nextLine();
+                while(altura> 45 || altura< 0) {
+               	 System.err.println("The high is invalid 45 is maximum. Enter the high luggage : ");
+                   altura = sc.nextDouble();
+                   sc.nextLine();
+               }
+                volumen = (ancho * largo *altura) ;
+                System.out.println("Enter the occupied volume");
+                voluOcu = sc.nextDouble();
+                sc.nextLine();
+                while(voluOcu > volumen) {
+                	System.err.println("The volumen occuped is invalid");
+                    System.out.println("Enter the occupied volume");
+                    voluOcu = sc.nextDouble();
+                    sc.nextLine();
+                }
+                volumen = volumen - voluOcu;
+                espacioEquipaje = String.valueOf(volumen);
+           }else if(categoria.contains("Store")){
+               System.out.print("Enter the broad luggage : ");
+               ancho = sc.nextDouble();
+               sc.nextLine();
+           	while(ancho > 36 || ancho <0  ) {	
+                   System.err.print("The broad is invalid 36 is maximum. Enter the broad luggage : ");
+                   ancho = sc.nextDouble();
+                   sc.nextLine();
+           	}
+               System.out.println("Enter the long luggage : ");
+               largo = sc.nextDouble();
+               sc.nextLine();
+               while(largo> 47 || largo< 0) {
+               	 System.err.println("The long is invalid 47 is maximum. Enter the long luggage : ");
+                   largo = sc.nextDouble();
+                   sc.nextLine();
+               }
+               System.out.println("Enter the high luggage :");
+               altura = sc.nextDouble();
+               sc.nextLine();
+               while(altura> 75 || altura< 0) {
+              	 System.err.println("The high is invalid 75 is maximum. Enter the high luggage : ");
+                  altura = sc.nextDouble();
+                  sc.nextLine();
+              }
+               volumen = (ancho * largo *altura) ;
+               espacioEquipaje = String.valueOf(volumen);    
+        }
         }
         // FIN CREAR PUBLICACION
         // CONFIRMACION:
@@ -251,3 +337,4 @@ public class PublicacionVista {
         }
     }
 }
+    
