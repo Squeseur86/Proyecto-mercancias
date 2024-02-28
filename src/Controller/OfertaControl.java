@@ -43,6 +43,15 @@ public class OfertaControl {
 		public void borrarOferta(int n) {
 			ofertas.remove(n);	
 			}
+		public ArrayList<Oferta> returnForID(int id){
+			ArrayList<Oferta> ofertaPublicacion = new ArrayList<Oferta>();
+			for(Oferta oferta: ofertas){
+				if(oferta.getId() == id){
+					ofertaPublicacion.add(oferta);
+				}
+			}
+			return ofertaPublicacion;
+		}
 		
 
 }

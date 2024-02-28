@@ -4,6 +4,7 @@ package Runner;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -211,12 +212,15 @@ public class Runner {
 
 									break;
 								case 3:
-									while (optionMenuMyPost<1 || optionMenuMyPost>3) {
+									ArrayList<Publicacion> userPosts = publiController.retornarPorIdUser(idUserValid);
+									optionMenuMyPost = 0;
+									while (optionMenuMyPost<1 || optionMenuMyPost>4) {
 										try{
 											publicacionVista.verPublicacionesDelUsuario(idUserValid);
 											System.out.println("1. View offers for a publication.");
 											System.out.println("2. Edit a publication.");
 											System.out.println("3. Delete a post.");
+											System.out.println("4. Go back.");
 											System.out.println("Enter the number of the option you wish to perform:");
 											optionMenuMyPost = sc.nextInt();
 											sc.nextLine();
@@ -225,8 +229,19 @@ public class Runner {
 										}
 									}
 									switch (optionMenuMyPost) {
-										case 1: //VER OFERTAS
-											
+										case 1: //VER OFERTAS2
+											op = 0;
+											System.out.println("Enter the number of the publication for which you want to see offers: ");
+											op = sc.nextInt();
+											sc.nextLine();
+											ArrayList<Oferta> offerPost = oferta.returnForID(userPosts.get(op-1).getId());
+											if(offerPost == null){
+												System.out.println("No offers.");
+											}else{
+												for(Oferta offer: offerPost){
+													System.out.println(offer.toString());
+												}
+											}
 											break;
 										case 2: //EDITAR PUBLICACION
 											System.out.print("Enter the publication number to edit: ");//TRY/IF POR SI DIGITA UN NUMERO <1
@@ -236,9 +251,13 @@ public class Runner {
 											//REVISAR METODO RETORNAR POR ID, INNECESARIO
 											break;
 										case 3://BORRAR PUBLICACION
-											
+											System.out.println("Enter the number of the publication you want to remove: ");
+											op = sc.nextInt();
+											sc.nextLine();
+											userPosts.remove(op-1);
+											System.out.println("Offer successfully deleted");
 											break;
-										default:
+										case 4: 
 											break;
 									}
 									break;
