@@ -11,9 +11,9 @@ public class PublicacionController {
 	private ArrayList<Publicacion> publicaciones = new ArrayList<Publicacion>();
 
 	public void crearPublicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
-			String espacioEquipaje, int id) {
+			String espacioEquipaje, int id, int idUserValid) {
 		publicaciones.add(new Publicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
-				espacioEquipaje, id));
+				espacioEquipaje, id,idUserValid));
 	}
 
 	public int returnId(int index) {
@@ -24,6 +24,15 @@ public class PublicacionController {
 		return publicaciones;
 	}
 
+	public ArrayList<Publicacion> returnActivePublications(){
+		ArrayList<Publicacion> activePublications = new ArrayList<Publicacion>();
+		for(Publicacion publicacion: publicaciones){
+			if(publicacion.getState() == true){
+				activePublications.add(publicacion);
+			}
+		}
+		return activePublications;
+	}
 
 	public String aceptarOferta(Oferta oferta, Publicacion publicacionModi){
 
@@ -54,6 +63,20 @@ public class PublicacionController {
 			}
 		}
 		return null;
+	}
+
+	public Publicacion retornoPorIndice(int index){
+		return publicaciones.get(index-1);
+	}
+
+	public ArrayList<Publicacion> retornarPorIdUser(int idUserValid){
+		ArrayList<Publicacion> publicacionesUser = new ArrayList<Publicacion>();
+		for(Publicacion publicacion: publicaciones){
+			if(publicacion.getUserId()==idUserValid){
+				publicacionesUser.add(publicacion);
+			}
+		}
+		return publicacionesUser;
 	}
 
 	public void editarPublicacion(Publicacion publicacionEditar, String origen, String categoria, String destino, String espacioEquipaje, String pesoEquipaje, Date fechaIda) {
