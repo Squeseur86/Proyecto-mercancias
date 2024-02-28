@@ -44,6 +44,7 @@ public class Runner {
 		//OPCIONES
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0, opof = 0;
 		int con = 0, optionMenuMyPost = 0, postEdit = 0;
+		double ancho, alto, largo;
 		double peso = 0, volumen = 0;
 		while (opc != 3) {
 			opOffer = 0;
@@ -258,7 +259,17 @@ public class Runner {
 										}
 										while (tamaño == "") {
 											System.out.println("ingrese el tamaño de su envio");
-											tamaño = sc.nextLine();
+											 System.out.print("Enter the broad luggage : ");
+								                ancho = sc.nextDouble();
+								                sc.nextLine();
+								             System.out.print("Enter the loang luggage : ");
+								               	largo = sc.nextDouble();
+								               	sc.nextLine();
+								             System.out.print("Enter the high luggage : ");
+								                alto = sc.nextDouble();
+								                sc.nextLine();	
+												volumen = ancho *largo * alto;
+											tamaño = String.valueOf(volumen);
 											double tam = Double.parseDouble(tamaño);
 											double volPub = Double.parseDouble(publiController.listarPublicaciones()
 													.get(op - 1).getEspacioEquipaje());
@@ -345,8 +356,42 @@ public class Runner {
 															.getId()) {
 														System.out.println("Ingrese la descripcion de la oferta");
 														descripcion = sc.nextLine();
-														System.out.println("ingrese el tamaño de su envio");
-														tamaño = sc.nextLine();
+														while( pesoOfe == "") {
+															System.out.println("ingrese el tamaño de su envio");
+															pesoOfe = sc.nextLine();
+															double psOf = Double.parseDouble(pesoOfe);
+															double pesoe = Double.parseDouble(publiController.listarPublicaciones()
+																	.get(op - 1).getPesoEquipaje());
+															if (psOf >= pesoe) {
+																System.out.println("Peso no valido");
+																pesoOfe = "";
+															} else {
+																System.out.println("peso valido");
+															}
+														}
+														while (tamaño == "") {
+															System.out.println("ingrese el tamaño de su envio");
+															 System.out.print("Enter the broad luggage : ");
+												                ancho = sc.nextDouble();
+												                sc.nextLine();
+												             System.out.print("Enter the loang luggage : ");
+												               	largo = sc.nextDouble();
+												               	sc.nextLine();
+												             System.out.print("Enter the high luggage : ");
+												                alto = sc.nextDouble();
+												                sc.nextLine();	
+																volumen = ancho *largo * alto;
+															tamaño = String.valueOf(volumen);
+															double tam = Double.parseDouble(tamaño);
+															double volPub = Double.parseDouble(publiController.listarPublicaciones()
+																	.get(op - 1).getEspacioEquipaje());
+															if (tam >= volPub) {
+																System.out.println("Tamaño no valido");
+																tamaño = "";
+															} else {
+																System.out.println("Tamaño valido");
+															}
+														}
 														System.out.print("su envio es fragil 1 para si 2 para no");
 														op = sc.nextInt();
 														sc.nextLine();
