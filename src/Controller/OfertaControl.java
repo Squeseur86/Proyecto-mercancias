@@ -10,10 +10,10 @@ import Model.Publicacion;
 public class OfertaControl {
 	Oferta of = new Oferta();
 	ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
-		public boolean crearOferta(String descripcion, String tamaño, boolean fragil, int valor, Date fechaCreacion
+		public boolean crearOferta(String descripcion,String pesoOfe, String tamaño, boolean fragil, int valor, Date fechaCreacion
 			,int id,int idUser){
 			try {
-				ofertas.add(new Oferta( descripcion,tamaño, fragil, valor, fechaCreacion,id,idUser));
+				ofertas.add(new Oferta( descripcion,pesoOfe, tamaño, fragil, valor, fechaCreacion,id,idUser));
 				return true;
 			} catch (Exception e) {
 				return false;
@@ -26,10 +26,10 @@ public class OfertaControl {
 			return ofertas;
 		}
 
-		public boolean editOferta(int index,String descripcion, String tamaño, boolean fragil, int valor, Date fechaCreacion
+		public boolean editOferta(int index,String descripcion,String pesoOfe, String tamaño, boolean fragil, int valor, Date fechaCreacion
 				,int id,int idUser){
 				try {
-					ofertas.set(index, (new Oferta( descripcion,tamaño, fragil, valor, fechaCreacion,id,idUser)));
+					ofertas.set(index, (new Oferta( descripcion,pesoOfe, tamaño, fragil, valor, fechaCreacion,id,idUser)));
 					return true;
 				} catch (Exception e) {
 					return false;
