@@ -6,6 +6,7 @@ import java.util.Random;
 
 import Model.Telefono;
 import Model.Usuario;
+import Controller.TelefonoController;
 
 public class usuarioController {
     private ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -14,10 +15,12 @@ public class usuarioController {
         usuarios.add(new Usuario(userName, password));
     }
 
-    public void crearUsuario(String userName, String email, String phoneNumber, String dni,
+    public void crearUsuario(String userName, String email,int option,String phoneNumber, String dni,
             String fullName, String password, Date createdAT, Date updateAT) {
+    	TelefonoController phone = new TelefonoController();
+    	
         int id = generarID();
-        usuarios.add(new Usuario(id, userName, email, phoneNumber, dni, fullName, password, createdAT, updateAT));
+        usuarios.add(new Usuario(id, userName, email,phone.validarTelefono(option, phoneNumber), dni, fullName, password, createdAT, updateAT));
     }
 
     public boolean verificarUsuario(String userName, String password) {

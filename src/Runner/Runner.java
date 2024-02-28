@@ -20,7 +20,7 @@ public class Runner {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		String username, email, password;
-		String phoneNumber, dni = "", fullName, ex;
+		String phoneNumber = null, dni = "", fullName, ex;
 		int idUserValid = 0;
 
 		// DATOS PUBLICACION
@@ -91,8 +91,29 @@ public class Runner {
 						}
 					}
 					System.out.println("Enter your phone number");
-					phoneNumber = sc.nextLine();
-					phoneNumber.replaceAll("\n", "");
+					int opPhone=0;
+					while(opPhone < 1|| opPhone>11) {
+						System.out.println("Country numbers list");
+						System.out.println("1. +54 Argentina");
+						System.out.println("2. +34 Spain");
+						System.out.println("3. +507 Panama");
+						System.out.println("4. +57 Colombia");
+						System.out.println("5. +504 Honduras");
+						System.out.println("6. +55 Brasil");
+						System.out.println("7. +54 United States");
+						System.out.println("8. +52 Mexico");
+						System.out.println("9. +385 Croacia");
+						System.out.println("10. +39 Italy");
+						System.out.println("11. Dont add");
+						opPhone=sc.nextInt();
+						if(opPhone<11&&opPhone>0)
+						{
+							phoneNumber = sc.nextLine();
+							phoneNumber.replaceAll("\n", "");						
+						}
+						
+					}
+					
 					while (opdni < 1 || opdni > 4) {
 						try {
 							System.out.println("Enter the option number of the document you wish to enter.");
@@ -129,7 +150,7 @@ public class Runner {
 					fullName = sc.nextLine();
 					fullName.replaceAll("\n", "");
 
-					usuario.crearUsuario(username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
+					usuario.crearUsuario(username, email,opPhone, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
 					opc = 0;
 					break;
 				case 2:
