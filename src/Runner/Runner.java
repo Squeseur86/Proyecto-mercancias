@@ -41,7 +41,7 @@ public class Runner {
 		boolean fragil = false;
 		int valor, opcseguro, opOffer = 0;
 
-		// OPCIONES
+		//OPCIONES
 		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0, opof = 0;
 		int con = 0, optionMenuMyPost = 0, postEdit = 0;
 		double peso = 0, volumen = 0;
@@ -51,8 +51,8 @@ public class Runner {
 				try {
 					System.out.println("Welcome.");
 					System.out.println("Enter the number of the option you wish to perform:");
-					System.out.println("1. Login ");
-					System.out.println("2. Sign up");
+					System.out.println("1. Sing Up ");
+					System.out.println("2. Login");
 					System.out.println("3. Go out");
 					opc = sc.nextInt();
 				} catch (Exception e) {
@@ -92,21 +92,21 @@ public class Runner {
 					System.out.println("Enter your phone number");
 					phoneNumber = sc.nextLine();
 					phoneNumber.replaceAll("\n", "");
-					while (op < 1 || op > 4) {
+					while (opdni < 1 || opdni > 4) {
 						try {
 							System.out.println("Enter the option number of the document you wish to enter.");
 							System.out.println("1. Identity card");
 							System.out.println("2. Passport");
 							System.out.println("3. Immigration card");
 							System.out.println("4. Do not add");
-							op = sc.nextInt();
+							opdni = sc.nextInt();
 						} catch (Exception e) {
-							System.err.println("The \"" + op + "\" option is not available.");
+							System.err.println("The \"" + opdni + "\" option is not available.");
 							sc.next();
 						}
 						sc.nextLine();
 					}
-					switch (op) {
+					switch (opdni) {
 						case 1:
 							System.out.print("Enter your identity card number: ");
 							dni = sc.nextLine();
@@ -126,10 +126,10 @@ public class Runner {
 
 					System.out.print("Enter your full name: ");
 					fullName = sc.nextLine();
-
+					fullName.replaceAll("\n", "");
 
 					usuario.crearUsuario(username, email, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
-
+					opc = 0;
 					break;
 				case 2:
 					System.out.print("Enter your username: ");
@@ -145,7 +145,7 @@ public class Runner {
 								idUserValid = usuario.arrayListUser().get(i).getId();
 							}
 						}
-						while (opMenuPrincipal != 5) { // MENU UNA VEZ QUE INICIA SESION.
+						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
@@ -163,13 +163,13 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									for (Publicacion publicacion : publiController.returnActivePublications()) {
+									for (Publicacion publicacion : publiController.listarPublicaciones()) {
 										System.out.println(publicacion.toString());
-									} // GESTIONAR POR SI RETORNA NULL
+									}
 									System.out.println("De cual publicacion desea ver ofertas");
 									op = sc.nextInt();
 									for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-										if (publiController.returnActivePublications().get(op - 1).getId() == oferta
+										if (publiController.listarPublicaciones().get(op - 1).getId() == oferta
 												.verListadoOfertas().get(i).getId()) {
 											System.out.println(oferta.verListadoOfertas().get(i).toString());
 										}
@@ -199,68 +199,32 @@ public class Runner {
 
 									break;
 								case 3:
-									publicacionVista.verPublicacionesDelUsuario(idUserValid);
-									while (optionMenuMyPost < 1 || optionMenuMyPost > 3) {
-										try {
+									while (optionMenuMyPost<1 || optionMenuMyPost>3) {
+										try{
+											publicacionVista.verPublicacionesDelUsuario(idUserValid);
 											System.out.println("1. View offers for a publication.");
 											System.out.println("2. Edit a publication.");
 											System.out.println("3. Delete a post.");
 											System.out.println("Enter the number of the option you wish to perform:");
 											optionMenuMyPost = sc.nextInt();
 											sc.nextLine();
-										} catch (Exception e) {
-											System.err.println(
-													"The \"" + optionMenuMyPost + "\" option is not available.\n");
+										}catch(Exception e){
+											System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
 										}
 									}
 									switch (optionMenuMyPost) {
-										case 1: // VER OFERTAS
-											publicacionVista.verPublicacionesDelUsuario(idUserValid);
-											// MENU PARA PROCESAR OFERTAS
-											System.out.print(
-													"Enter the number of the publication for which you want to see the offers: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-												if (publiController.retornarPorIdUser(idUserValid).get(op - 1)
-														.getId() == oferta
-																.verListadoOfertas().get(i).getId()) {
-													System.out.println(
-															oferta.verListadoOfertas().get(i).toString());
-												}
-											}//ARREGLAR EN CONTROLLER PARA RETORNAR SOLO LOS DE UNA PUBLIACION ESPECIFICA
-											switch (op) {
-												case 1:
-
-													break;
-												case 2:
-													break;
-												default:
-													break;
-											}
+										case 1: //VER OFERTAS
+											
 											break;
-										case 2: // EDITAR PUBLICACION
-											System.out.print("Enter the publication number to edit: ");// TRY/IF POR SI
-																										// DIGITA UN
-																										// NUMERO <1
+										case 2: //EDITAR PUBLICACION
+											System.out.print("Enter the publication number to edit: ");//TRY/IF POR SI DIGITA UN NUMERO <1
 											postEdit = sc.nextInt();
 											sc.nextLine();
-											publicacionVista.editarPublicacion(
-													publiController.retornoPorIndice(postEdit - 1).getId());// IF POR SI
-																											// RETORNA
-																											// FALSE/ALTERNAR
-																											// POR
-																											// STRING
-											// REVISAR METODO RETORNAR POR ID, INNECESARIO
+											publicacionVista.editarPublicacion(publiController.retornoPorIndice(postEdit).getId());//IF POR SI RETORNA FALSE/ALTERNAR POR STRING
+											//REVISAR METODO RETORNAR POR ID, INNECESARIO
 											break;
-										case 3:// BORRAR PUBLICACION
-											publicacionVista.verPublicacionesDelUsuario(idUserValid);
-				
-											System.out.print(
-													"Enter the number of the publication to delete: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											publiController.borrarOferta(op);
+										case 3://BORRAR PUBLICACION
+											
 											break;
 										default:
 											break;
@@ -279,7 +243,7 @@ public class Runner {
 									if (publiController.listarPublicaciones().get(op - 1) != null) {
 										System.out.println("Ingrese la descripcion de la oferta");
 										descripcion = sc.nextLine();
-										while (pesoOfe == "") {
+										while( pesoOfe == "") {
 											System.out.println("ingrese el tamaño de su envio");
 											pesoOfe = sc.nextLine();
 											double psOf = Double.parseDouble(pesoOfe);
@@ -339,8 +303,7 @@ public class Runner {
 											sc.nextLine();
 											switch (opof) {
 												case 1:
-													if (oferta.crearOferta(descripcion, pesoOfe,tamaño, fragil, valor,
-															fechaIda,
+													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor, fechaIda,
 															publiController.returnId(con), idUserValid)) {
 														System.out.println("oferta creada correctamente");
 													} else {
@@ -412,9 +375,8 @@ public class Runner {
 																		+ "Digite la fecha en formato: yyyy/mm/dd.");
 															}
 														}
-														if (oferta.editOferta(indexOfferEdit, descripcion, pesoOfe,
-																
-																tamaño, fragil, valor, fechaIda, publiController.returnId(con),
+														if (oferta.editOferta(indexOfferEdit, descripcion,pesoOfe, tamaño,
+																fragil, valor, fechaIda, publiController.returnId(con),
 																idUserValid)) {
 															System.out.println("oferta creada correctamente");
 														} else {
@@ -445,7 +407,7 @@ public class Runner {
 									}
 									break;
 								case 6:
-									System.exit(0);
+									opc = 0;
 									break;
 								default:
 									System.err.println(
@@ -456,6 +418,7 @@ public class Runner {
 					} else {
 						System.out.println(
 								"ingrese correctamente su usuario o contraseña, o registrese si no tiene cuenta");
+						opc = 0;
 					}
 					break;
 				case 3:
