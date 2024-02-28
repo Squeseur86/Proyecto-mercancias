@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class Oferta {
 	private String descripcion ;
+	private String pesoOfe;
 	private String tamaño;
 	private boolean fragil;
 	private int valor;
@@ -11,17 +12,28 @@ public class Oferta {
 	private int id;
 	private int idUser;
 	
-	public Oferta(String descripcion,String tamaño,boolean fragil,int valor,Date fechaCreacion, int id,int idUser)
+	public Oferta(String descripcion, String pesoOfe, String tamaño,boolean fragil,int valor,Date fechaCreacion, int id,int idUser)
 	{
 		this.descripcion = descripcion;
 		this.fechaCreacion = fechaCreacion;
 		this.fragil = fragil;
 		this.id =id;
+		this.pesoOfe = pesoOfe;
 		this.tamaño =tamaño;
 		this.valor = valor;
 		this.idUser=idUser;
 	}
 	
+
+	public String getPesoOfe() {
+		return pesoOfe;
+	}
+
+
+	public void setPesoOfe(String pesoOfe) {
+		this.pesoOfe = pesoOfe;
+	}
+
 
 	public int getIdUser() {
 		return idUser;
