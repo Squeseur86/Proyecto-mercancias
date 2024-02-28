@@ -162,11 +162,13 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									publicacionVista.mostrarPublicacionesGenerales(); //GESTIONAR ACTIVACION O DESACTIVACION DE UN POST
+									for (Publicacion publicacion : publiController.returnActivePublications()) {
+										System.out.println(publicacion.toString());
+									} // GESTIONAR POR SI RETORNA NULL
 									System.out.println("De cual publicacion desea ver ofertas");
 									op = sc.nextInt();
 									for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-										if (publiController.listarPublicaciones().get(op - 1).getId() == oferta
+										if (publiController.returnActivePublications().get(op - 1).getId() == oferta
 												.verListadoOfertas().get(i).getId()) {
 											System.out.println(oferta.verListadoOfertas().get(i).toString());
 										}
@@ -207,12 +209,34 @@ public class Runner {
 											sc.nextLine();
 										} catch (Exception e) {
 											System.err.println(
-													"The \"" + optionMenuMyPost + "\" option is not available.");
+													"The \"" + optionMenuMyPost + "\" option is not available.\n");
 										}
 									}
 									switch (optionMenuMyPost) {
 										case 1: // VER OFERTAS
+											publicacionVista.verPublicacionesDelUsuario(idUserValid);
+											// MENU PARA PROCESAR OFERTAS
+											System.out.print(
+													"Enter the number of the publication for which you want to see the offers: ");
+											op = sc.nextInt();
+											sc.nextLine();
+											for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
+												if (publiController.retornarPorIdUser(idUserValid).get(op - 1)
+														.getId() == oferta
+																.verListadoOfertas().get(i).getId()) {
+													System.out.println(
+															oferta.verListadoOfertas().get(i).toString());
+												}
+											}//ARREGLAR EN CONTROLLER PARA RETORNAR SOLO LOS DE UNA PUBLIACION ESPECIFICA
+											switch (op) {
+												case 1:
 
+													break;
+												case 2:
+													break;
+												default:
+													break;
+											}
 											break;
 										case 2: // EDITAR PUBLICACION
 											System.out.print("Enter the publication number to edit: ");// TRY/IF POR SI
@@ -221,10 +245,11 @@ public class Runner {
 											postEdit = sc.nextInt();
 											sc.nextLine();
 											publicacionVista.editarPublicacion(
-													publiController.retornoPorIndice(postEdit).getId());// IF POR SI
-																										// RETORNA
-																										// FALSE/ALTERNAR
-																										// POR STRING
+													publiController.retornoPorIndice(postEdit - 1).getId());// IF POR SI
+																											// RETORNA
+																											// FALSE/ALTERNAR
+																											// POR
+																											// STRING
 											// REVISAR METODO RETORNAR POR ID, INNECESARIO
 											break;
 										case 3:// BORRAR PUBLICACION
@@ -247,7 +272,7 @@ public class Runner {
 									if (publiController.listarPublicaciones().get(op - 1) != null) {
 										System.out.println("Ingrese la descripcion de la oferta");
 										descripcion = sc.nextLine();
-										while( pesoOfe == "") {
+										while (pesoOfe == "") {
 											System.out.println("ingrese el tamaño de su envio");
 											pesoOfe = sc.nextLine();
 											double psOf = Double.parseDouble(pesoOfe);
@@ -307,7 +332,8 @@ public class Runner {
 											sc.nextLine();
 											switch (opof) {
 												case 1:
-													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor, fechaIda,
+													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor,
+															fechaIda,
 															publiController.returnId(con), idUserValid)) {
 														System.out.println("oferta creada correctamente");
 													} else {
@@ -379,7 +405,8 @@ public class Runner {
 																		+ "Digite la fecha en formato: yyyy/mm/dd.");
 															}
 														}
-														if (oferta.editOferta(indexOfferEdit, descripcion,pesoOfe, tamaño,
+														if (oferta.editOferta(indexOfferEdit, descripcion, pesoOfe,
+																tamaño,
 																fragil, valor, fechaIda, publiController.returnId(con),
 																idUserValid)) {
 															System.out.println("oferta creada correctamente");
