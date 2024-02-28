@@ -254,7 +254,13 @@ public class Runner {
 											// REVISAR METODO RETORNAR POR ID, INNECESARIO
 											break;
 										case 3:// BORRAR PUBLICACION
-
+											publicacionVista.verPublicacionesDelUsuario(idUserValid);
+				
+											System.out.print(
+													"Enter the number of the publication to delete: ");
+											op = sc.nextInt();
+											sc.nextLine();
+											publiController.borrarOferta(op);
 											break;
 										default:
 											break;
@@ -333,7 +339,7 @@ public class Runner {
 											sc.nextLine();
 											switch (opof) {
 												case 1:
-													if (oferta.crearOferta(descripcion, pesoOfe, fragil, valor,
+													if (oferta.crearOferta(descripcion, pesoOfe,tamaño, fragil, valor,
 															fechaIda,
 															publiController.returnId(con), idUserValid)) {
 														System.out.println("oferta creada correctamente");
@@ -408,7 +414,7 @@ public class Runner {
 														}
 														if (oferta.editOferta(indexOfferEdit, descripcion, pesoOfe,
 																
-																fragil, valor, fechaIda, publiController.returnId(con),
+																tamaño, fragil, valor, fechaIda, publiController.returnId(con),
 																idUserValid)) {
 															System.out.println("oferta creada correctamente");
 														} else {

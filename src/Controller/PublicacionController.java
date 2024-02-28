@@ -87,4 +87,7 @@ public class PublicacionController {
 		publicacionEditar.setFechaIda(fechaIda);
 		publicacionEditar.setPesoEquipaje(pesoEquipaje);
 	}
+	public void borrarOferta(int index) {
+		publicaciones.remove(index);
+	}
 }

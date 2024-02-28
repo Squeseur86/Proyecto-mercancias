@@ -236,6 +236,8 @@ public class PublicacionVista {
         }
 
     }
+    
+ 
 
     public boolean vistaEditarPublicacion(Publicacion publicacion) {
         // DATOS EDICION PUBLICACION
@@ -325,8 +327,10 @@ public class PublicacionVista {
                     System.err.println("The option \"" + opPublicacion + "\" is not valid. Please try again.");
                     break;
             }
+            
         }
+        
     }
-    
+  
 }
     
