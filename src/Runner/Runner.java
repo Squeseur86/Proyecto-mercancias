@@ -145,6 +145,7 @@ public class Runner {
 								idUserValid = usuario.arrayListUser().get(i).getId();
 							}
 						}
+						opMenuPrincipal=0;
 						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
