@@ -73,7 +73,7 @@ public class Usuario {
 
     //GET'S
 
-    public int getId() {
+    public int  getId() {
         return id;
     }
 
