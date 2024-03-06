@@ -1,1 +1,6 @@
 *.class
+TelefonoController.class
+/bin/Controller/TelefonoController.class
+/bin/Model/Telefono.class
+/bin/module-info.class
+/bin/
