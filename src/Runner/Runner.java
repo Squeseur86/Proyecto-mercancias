@@ -119,7 +119,8 @@ public class Runner {
 						opPhone=sc.nextInt();
 						if(opPhone<11&&opPhone>0)
 						{
-							phoneNumber = sc.nextLine();
+							System.out.println("put your phone number");
+							phoneNumber = sc.next();
 							phoneNumber.replaceAll("\n", "");						
 						}
 						
