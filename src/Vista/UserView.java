@@ -208,13 +208,18 @@ public class UserView {
     }
 
     public String validarUserName(String userName) {
-        while (inusualString(userName)) {
+        while (true) {
             System.out.print("\nEnter a username: ");
             userName = sc.nextLine();
             if (inusualString(userName)) {
                 System.err.println("The user name \"" + userName + "\" is not valid. Please try again.");
+                continue;
             }
-        }
-        return userName;
+            if(usuariosController.existenciaUserName(userName)){
+                System.err.println("The user name \"" + userName + "\" it already exists. Please try again.");
+            }else{
+                return userName;
+            }
+        }  
     }
 }
