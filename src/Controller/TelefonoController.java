@@ -15,7 +15,7 @@ public class TelefonoController {
                 break;
             case 2: // +34 españa
                 if (validarTelefonoEspana(telefono)) {
-                    return new Telefono("+34","Espana",telefono);
+                    return new Telefono("+34","España",telefono);
                 }
                 break;
             case 3: // +507 panama
@@ -58,9 +58,6 @@ public class TelefonoController {
                     return new Telefono("+39","Italia",telefono);
                 }
                 break;    	
-            default:
-                
-                return null;
         }
         return null;
     }
@@ -69,70 +66,70 @@ public class TelefonoController {
 
     //VALIDACIONES SEGUN EL FORMATO DE CADA PAIS.
     private boolean validarTelefonoArgentina(String telefono) {
-        String formato = "(\\d{1,2})\\s(\\d{4}-\\d{4})";
+        String formato = "\\d{4}-\\d{4}";;
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoEspana(String telefono) {
-        String formato = "(\\d{1,2})\\s(\\d{9})";
+        String formato = "\\d{9}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoColombia(String telefono) {
-        String formato = "(\\d{10})";
+        String formato = "\\d{10}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoHonduras(String telefono) {
-        String formato = "(\\d{8})";
+        String formato = "\\d{8}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoBrasil(String telefono) {
-        String formato = "(\\d{10})";
+        String formato = "\\d{10}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoEstadosUnidos(String telefono) {
-        String formato = "(\\d{10})";
+        String formato = "\\d{10}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoMexico(String telefono) {
-        String formato = "(\\d{10})";
+        String formato = "\\d{10}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoCroacia(String telefono) {
-        String formato = "(\\d{9})";
+        String formato = "\\d{9}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoItalia(String telefono) {
-        String formato = "(\\d{10})";
+        String formato = "\\d{10}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
     }
 
     private boolean validarTelefonoPanama(String telefono) {
-        String formato = "(\\d{8})";
+        String formato = "\\d{8}";
         Pattern patron = Pattern.compile(formato);
         Matcher verificarPatron = patron.matcher(telefono);
         return verificarPatron.matches();
