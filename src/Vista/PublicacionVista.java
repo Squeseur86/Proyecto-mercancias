@@ -3,13 +3,16 @@ package Vista;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
 
+import Controller.OfertaControl;
 import Controller.PublicacionController;
+import Model.Oferta;
 import Model.Publicacion;
 
 public class PublicacionVista {
@@ -38,15 +41,19 @@ public class PublicacionVista {
 
     }
 
-    public void verPublicacionesDelUsuario(int idUserValid) {
-        for (Publicacion publicacion : publicacionController.retornarPorIdUser(idUserValid)) {
+    public boolean verPublicacionesDelUsuario(ArrayList<Publicacion> publicacionesUser) {
+        if (publicacionesUser == null) {
+            System.out.println("No posts available");
+            return false;
+        }
+        for (Publicacion publicacion : publicacionesUser) {
             System.out.println(publicacion.toString());
         }
         System.out.println("\n");
+        return true;
     }
 
     // PRINT'S
-
     public void vistaCrearPublicacion(int idUserValid) {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
@@ -424,6 +431,133 @@ public class PublicacionVista {
 
         }
 
+    }
+
+    public void userPostMenu(int idUserValid, OfertaControl controllerOferta) {
+        ArrayList<Publicacion> userPosts = publicacionController.retornarPorIdUser(idUserValid);
+        int optionMenuMyPost = 0, op = 0, postEdit = 0;
+        boolean existPosts;
+        while (true) {
+            while (optionMenuMyPost < 1 || optionMenuMyPost > 4) {
+                try {
+                    existPosts = verPublicacionesDelUsuario(userPosts);
+                    System.out.println("1. View offers for a publication.");
+                    System.out.println("2. Edit a publication.");
+                    System.out.println("3. Delete a post.");
+                    System.out.println("4. Go back.");
+                    System.out.print("Enter the number of the option you wish to perform: ");
+                    optionMenuMyPost = sc.nextInt();
+                    sc.nextLine();
+                } catch (Exception e) {
+                    System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
+                }
+            }
+            switch (optionMenuMyPost) {
+                case 1: // VER OFERTAS2
+                    while (true) {
+                        try {
+                            existPosts = verPublicacionesDelUsuario(userPosts);
+                            System.out.println(
+                                    "Enter the number of the publication for which you want to see offers(if you wish not to see offers, enter 0): ");
+                            op = sc.nextInt();
+                            sc.nextLine();
+                            if (op == 0) {
+                                break;
+                            }
+                            if (existPosts == false) {
+                                System.out.println("There are no publications.");
+                                break;
+                            }
+                            if (op > userPosts.size() - 1 || op < 0) {
+                                System.out.println(
+                                        "The specified offer number does not exist. Enter a valid offer number.");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("The option \"" + op + "\" is not available");
+                        }
+
+                    }
+                    if (existPosts == false || op == 0) {
+                        break;
+                    } else {
+                        ArrayList<Oferta> offerPost = controllerOferta.returnForID(userPosts.get(op - 1).getId());
+                        if (offerPost == null) {
+                            System.out.println("No offers.");
+                        } else {
+                            for (Oferta offer : offerPost) {
+                                System.out.println(offer.toString());
+                            }
+                        }
+                    }
+                    break;
+                case 2: // EDITAR PUBLICACION
+                    while (true) {
+                        try {
+                            existPosts = verPublicacionesDelUsuario(userPosts);
+                            System.out.print(
+                                    "Enter the publication number to edit(if you wish not to edit a post, enter 0): ");
+                            postEdit = sc.nextInt();
+                            sc.nextLine();
+                            if (postEdit == 0) {
+                                break;
+                            }
+                            if (existPosts == false) {
+                                System.out.println("There are no publications.");
+                                break;
+                            }
+                            if (postEdit > userPosts.size() - 1 || postEdit < 0) {
+                                System.out.println(
+                                        "The specified offer number does not exist. Enter a valid offer number.");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("The option \"" + postEdit + "\" is not available");
+                        }
+
+                    }
+                    if (existPosts == false || postEdit == 0) {
+                        break;
+                    } else {
+                        editarPublicacion(publicacionController.retornoPorIndice(postEdit).getId());
+                        // REVISAR METODO RETORNAR POR ID, INNECESARIO
+                    }
+                    break;
+                case 3:// BORRAR PUBLICACION
+                    op = 0;
+                    while (true) {
+                        try {
+                            existPosts = verPublicacionesDelUsuario(userPosts);
+                            System.out.println(
+                                    "Enter the number of the publication you want to remove(if you wish not to remove a post, enter 0): ");
+                            op = sc.nextInt();
+                            sc.nextLine();
+                            if (op == 0) {
+                                break;
+                            }
+                            if (existPosts == false) {
+                                System.out.println("There are no publications.");
+                                break;
+                            }
+                            if (op > userPosts.size() - 1 || op < 0) {
+                                System.out.println(
+                                        "The specified offer number does not exist. Enter a valid offer number.");
+                            }
+                        } catch (Exception e) {
+                            System.err.println("The option \"" + op + "\" is not available");
+                        }
+
+                    }
+                    if (existPosts == false || op == 0) {
+                        break;
+                    } else {
+                        ArrayList<Publicacion> publicaciones = publicacionController.listarPublicaciones();
+                        publicaciones.remove(userPosts.remove(op - 1));
+                        System.out.println("Post successfully deleted");
+                    }
+                    break;
+                case 4:
+                    return;
+            }
+        }
     }
 
 }

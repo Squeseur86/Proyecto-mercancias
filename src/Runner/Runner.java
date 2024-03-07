@@ -234,54 +234,8 @@ public class Runner {
 
 									break;
 								case 3:
-									ArrayList<Publicacion> userPosts = publiController.retornarPorIdUser(idUserValid);
-									optionMenuMyPost = 0;
-									while (optionMenuMyPost<1 || optionMenuMyPost>4) {
-										try{
-											publicacionVista.verPublicacionesDelUsuario(idUserValid);
-											System.out.println("1. View offers for a publication.");
-											System.out.println("2. Edit a publication.");
-											System.out.println("3. Delete a post.");
-											System.out.println("4. Go back.");
-											System.out.println("Enter the number of the option you wish to perform:");
-											optionMenuMyPost = sc.nextInt();
-											sc.nextLine();
-										}catch(Exception e){
-											System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
-										}
-									}
-									switch (optionMenuMyPost) {
-										case 1: //VER OFERTAS2
-											op = 0;
-											System.out.println("Enter the number of the publication for which you want to see offers: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											ArrayList<Oferta> offerPost = oferta.returnForID(userPosts.get(op-1).getId());
-											if(offerPost == null){
-												System.out.println("No offers.");
-											}else{
-												for(Oferta offer: offerPost){
-													System.out.println(offer.toString());
-												}
-											}
-											break;
-										case 2: //EDITAR PUBLICACION
-											System.out.print("Enter the publication number to edit: ");//TRY/IF POR SI DIGITA UN NUMERO <1
-											postEdit = sc.nextInt();
-											sc.nextLine();
-											publicacionVista.editarPublicacion(publiController.retornoPorIndice(postEdit).getId());//IF POR SI RETORNA FALSE/ALTERNAR POR STRING
-											//REVISAR METODO RETORNAR POR ID, INNECESARIO
-											break;
-										case 3://BORRAR PUBLICACION
-											System.out.println("Enter the number of the publication you want to remove: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											userPosts.remove(op-1);
-											System.out.println("Offer successfully deleted");
-											break;
-										case 4: 
-											break;
-									}
+									//MENU PARA PUBLICACIONES DEL USUARIO
+									publicacionVista.userPostMenu(idUserValid, oferta);
 									break;
 								case 4:
 									con = 0;

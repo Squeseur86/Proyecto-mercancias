@@ -38,18 +38,21 @@ public class PublicacionController {
 
 		double pesoDisponiblePublicacion = Double.parseDouble(publicacionModi.getPesoEquipaje());
 		double espacioDisponiblePublicacion = Double.parseDouble(publicacionModi.getEspacioEquipaje());
-		double pesoOferta = Double.parseDouble(oferta.getTamaño());
-		double nuevoPesoPublicacion;
+		double pesoOferta = Double.parseDouble(oferta.getPesoOfe());
+		double espacioOferta = Double.parseDouble(oferta.getTamaño());
+		double nuevoPesoPublicacion = 0.0, nuevoEspacioPublicacion = 0.0;
 		if (pesoDisponiblePublicacion == 0.0 || espacioDisponiblePublicacion == 0.0) {
 			return "No hay espacio disponible.";
 		}
 		for (Publicacion publicacion : publicaciones) {
 			if (publicacionModi.equals(publicacion)) {
 				nuevoPesoPublicacion = pesoDisponiblePublicacion - pesoOferta;
-				if (nuevoPesoPublicacion < 0.0) {
+				nuevoEspacioPublicacion = espacioDisponiblePublicacion - espacioOferta;
+				if (nuevoPesoPublicacion < 0.0 || nuevoEspacioPublicacion < 0.0) {
 					return "No hay espacio suficiente";
 				}
 				publicacion.setPesoEquipaje(String.valueOf(nuevoPesoPublicacion));
+				publicacion.setEspacioEquipaje(String.valueOf(nuevoEspacioPublicacion));
 				return "Oferta procesada correctamente";
 			}
 		}
@@ -86,8 +89,5 @@ public class PublicacionController {
 		publicacionEditar.setEspacioEquipaje(espacioEquipaje);
 		publicacionEditar.setFechaIda(fechaIda);
 		publicacionEditar.setPesoEquipaje(pesoEquipaje);
-	}
-	public void borrarOferta(int index) {
-		publicaciones.remove(index);
 	}
 }
