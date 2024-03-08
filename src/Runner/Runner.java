@@ -12,16 +12,17 @@ import java.util.Scanner;
 
 import Controller.OfertaControl;
 import Controller.PublicacionController;
-import Controller.usuarioController;
+import Controller.TelefonoController;
+import Controller.UsuarioController;
 import Model.Oferta;
 import Model.Publicacion;
 import Vista.PublicacionVista;
+import Vista.UserView;
 
 public class Runner {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String username, email, password;
-		String phoneNumber = null, dni = "", fullName, ex;
+		String username, password;
 		int idUserValid = 0;
 
 		// DATOS PUBLICACION
@@ -29,11 +30,12 @@ public class Runner {
 		PublicacionVista publicacionVista = new PublicacionVista(publiController);
 
 		Date fechaIda = null;
-		usuarioController usuario = new usuarioController();
+		TelefonoController telefonoController = new TelefonoController();
+		UsuarioController usuarios = new UsuarioController();
+		UserView userView = new UserView(usuarios, telefonoController);
 		// USUARIO TEST
-		usuario.crearUsuario("j", "123");
+		usuarios.crearUsuario("j", "123");
 		// Objeto para numeros aleatorios
-		Random rand = new Random();
 		OfertaControl oferta = new OfertaControl();
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -43,10 +45,10 @@ public class Runner {
 		int valor, opcseguro, opOffer = 0;
 
 		//OPCIONES
-		int opc = 0, op = 2, opdni = 0, opPublicacion = 0, opMenuPrincipal = 0, opof = 0;
-		int con = 0, optionMenuMyPost = 0, postEdit = 0;
+		int opc = 0, op = 2, opMenuPrincipal = 0, opof = 0;
+		int con = 0;
 		double ancho, alto, largo;
-		double peso = 0, volumen = 0;
+		double volumen = 0;
 		while (opc != 3) {
 			opOffer = 0;
 			while (opc < 1 || opc > 3) {
@@ -66,103 +68,7 @@ public class Runner {
 			switch (opc) {
 				case 1:
 					con = 1;
-					username = "";
-					email = "";
-					password = "";
-					while (username.equals("") || username.equals("\n")) {
-						System.out.print("\nEnter a username: ");
-						username = sc.nextLine();
-						if (username.isEmpty()) {
-							System.out.println("Username cannot be empty");
-						}
-					}
-					while (email.equals("") || email.equals("\n")) {
-						System.out.print("Enter your email: ");
-						email = sc.nextLine();
-						if (email.isEmpty()) {
-							System.out.println("Email cannot be empty");
-						}
-						if(email.contains("@gmail.com")) {
-							System.out.println("The email is valid");
-						}else if(email.contains("@outlook.com")) {
-							System.out.println("The email is valid");
-						}else if(email.contains("@uptc.edu.co")) {
-							System.out.println("The email is valid");
-						}else {
-							System.err.println("You email need a extension as @gmail.com/ @outlook.com / @uptc.edu.co");
-							email = "";
-						}
-						
-					}
-					while (password.equals("") || password.equals("\n")) {
-						System.out.print("Enter a password: ");
-						password = sc.nextLine();
-						if (password.isEmpty()) {
-							System.out.println("The password cannot be empty");
-						}
-					}
-					System.out.println("Enter your phone number");
-					int opPhone=0;
-					while(opPhone < 1|| opPhone>11) {
-						System.out.println("Country numbers list");
-						System.out.println("1. +54 Argentina");
-						System.out.println("2. +34 Spain");
-						System.out.println("3. +507 Panama");
-						System.out.println("4. +57 Colombia");
-						System.out.println("5. +504 Honduras");
-						System.out.println("6. +55 Brasil");
-						System.out.println("7. +54 United States");
-						System.out.println("8. +52 Mexico");
-						System.out.println("9. +385 Croacia");
-						System.out.println("10. +39 Italy");
-						System.out.println("11. Dont add");
-						opPhone=sc.nextInt();
-						if(opPhone<11&&opPhone>0)
-						{
-							System.out.println("put your phone number");
-							phoneNumber = sc.next();
-							phoneNumber.replaceAll("\n", "");						
-						}
-						
-					}
-					
-					while (opdni < 1 || opdni > 4) {
-						try {
-							System.out.println("Enter the option number of the document you wish to enter.");
-							System.out.println("1. Identity card");
-							System.out.println("2. Passport");
-							System.out.println("3. Immigration card");
-							System.out.println("4. Do not add");
-							opdni = sc.nextInt();
-						} catch (Exception e) {
-							System.err.println("The \"" + opdni + "\" option is not available.");
-							sc.next();
-						}
-						sc.nextLine();
-					}
-					switch (opdni) {
-						case 1:
-							System.out.print("Enter your identity card number: ");
-							dni = sc.nextLine();
-							break;
-						case 2:
-							System.out.print("Enter your passport number: ");
-							dni = sc.nextLine();
-							break;
-						case 3:
-							System.out.print("Enter your immigration card ID: ");
-							dni = sc.nextLine();
-							break;
-						case 4:
-							dni.replaceAll("\n", "");
-							break;
-					}
-
-					System.out.print("Enter your full name: ");
-					fullName = sc.nextLine();
-					fullName.replaceAll("\n", "");
-
-					usuario.crearUsuario(username, email,opPhone, phoneNumber, dni, fullName, password, fechaIda, fechaIda);
+					userView.signUp();
 					opc = 0;
 					break;
 				case 2:
@@ -170,13 +76,13 @@ public class Runner {
 					username = sc.next();
 					System.out.print("Enter your password: ");
 					password = sc.next();
-					if (usuario.verificarUsuario(username, password)) {
+					if (usuarios.verificarUsuario(username, password)) {
 						System.out.print("\033[H\033[2J");
 						System.out.flush();
 						System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
-						for (int i = 0; i < usuario.arrayListUser().size(); i++) {
-							if (username.equals(usuario.arrayListUser().get(i).getUserName())) {
-								idUserValid = usuario.arrayListUser().get(i).getId();
+						for (int i = 0; i < usuarios.arrayListUser().size(); i++) {
+							if (username.equals(usuarios.arrayListUser().get(i).getUserName())) {
+								idUserValid = usuarios.arrayListUser().get(i).getId();
 							}
 						}
 						opMenuPrincipal=0;
@@ -194,7 +100,6 @@ public class Runner {
 							switch (opMenuPrincipal) {
 								case 1:// CREAR PUBLICACION.
 									publicacionVista.vistaCrearPublicacion(idUserValid);
-									peso = 23.0;
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
@@ -234,54 +139,8 @@ public class Runner {
 
 									break;
 								case 3:
-									ArrayList<Publicacion> userPosts = publiController.retornarPorIdUser(idUserValid);
-									optionMenuMyPost = 0;
-									while (optionMenuMyPost<1 || optionMenuMyPost>4) {
-										try{
-											publicacionVista.verPublicacionesDelUsuario(idUserValid);
-											System.out.println("1. View offers for a publication.");
-											System.out.println("2. Edit a publication.");
-											System.out.println("3. Delete a post.");
-											System.out.println("4. Go back.");
-											System.out.println("Enter the number of the option you wish to perform:");
-											optionMenuMyPost = sc.nextInt();
-											sc.nextLine();
-										}catch(Exception e){
-											System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
-										}
-									}
-									switch (optionMenuMyPost) {
-										case 1: //VER OFERTAS2
-											op = 0;
-											System.out.println("Enter the number of the publication for which you want to see offers: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											ArrayList<Oferta> offerPost = oferta.returnForID(userPosts.get(op-1).getId());
-											if(offerPost == null){
-												System.out.println("No offers.");
-											}else{
-												for(Oferta offer: offerPost){
-													System.out.println(offer.toString());
-												}
-											}
-											break;
-										case 2: //EDITAR PUBLICACION
-											System.out.print("Enter the publication number to edit: ");//TRY/IF POR SI DIGITA UN NUMERO <1
-											postEdit = sc.nextInt();
-											sc.nextLine();
-											publicacionVista.editarPublicacion(publiController.retornoPorIndice(postEdit).getId());//IF POR SI RETORNA FALSE/ALTERNAR POR STRING
-											//REVISAR METODO RETORNAR POR ID, INNECESARIO
-											break;
-										case 3://BORRAR PUBLICACION
-											System.out.println("Enter the number of the publication you want to remove: ");
-											op = sc.nextInt();
-											sc.nextLine();
-											userPosts.remove(op-1);
-											System.out.println("Offer successfully deleted");
-											break;
-										case 4: 
-											break;
-									}
+									//MENU PARA PUBLICACIONES DEL USUARIO
+									publicacionVista.userPostMenu(idUserValid, oferta);
 									break;
 								case 4:
 									con = 0;
