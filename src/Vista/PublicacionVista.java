@@ -184,10 +184,12 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (op > userPosts.size() - 1 || op < 0) {
+                            if (op > userPosts.size() || op < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + op + "\" is not available");
                         }
@@ -222,10 +224,12 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (postEdit > userPosts.size() - 1 || postEdit < 0) {
+                            if (postEdit > userPosts.size() || postEdit < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + postEdit + "\" is not available");
                         }
@@ -254,10 +258,12 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (op > userPosts.size() - 1 || op < 0) {
+                            if (op > userPosts.size() || op < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + op + "\" is not available");
                         }
@@ -445,11 +451,11 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume(kitten "+ (volumen * (0.1)) +" cm^3 - maximum "+ (volumen * (0.8)) +" cm^3)");
+                            System.out.println("Enter the occupied volume(kitten "+ ((Double)(volumen * (0.1))) +" cm^3 - maximum "+ ((Double)(volumen * (0.8))) +" cm^3)");
                             voluOcu = sc.nextDouble();
-                            if (voluOcu > (volumen * (0.8)) || voluOcu < (volumen * (0.1))) {
+                            if (voluOcu > ((Double)(volumen * (0.8))) || voluOcu < ((Double)(volumen * (0.1)))) {
                                 throw new Exception(
-                                        "The volume of occupied baggage cannot be less than 10%("+ (volumen * (0.1)) +") of the total volume nor more than 80%("+ (volumen * (0.8)) +") of the total volume. Please try again.");
+                                        "The volume of occupied baggage cannot be less than 10%("+ ((Double)(volumen * (0.1))) +") of the total volume nor more than 80%("+ ((Double)(volumen * (0.8))) +") of the total volume. Please try again.");
                             }
                             break;
                         } catch (InputMismatchException eMismatch) {

@@ -25,6 +25,8 @@ public class UserView {
         return false;
     }
 
+    
+
     public void signUp() {
         String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
         Date fechaIda = null;
