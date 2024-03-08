@@ -154,6 +154,7 @@ public class PublicacionVista {
         int optionMenuMyPost = 0, op = 0, postEdit = 0;
         boolean existPosts;
         while (true) {
+            optionMenuMyPost = 0;
             while (optionMenuMyPost < 1 || optionMenuMyPost > 4) {
                 try {
                     existPosts = verPublicacionesDelUsuario(userPosts);
@@ -194,6 +195,7 @@ public class PublicacionVista {
 
                     }
                     if (existPosts == false || op == 0) {
+                        System.out.println("no offers");
                         break;
                     } else {
                         ArrayList<Oferta> offerPost = controllerOferta.returnForID(userPosts.get(op - 1).getId());
