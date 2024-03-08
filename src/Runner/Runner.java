@@ -285,6 +285,7 @@ public class Runner {
 									break;
 								case 4:
 									con = 0;
+									System.out.println(publiController.listarPublicaciones().size());
 									for (Publicacion pubicacion : publiController.listarPublicaciones()) {
 										System.out.println(pubicacion.toString());
 									}
@@ -407,7 +408,7 @@ public class Runner {
 										System.out.println("1. edit offer");
 										System.out.println("2. delete offer");
 										opOffer = sc.nextInt();
-										sc.nextLine();
+										
 										switch (opOffer) {
 											case 1:
 												for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
