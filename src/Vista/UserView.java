@@ -41,7 +41,7 @@ public class UserView {
 
     private String validarNombreCompleto(String nombreCompleto){
         while (inusualString(nombreCompleto)) {
-            System.out.print("Enter the destination of the trip: ");
+            System.out.print("Enter the full name: ");
             nombreCompleto = sc.nextLine();
             if (inusualString(nombreCompleto)) {
                 System.err.println("The entry \"" + nombreCompleto + "\" is not valid. Please try again.");
@@ -85,8 +85,6 @@ public class UserView {
                         break;
                     case 3:
                         System.out.print("Enter your immigration card number: ");
-                        return sc.nextLine();
-                    case 4:
                         dni = sc.nextLine();
                         if (inusualString(dni)) {
                             System.err.println(
@@ -94,7 +92,8 @@ public class UserView {
                         } else {
                             return dni;
                         }
-                        break;
+                    case 4:
+                        return "Not added";
                     default:
                         System.err.println("The option  \"" + opDni + "\" is not valid, please try again.");
                 }
@@ -147,6 +146,11 @@ public class UserView {
 
     private String validarPassword(String password) {
         while (true) {
+            System.out.println("Your password must contain:\n"+
+            "-A capital letter\n"+
+            "-A lowercase\n"+
+            "-At least 2 numbers\n"+
+            "-A special character");
             System.out.print("Enter your password: ");
             password = sc.nextLine();
             if (inusualString(password)) {
