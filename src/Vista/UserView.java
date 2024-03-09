@@ -283,9 +283,21 @@ public class UserView {
                 return "";
             }
             if (inusualString(email)) {
-                if (inusualString(email)) {
-                    System.err.println("The email \"" + email + "\" is not valid. Please try again.");
-                }
+                System.err.println("The email \"" + email + "\" is not valid. Please try again.");
+                continue;
+            }
+            if(!email.contains("@")){
+                System.err.println("The email \"" + email + "\" is not valid. Please try again.");
+                continue;
+            }
+            String[] emailParts = email.split("@");
+            if(emailParts.length>2 || emailParts.length<2){
+                System.err.println("The email \"" + email + "\" is not valid. Please try again.");
+                continue;
+            }
+            if(inusualString(emailParts[0])){
+                System.err.println("The email \"" + email + "\" is not valid. Please try again.");
+                continue;
             }
             if (email.endsWith("@gmail.com") || email.endsWith("@outlook.com") || email.endsWith("@uptc.edu.co")) {
                 return email;
@@ -308,8 +320,6 @@ public class UserView {
             if (userName.isEmpty() && edit == true) {
                 return "";
             }
-            System.out.print("\nEnter a username: ");
-            userName = sc.nextLine();
             if (inusualString(userName)) {
                 System.err.println("The user name \"" + userName + "\" is not valid. Please try again.");
                 continue;

@@ -15,6 +15,15 @@ public class UsuarioController {
         usuarios.add(new Usuario(userName, password));
     }
 
+    public Usuario returnForId(int id){
+        for(Usuario user: usuarios){
+            if(user.getId() == id){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public void crearUsuario(String userName, String email,Telefono telefono, String dni, String fullName, String password, Date createdAT, Date updateAT) {
         int id = generarID();
         usuarios.add(new Usuario(id, userName, email,telefono, dni, fullName, password, createdAT, updateAT));
