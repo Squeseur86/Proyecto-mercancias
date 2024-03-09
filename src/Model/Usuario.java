@@ -11,14 +11,14 @@ public class Usuario {
     private String fullName;
     private String password;
     private Date createdAT;
-    private Date updateAT;
+    private Date updatedAT;
 
     public Usuario(String userName, String password){
         this.userName = userName;
         this.password = password;
     }
     public Usuario(int id, String userName, String email, Telefono phoneNumber, String dni,
-            String fullName, String password, Date createdAT, Date updateAT) {
+            String fullName, String password, Date createdAT, Date updatedAT) {
         this.id = id;
         this.userName = userName;
         this.fullName = fullName;
@@ -27,7 +27,7 @@ public class Usuario {
         this.dni = dni;
         this.email = email;
         this.createdAT = createdAT;
-        this.updateAT = updateAT;
+        this.updatedAT = updatedAT;
     }
 
     //SET'S
@@ -64,7 +64,7 @@ public class Usuario {
     }
 
     public void setUpdateAT(Date updateAT) {
-        this.updateAT = updateAT;
+        this.updatedAT = updateAT;
     }
 
     //GET'S
@@ -102,6 +102,21 @@ public class Usuario {
     }
 
     public Date getUpdateAT() {
-        return updateAT;
+        return updatedAT;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", dni='" + dni + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", password='" + password + '\'' +
+                ", createdAt=" + createdAT +
+                ", updatedAt=" + updatedAT +
+                '}';
     }
 }

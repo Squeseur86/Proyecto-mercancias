@@ -18,7 +18,6 @@ import Model.Publicacion;
 public class PublicacionVista {
     private Scanner sc = new Scanner(System.in);
     private PublicacionController publicacionController;
-    
 
     public PublicacionVista(PublicacionController publicacionController) {
         this.publicacionController = publicacionController;
@@ -154,6 +153,7 @@ public class PublicacionVista {
         int optionMenuMyPost = 0, op = 0, postEdit = 0;
         boolean existPosts;
         while (true) {
+            optionMenuMyPost = 0;
             while (optionMenuMyPost < 1 || optionMenuMyPost > 4) {
                 try {
                     existPosts = verPublicacionesDelUsuario(userPosts);
@@ -184,16 +184,19 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (op > userPosts.size() - 1 || op < 0) {
+                            if (op > userPosts.size() || op < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + op + "\" is not available");
                         }
 
                     }
                     if (existPosts == false || op == 0) {
+                        System.out.println("no offers");
                         break;
                     } else {
                         ArrayList<Oferta> offerPost = controllerOferta.returnForID(userPosts.get(op - 1).getId());
@@ -221,10 +224,12 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (postEdit > userPosts.size() - 1 || postEdit < 0) {
+                            if (postEdit > userPosts.size() || postEdit < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + postEdit + "\" is not available");
                         }
@@ -253,10 +258,12 @@ public class PublicacionVista {
                                 System.out.println("There are no publications.");
                                 break;
                             }
-                            if (op > userPosts.size() - 1 || op < 0) {
+                            if (op > userPosts.size() || op < 0) {
                                 System.out.println(
                                         "The specified offer number does not exist. Enter a valid offer number.");
+                                continue;
                             }
+                            break;
                         } catch (Exception e) {
                             System.err.println("The option \"" + op + "\" is not available");
                         }
@@ -276,8 +283,7 @@ public class PublicacionVista {
         }
     }
 
-
-    public String determinarOrigenViaje(String origen){
+    public String determinarOrigenViaje(String origen) {
         while (inusualString(origen)) {
             System.out.print("\nEnter the origin of the trip: ");
             origen = sc.nextLine();
@@ -288,7 +294,7 @@ public class PublicacionVista {
         return origen;
     }
 
-    public String determinarDestinoViaje(String destino){
+    public String determinarDestinoViaje(String destino) {
         while (inusualString(destino)) {
             System.out.print("Enter the destination of the trip: ");
             destino = sc.nextLine();
@@ -297,9 +303,9 @@ public class PublicacionVista {
             }
         }
         return destino;
-    }  
+    }
 
-    public Date determinarFechaVuelo(Date fechaIda, Calendar fechaDeIda, DateFormat dateFormat){
+    public Date determinarFechaVuelo(Date fechaIda, Calendar fechaDeIda, DateFormat dateFormat) {
         int year = 0;
         while (true) {
             try {
@@ -314,17 +320,17 @@ public class PublicacionVista {
             } catch (ParseException e) {
                 System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
             } catch (Exception e) {
-                System.out.print((e.getMessage()));
+                System.out.println((e.getMessage()));
             }
         }
         return fechaIda;
     }
 
-    public String determinarCategoriaVuelo(String categoria){
+    public String determinarCategoriaVuelo(String categoria) {
         int opCat = 0;
         while (true) {
             try {
-                System.out.print("Category: ");
+                System.out.println("Category: ");
                 System.out.println("1. Cabin\n 2. Store");
                 System.out.println("Enter the category of the trip: ");
                 opCat = sc.nextInt();
@@ -345,11 +351,15 @@ public class PublicacionVista {
         }
     }
 
-    public String determinarPesoEquipaje(String pesoEquipaje, String categoria){
+    public String determinarPesoEquipaje(String pesoEquipaje, String categoria) {
         Double peso = 0.0;
         while (true) {
             try {
-                System.out.print("Enter the weight of the available luggage in kilograms: ");
+                if(categoria.equals("Cabin")){
+                    System.out.print("Enter the weight of the available luggage in kilograms(kitten 10 kg - maximum 16 kg): ");
+                }else{
+                    System.out.print("Enter the weight of the available luggage in kilograms(kitten 20 kg - maximum 36 kg): ");
+                }
                 pesoEquipaje = sc.nextLine();
                 if (inusualString(pesoEquipaje)) {
                     System.err.println("The entry \"" + pesoEquipaje + "\" is not valid. Please try again.");
@@ -379,8 +389,8 @@ public class PublicacionVista {
         }
     }
 
-    public String determinarEspacioEquipaje(String espacioEquipaje, String categoria){
-        Double ancho = 0.0, altura = 0.0, largo = 0.0, voluOcu = 0.0, volumen = 0.0; 
+    public String determinarEspacioEquipaje(String espacioEquipaje, String categoria) {
+        Double ancho = 0.0, altura = 0.0, largo = 0.0, voluOcu = 0.0, volumen = 0.0;
         while (true) {
             switch (categoria) {
 
@@ -388,7 +398,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the broad luggage: ");
+                            System.out.print("Enter the broad luggage(kitten 10 cm - maximum 20 cm): ");
                             ancho = sc.nextDouble();
                             sc.nextLine();
                             if (ancho > 20 || ancho < 10) {
@@ -405,7 +415,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the long luggage: ");
+                            System.out.print("Enter the long luggage(kitten 25 cm - maximum 35 cm): ");
                             largo = sc.nextDouble();
                             sc.nextLine();
                             if (largo > 35 || largo < 25) {
@@ -422,7 +432,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the high luggage: ");
+                            System.out.print("Enter the high luggage (kitten 25 cm - maximum 45 cm): ");
                             altura = sc.nextDouble();
                             sc.nextLine();
                             if (altura > 45 || altura < 25) {
@@ -441,11 +451,11 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume");
+                            System.out.println("Enter the occupied volume(kitten "+ ((Double)(volumen * (0.1))) +" cm^3 - maximum "+ ((Double)(volumen * (0.8))) +" cm^3)");
                             voluOcu = sc.nextDouble();
-                            if (voluOcu > (volumen * (8 / 10)) || voluOcu < (volumen * (1 / 10))) {
+                            if (voluOcu > ((Double)(volumen * (0.8))) || voluOcu < ((Double)(volumen * (0.1)))) {
                                 throw new Exception(
-                                        "The volume of occupied baggage cannot be less than 10% of the total volume nor more than 80% of the total volume. Please try again.");
+                                        "The volume of occupied baggage cannot be less than 10%("+ ((Double)(volumen * (0.1))) +") of the total volume nor more than 80%("+ ((Double)(volumen * (0.8))) +") of the total volume. Please try again.");
                             }
                             break;
                         } catch (InputMismatchException eMismatch) {
@@ -462,7 +472,7 @@ public class PublicacionVista {
                 case "Store":
                     while (true) {
                         try {
-                            System.out.print("Enter the broad luggage: ");
+                            System.out.print("Enter the broad luggage (kitten 20 cm - maximum 36 cm): ");
                             ancho = sc.nextDouble();
                             sc.nextLine();
                             if (ancho > 36 || ancho < 20) {
@@ -479,7 +489,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the long luggage: ");
+                            System.out.print("Enter the long luggage(kitten 30 cm - maximum 47 cm): ");
                             largo = sc.nextDouble();
                             sc.nextLine();
                             if (largo > 47 || largo < 30) {
@@ -496,7 +506,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the high luggage: ");
+                            System.out.print("Enter the high luggage(kitten 75 cm - maximum 60 cm): ");
                             altura = sc.nextDouble();
                             sc.nextLine();
                             if (altura > 75 || altura < 60) {
@@ -515,7 +525,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume");
+                            System.out.println("Enter the occupied volume(kitten "+ (volumen * (1 / 10)) +" cm^3 - maximum "+ (volumen * (8 / 10)) +" cm^3)");
                             voluOcu = sc.nextDouble();
                             if (voluOcu > (volumen * (8 / 10)) || voluOcu < (volumen * (1 / 10))) {
                                 throw new Exception(

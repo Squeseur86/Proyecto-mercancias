@@ -24,6 +24,7 @@ public class Runner {
 		Scanner sc = new Scanner(System.in);
 		String username, password;
 		int idUserValid = 0;
+		boolean userDelete = false;
 
 		// DATOS PUBLICACION
 		PublicacionController publiController = new PublicacionController();
@@ -35,7 +36,6 @@ public class Runner {
 		UserView userView = new UserView(usuarios, telefonoController);
 		// USUARIO TEST
 		usuarios.crearUsuario("j", "123");
-		// Objeto para numeros aleatorios
 		OfertaControl oferta = new OfertaControl();
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -44,12 +44,13 @@ public class Runner {
 		boolean fragil = false;
 		int valor, opcseguro, opOffer = 0;
 
-		//OPCIONES
+		// OPCIONES
 		int opc = 0, op = 2, opMenuPrincipal = 0, opof = 0;
 		int con = 0;
 		double ancho, alto, largo;
 		double volumen = 0;
 		while (opc != 3) {
+			opc = 0;
 			opOffer = 0;
 			while (opc < 1 || opc > 3) {
 				try {
@@ -85,14 +86,15 @@ public class Runner {
 								idUserValid = usuarios.arrayListUser().get(i).getId();
 							}
 						}
-						opMenuPrincipal=0;
-						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
+						opMenuPrincipal = 0;
+						while (opMenuPrincipal != 7) { // MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
 							System.out.println("4. Create offers");
 							System.out.println("5. Edit or delete offers");
-							System.out.println("6. Close section");
+							System.out.println("6. View my profile");
+							System.out.println("7. Close section");
 
 							System.out.print("Enter the number of the option you wish to perform: ");
 							opMenuPrincipal = sc.nextInt();
@@ -139,7 +141,7 @@ public class Runner {
 
 									break;
 								case 3:
-									//MENU PARA PUBLICACIONES DEL USUARIO
+									// MENU PARA PUBLICACIONES DEL USUARIO
 									publicacionVista.userPostMenu(idUserValid, oferta);
 									break;
 								case 4:
@@ -156,13 +158,13 @@ public class Runner {
 									if (publiController.listarPublicaciones().get(op - 1) != null) {
 										System.out.println("Enter the description of the offer");
 										descripcion = sc.nextLine();
-										while( pesoOfe == "") {
+										while (pesoOfe == "") {
 											System.out.println("ienter the weight of your shipment");
 											pesoOfe = sc.nextLine();
 											double psOf = Double.parseDouble(pesoOfe);
 											double pesoe = Double.parseDouble(publiController.listarPublicaciones()
 													.get(op - 1).getPesoEquipaje());
-											if (psOf >= pesoe || psOf<0) {
+											if (psOf >= pesoe || psOf < 0) {
 												System.err.println("Weight is not valid");
 												pesoOfe = "";
 											} else {
@@ -171,31 +173,31 @@ public class Runner {
 										}
 										while (tamaño == "") {
 											System.out.println("enter the size of your shipment");
-											 System.out.print("Enter the broad luggage : ");
-								                ancho = sc.nextDouble();
-								                sc.nextLine();
-								                while(ancho <0  ) {	
-								                    System.err.print("The broad is invalid. Enter the broad luggage : ");
-								                    ancho = sc.nextDouble();
-								                    sc.nextLine();
-								            	}
-								             System.out.print("Enter the loang luggage : ");
-								               	largo = sc.nextDouble();
-								               	sc.nextLine();
-								                while(largo <0  ) {	
-								                    System.err.print("The loang is invalid. Enter the loang luggage : ");
-								                    ancho = sc.nextDouble();
-								                    sc.nextLine();
-								            	}
-								             System.out.print("Enter the high luggage : ");
-								                alto = sc.nextDouble();
-								                sc.nextLine();	
-								                while(alto <0  ) {	
-								                    System.err.print("The high is invalid. Enter the high luggage : ");
-								                    ancho = sc.nextDouble();
-								                    sc.nextLine();
-								            	}
-												volumen = ancho *largo * alto;
+											System.out.print("Enter the broad luggage : ");
+											ancho = sc.nextDouble();
+											sc.nextLine();
+											while (ancho < 0) {
+												System.err.print("The broad is invalid. Enter the broad luggage : ");
+												ancho = sc.nextDouble();
+												sc.nextLine();
+											}
+											System.out.print("Enter the loang luggage : ");
+											largo = sc.nextDouble();
+											sc.nextLine();
+											while (largo < 0) {
+												System.err.print("The loang is invalid. Enter the loang luggage : ");
+												ancho = sc.nextDouble();
+												sc.nextLine();
+											}
+											System.out.print("Enter the high luggage : ");
+											alto = sc.nextDouble();
+											sc.nextLine();
+											while (alto < 0) {
+												System.err.print("The high is invalid. Enter the high luggage : ");
+												ancho = sc.nextDouble();
+												sc.nextLine();
+											}
+											volumen = ancho * largo * alto;
 											tamaño = String.valueOf(volumen);
 											double tam = Double.parseDouble(tamaño);
 											double volPub = Double.parseDouble(publiController.listarPublicaciones()
@@ -241,7 +243,8 @@ public class Runner {
 											sc.nextLine();
 											switch (opof) {
 												case 1:
-													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor, fechaIda,
+													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor,
+															fechaIda,
 															publiController.returnId(con), idUserValid)) {
 														System.out.println("offer created successfully");
 													} else {
@@ -283,13 +286,14 @@ public class Runner {
 															.getId()) {
 														System.out.println("Enter the description of the offer");
 														descripcion = sc.nextLine();
-														while( pesoOfe == "") {
+														while (pesoOfe == "") {
 															System.out.println("ienter the weight of your shipment");
 															pesoOfe = sc.nextLine();
 															double psOf = Double.parseDouble(pesoOfe);
-															double pesoe = Double.parseDouble(publiController.listarPublicaciones()
-																	.get(op - 1).getPesoEquipaje());
-															if (psOf >= pesoe || psOf<0) {
+															double pesoe = Double
+																	.parseDouble(publiController.listarPublicaciones()
+																			.get(op - 1).getPesoEquipaje());
+															if (psOf >= pesoe || psOf < 0) {
 																System.err.println("Weight is not valid");
 																pesoOfe = "";
 															} else {
@@ -298,35 +302,39 @@ public class Runner {
 														}
 														while (tamaño == "") {
 															System.out.println("enter the size of your shipment");
-															 System.out.print("Enter the broad luggage : ");
-												                ancho = sc.nextDouble();
-												                sc.nextLine();
-												                while(ancho <0  ) {	
-												                    System.err.print("The broad is invalid. Enter the broad luggage : ");
-												                    ancho = sc.nextDouble();
-												                    sc.nextLine();
-												            	}
-												             System.out.print("Enter the loang luggage : ");
-												               	largo = sc.nextDouble();
-												               	sc.nextLine();
-												                while(largo <0  ) {	
-												                    System.err.print("The loang is invalid. Enter the loang luggage : ");
-												                    ancho = sc.nextDouble();
-												                    sc.nextLine();
-												            	}
-												             System.out.print("Enter the high luggage : ");
-												                alto = sc.nextDouble();
-												                sc.nextLine();	
-												                while(alto <0  ) {	
-												                    System.err.print("The high is invalid. Enter the high luggage : ");
-												                    ancho = sc.nextDouble();
-												                    sc.nextLine();
-												            	}
-																volumen = ancho *largo * alto;
+															System.out.print("Enter the broad luggage : ");
+															ancho = sc.nextDouble();
+															sc.nextLine();
+															while (ancho < 0) {
+																System.err.print(
+																		"The broad is invalid. Enter the broad luggage : ");
+																ancho = sc.nextDouble();
+																sc.nextLine();
+															}
+															System.out.print("Enter the loang luggage : ");
+															largo = sc.nextDouble();
+															sc.nextLine();
+															while (largo < 0) {
+																System.err.print(
+																		"The loang is invalid. Enter the loang luggage : ");
+																ancho = sc.nextDouble();
+																sc.nextLine();
+															}
+															System.out.print("Enter the high luggage : ");
+															alto = sc.nextDouble();
+															sc.nextLine();
+															while (alto < 0) {
+																System.err.print(
+																		"The high is invalid. Enter the high luggage : ");
+																ancho = sc.nextDouble();
+																sc.nextLine();
+															}
+															volumen = ancho * largo * alto;
 															tamaño = String.valueOf(volumen);
 															double tam = Double.parseDouble(tamaño);
-															double volPub = Double.parseDouble(publiController.listarPublicaciones()
-																	.get(op - 1).getEspacioEquipaje());
+															double volPub = Double
+																	.parseDouble(publiController.listarPublicaciones()
+																			.get(op - 1).getEspacioEquipaje());
 															if (tam >= volPub) {
 																System.err.println("The size is invalid");
 																tamaño = "";
@@ -358,10 +366,12 @@ public class Runner {
 																fechaIda = dateFormat.parse(sc.nextLine());
 																break;
 															} catch (ParseException e) {
-																System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
+																System.err.println(
+																		"\n" + "Enter the date in format: yyyy/mm/dd.");
 															}
 														}
-														if (oferta.editOferta(indexOfferEdit, descripcion,pesoOfe, tamaño,
+														if (oferta.editOferta(indexOfferEdit, descripcion, pesoOfe,
+																tamaño,
 																fragil, valor, fechaIda, publiController.returnId(con),
 																idUserValid)) {
 															System.out.println("offer created successfully");
@@ -393,12 +403,48 @@ public class Runner {
 									}
 									break;
 								case 6:
+									op = 0;
+									while (op != 3) {
+										try {
+											System.out.println(usuarios.returnForId(idUserValid).toString());
+											System.out.println("1. Edit user.");
+											System.out.println("2. Delete user.");
+											System.out.println("3. Go back.");
+											op = sc.nextInt();
+											sc.nextLine();
+										} catch (Exception e) {
+											System.err.println("The option \""+ op +"\" is not valid, please try again.");
+											continue;
+										}
+										switch (op) {
+											case 1:
+												System.out.println(userView.editUser(idUserValid));
+												break;
+											case 2:
+												System.out.println(userView.borrarUser(idUserValid));
+												userDelete = true;
+												break;
+											case 3:
+												break;
+											default:
+												break;
+										}
+										if(op == 2){
+											break;
+										}
+									}
+									op = 0;
+									break;
+								case 7:
 									opc = 0;
 									break;
 								default:
 									System.err.println(
 											"The option \"" + opMenuPrincipal
 													+ "\" is not valid. Try again.");
+							}
+							if (userDelete == true) {
+								break;
 							}
 						}
 					} else {
