@@ -43,7 +43,7 @@ public class UsuarioController {
     }
 
     public ArrayList<Usuario> arrayListUser() {
-        return usuarios;
+        return this.usuarios;
     }
 
     public int generarID() {

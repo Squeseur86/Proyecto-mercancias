@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Controller.TelefonoController;
 import Controller.UsuarioController;
 import Model.Telefono;
+import Model.Usuario;
 
 public class UserView {
     private Scanner sc = new Scanner(System.in);
@@ -25,26 +26,94 @@ public class UserView {
         return false;
     }
 
-    
-
     public void signUp() {
         String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
         Date fechaIda = null;
         Telefono telefono;
 
-        userName = validarUserName(userName);
-        email = validarEmail(email);
-        password = validarPassword(password);
+        userName = validarUserName(userName, false);
+        email = validarEmail(email, false);
+        password = validarPassword(password, false);
         telefono = validarNumeroTelefono(phoneNumber);
         dni = validarDocumento(dni);
-        fullName = validarNombreCompleto(fullName);
-        usuariosController.crearUsuario(userName, email, telefono, dni, fullName,password, fechaIda, fechaIda);
+        fullName = validarNombreCompleto(fullName, false);
+        usuariosController.crearUsuario(userName, email, telefono, dni, fullName, password, fechaIda, fechaIda);
     }
 
-    private String validarNombreCompleto(String nombreCompleto){
+    public String borrarUser(int idUser) {
+        int op = 0;
+        while (true) {
+            System.out.println("Are you sure you want to delete your account:\r\n" +
+                    "1. Yes\r\n" +
+                    "2. no");
+            System.out.print("Enter the number of the option you want to perform: ");
+            op = sc.nextInt();
+            switch (op) {
+                case 1:
+                    usuariosController.arrayListUser().removeIf(user -> user.getId() == idUser);
+                    return "User deleted successfully";
+                case 2:
+                    return "Operation cancelled";
+
+                default:
+                    System.err.println("The option \"" + op + "\" is not valid, please try again");
+                    break;
+            }
+        }
+    }
+
+    public String editUser(int idUser) {
+        int op = 0;
+        String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
+        Date fechaIda = null;
+        Telefono telefono;
+        userName = validarUserName(userName, true);
+        email = validarEmail(email, true);
+        password = validarPassword(password, true);
+        telefono = validarNumeroTelefono(phoneNumber);
+        dni = validarDocumento(dni);
+        fullName = validarNombreCompleto(fullName, true);
+
+        while (true) {
+            System.out.println("Are you sure you want to edit your account:\r\n" +
+                    "1. Yes\r\n" +
+                    "2. no");
+            System.out.print("Enter the number of the option you want to perform: ");
+            op = sc.nextInt();
+            switch (op) {
+                case 1:
+                    for (Usuario user : usuariosController.arrayListUser()) {
+                        if (user.getId() == idUser) {
+                            user.setDni(dni);
+                            user.setPhoneNumber(telefono);
+                            user.setEmail(email);
+                            user.setFullName(fullName);
+                            user.setPassword(password);
+                            user.setUpdateAT(fechaIda);
+                            return "User successfully updated";
+                        }
+                    }
+                case 2:
+                    return "Operation cancelled";
+                default:
+                    System.err.println("The option \"" + op + "\" is not valid, please try again");
+                    break;
+            }
+        }
+    }
+
+    // Validaciones para signUp \/
+    private String validarNombreCompleto(String nombreCompleto, boolean edit) {
         while (inusualString(nombreCompleto)) {
-            System.out.print("Enter the full name: ");
+            if (edit == false) {
+                System.out.print("Enter the full name: ");
+            } else {
+                System.out.print("Enter the full name(if you want to keep the current name, press enter): ");
+            }
             nombreCompleto = sc.nextLine();
+            if (nombreCompleto.isEmpty() && edit == true) {
+                return "";
+            }
             if (inusualString(nombreCompleto)) {
                 System.err.println("The entry \"" + nombreCompleto + "\" is not valid. Please try again.");
             }
@@ -146,15 +215,22 @@ public class UserView {
         }
     }
 
-    private String validarPassword(String password) {
+    private String validarPassword(String password, boolean edit) {
         while (true) {
-            System.out.println("Your password must contain:\n"+
-            "-A capital letter\n"+
-            "-A lowercase\n"+
-            "-At least 2 numbers\n"+
-            "-A special character");
-            System.out.print("Enter your password: ");
+            System.out.println("Your password must contain:\n" +
+                    "-A capital letter\n" +
+                    "-A lowercase\n" +
+                    "-At least 2 numbers\n" +
+                    "-A special character");
+            if (edit == false) {
+                System.out.print("Enter your password: ");
+            } else {
+                System.out.print("Enter your password(if you want to keep your current password, press enter): ");
+            }
             password = sc.nextLine();
+            if (password.isEmpty() && edit == true) {
+                return "";
+            }
             if (inusualString(password)) {
                 System.err.println("The password \"" + password + "\" is not valid. Please try again.");
                 continue;
@@ -190,14 +266,22 @@ public class UserView {
         return mayuscula && minuscula && countNumeros >= 2 && tieneEspecial;
     }
 
-    private String validarEmail(String email) {
+    private String validarEmail(String email, boolean edit) {
         while (true) {
             System.out.println("Allowed email extensions: ");
             System.out.println("@gmail.com");
             System.out.println("@outlook.com");
             System.out.println("@uptc.edu.co");
             System.out.print("Enter your email: ");
+            if (edit == false) {
+                System.out.print("Enter your email: ");
+            } else {
+                System.out.print("Enter your email(if you want to keep your current email, press enter): ");
+            }
             email = sc.nextLine();
+            if (email.isEmpty() && edit == true) {
+                return "";
+            }
             if (inusualString(email)) {
                 if (inusualString(email)) {
                     System.err.println("The email \"" + email + "\" is not valid. Please try again.");
@@ -213,19 +297,28 @@ public class UserView {
 
     }
 
-    public String validarUserName(String userName) {
+    public String validarUserName(String userName, boolean edit) {
         while (true) {
+            if (edit == false) {
+                System.out.print("Enter a username: ");
+            } else {
+                System.out.print("Enter a username(if you want to keep your current password, press enter): ");
+            }
+            userName = sc.nextLine();
+            if (userName.isEmpty() && edit == true) {
+                return "";
+            }
             System.out.print("\nEnter a username: ");
             userName = sc.nextLine();
             if (inusualString(userName)) {
                 System.err.println("The user name \"" + userName + "\" is not valid. Please try again.");
                 continue;
             }
-            if(usuariosController.existenciaUserName(userName)){
+            if (usuariosController.existenciaUserName(userName)) {
                 System.err.println("The user name \"" + userName + "\" it already exists. Please try again.");
-            }else{
+            } else {
                 return userName;
             }
-        }  
+        }
     }
 }
