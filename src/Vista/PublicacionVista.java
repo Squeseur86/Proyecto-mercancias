@@ -112,8 +112,6 @@ public class PublicacionVista {
         LocalDate fechaLlegada = null;
         // MENU
         int opPublicacion = 0;
-        // FORMATEAR ENTRADA DATE
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         // EDITAR PUBLICACION.
         origen = determinarOrigenViaje(origen);
@@ -207,6 +205,7 @@ public class PublicacionVista {
                             for (Oferta offer : offerPost) {
                                 System.out.println(offer.toString());
                             }
+                            menuOfertas(offerPost, userPosts.get(op - 1));
                         }
                     }
                     break;
@@ -281,6 +280,48 @@ public class PublicacionVista {
                 case 4:
                     return;
             }
+        }
+    }
+
+    public void menuOfertas(ArrayList<Oferta> offerPost, Publicacion publicacion) {
+        int op = 0, numOferta = 0;
+        while (op < 1 || op > 3) {
+            for (Oferta offer : offerPost) {
+                System.out.println(offer.toString());
+            }
+            try {
+                System.out.println("1. Accept offer");
+                System.out.println("2. Reject offer");
+                System.out.println("3. Go back");
+                op = sc.nextInt();
+                sc.nextLine();
+            } catch (Exception e) {
+                System.err.println("The option \"" + op + "\" is not available");
+            }
+        }
+        switch (op) {
+            case 1:
+                System.out.println("Enter the number of the offer you want to accept: ");
+                numOferta = sc.nextInt();
+                sc.nextLine();
+                if (numOferta > offerPost.size() || numOferta < 0) {
+                    System.err.println("The offer number \"" + numOferta + "\" is not available");
+                } else {
+                    System.out.println(publicacionController.aceptarOferta(offerPost.get(numOferta - 1), publicacion));
+                }
+                break;
+            case 2:
+                System.out.println("Enter the number of the offer you want to reject: ");
+                numOferta = sc.nextInt();
+                sc.nextLine();
+                if (numOferta > offerPost.size() || numOferta < 0) {
+                    System.err.println("The offer number \"" + numOferta + "\" is not available");
+                } else {
+                    System.out.println("Reject offer.");
+                }
+                break;
+            case 3:
+                return;
         }
     }
 
