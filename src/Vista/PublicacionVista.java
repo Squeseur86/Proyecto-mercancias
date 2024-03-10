@@ -473,10 +473,10 @@ public class PublicacionVista {
             try {
                 if (categoria.equals("Cabin")) {
                     System.out.print(
-                            "Enter the weight of the available luggage in kilograms(kitten 10 kg - maximum 16 kg): ");
+                            "Enter the weight of the available luggage in kilograms(minimum 10 kg - maximum 16 kg): ");
                 } else {
                     System.out.print(
-                            "Enter the weight of the available luggage in kilograms(kitten 20 kg - maximum 36 kg): ");
+                            "Enter the weight of the available luggage in kilograms(minimum 20 kg - maximum 36 kg): ");
                 }
                 pesoEquipaje = sc.nextLine();
                 if (inusualString(pesoEquipaje)) {
@@ -516,7 +516,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the broad luggage(kitten 10 cm - maximum 20 cm): ");
+                            System.out.print("Enter the broad luggage(minimum 10 cm - maximum 20 cm): ");
                             ancho = sc.nextDouble();
                             sc.nextLine();
                             if (ancho > 20 || ancho < 10) {
@@ -533,7 +533,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the long luggage(kitten 25 cm - maximum 35 cm): ");
+                            System.out.print("Enter the long luggage(minimum 25 cm - maximum 35 cm): ");
                             largo = sc.nextDouble();
                             sc.nextLine();
                             if (largo > 35 || largo < 25) {
@@ -550,7 +550,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the high luggage (kitten 25 cm - maximum 45 cm): ");
+                            System.out.print("Enter the high luggage (minimum 25 cm - maximum 45 cm): ");
                             altura = sc.nextDouble();
                             sc.nextLine();
                             if (altura > 45 || altura < 25) {
@@ -569,7 +569,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume(kitten " + ((Double) (volumen * (0.1)))
+                            System.out.println("Enter the occupied volume(minimum " + ((Double) (volumen * (0.1)))
                                     + " cm^3 - maximum " + ((Double) (volumen * (0.8))) + " cm^3)");
                             voluOcu = sc.nextDouble();
                             if (voluOcu > ((Double) (volumen * (0.8))) || voluOcu < ((Double) (volumen * (0.1)))) {
@@ -595,7 +595,7 @@ public class PublicacionVista {
                 case "Store":
                     while (true) {
                         try {
-                            System.out.print("Enter the broad luggage (kitten 20 cm - maximum 36 cm): ");
+                            System.out.print("Enter the broad luggage (minimum 20 cm - maximum 36 cm): ");
                             ancho = sc.nextDouble();
                             sc.nextLine();
                             if (ancho > 36 || ancho < 20) {
@@ -612,7 +612,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the long luggage(kitten 30 cm - maximum 47 cm): ");
+                            System.out.print("Enter the long luggage(minimum 30 cm - maximum 47 cm): ");
                             largo = sc.nextDouble();
                             sc.nextLine();
                             if (largo > 47 || largo < 30) {
@@ -629,7 +629,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.print("Enter the high luggage(kitten 75 cm - maximum 60 cm): ");
+                            System.out.print("Enter the high luggage(minimum 75 cm - maximum 60 cm): ");
                             altura = sc.nextDouble();
                             sc.nextLine();
                             if (altura > 75 || altura < 60) {
@@ -648,7 +648,7 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume(kitten " + (volumen * (1 / 10))
+                            System.out.println("Enter the occupied volume(minimum " + (volumen * (1 / 10))
                                     + " cm^3 - maximum " + (volumen * (8 / 10)) + " cm^3)");
                             voluOcu = sc.nextDouble();
                             if (voluOcu > (volumen * (8 / 10)) || voluOcu < (volumen * (1 / 10))) {
