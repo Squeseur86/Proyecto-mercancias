@@ -3,6 +3,9 @@ package Vista;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,21 +60,19 @@ public class PublicacionVista {
     public void vistaCrearPublicacion(int idUserValid) {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
-        Date fechaIda = null;
-        // CALENDAR PARA VELIDAR FECHAS
-        Calendar fechaDeIda = Calendar.getInstance();
-        Calendar fechaDeLlegada = Calendar.getInstance();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate fechaIda = null;
+        LocalDate fechaLlegada = null;
         // OBJECTO RANDOM
         Random random = new Random();
         // MENU
         int opPublicacion = 0;
-        // FORMATEAR ENTRADA DATE
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         // CREAR PUBLICACION.
         origen = determinarOrigenViaje(origen);
         destino = determinarDestinoViaje(destino);
-        fechaIda = determinarFechaVuelo(fechaIda, fechaDeIda, dateFormat);
+        fechaIda = determinarFechaVuelo(fechaIda, dateFormatter);
+        fechaLlegada = determinarFechaLlegada(fechaIda, fechaLlegada, dateFormatter);
         categoria = determinarCategoriaVuelo(categoria);
         pesoEquipaje = determinarPesoEquipaje(pesoEquipaje, categoria);
         espacioEquipaje = determinarEspacioEquipaje(espacioEquipaje, categoria);
@@ -87,8 +88,8 @@ public class PublicacionVista {
                     case 1:
                         // Generate a 4-digit random number
                         int idRandom = random.nextInt(9000) + 1000;
-                        publicacionController.crearPublicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
-                                espacioEquipaje, idRandom, idUserValid);
+                        publicacionController.crearPublicacion(origen, destino, fechaIda, fechaLlegada, categoria,
+                                pesoEquipaje, espacioEquipaje, idRandom, idUserValid);
 
                         System.out.println("Post successfully created.");
                         break;
@@ -106,19 +107,17 @@ public class PublicacionVista {
     public boolean vistaEditarPublicacion(Publicacion publicacion) {
         // DATOS EDICION PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
-        Date fechaIda = null;
-        // CALENDAR PARA VELIDAR FECHAS
-        Calendar fechaDeIda = Calendar.getInstance();
-        Calendar fechaDeLlegada = Calendar.getInstance();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        LocalDate fechaIda = null;
+        LocalDate fechaLlegada = null;
         // MENU
         int opPublicacion = 0;
-        // FORMATEAR ENTRADA DATE
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
         // EDITAR PUBLICACION.
         origen = determinarOrigenViaje(origen);
         destino = determinarDestinoViaje(destino);
-        fechaIda = determinarFechaVuelo(fechaIda, fechaDeIda, dateFormat);
+        fechaIda = determinarFechaVuelo(fechaIda, dateFormatter);
+        fechaLlegada = determinarFechaLlegada(fechaIda, fechaLlegada, dateFormatter);
         categoria = determinarCategoriaVuelo(categoria);
         pesoEquipaje = determinarPesoEquipaje(pesoEquipaje, categoria);
         espacioEquipaje = determinarEspacioEquipaje(espacioEquipaje, categoria);
@@ -132,7 +131,7 @@ public class PublicacionVista {
             switch (opPublicacion) {
                 case 1:
                     publicacionController.editarPublicacion(publicacion, origen, categoria, destino, espacioEquipaje,
-                            pesoEquipaje, fechaIda);
+                            pesoEquipaje, fechaIda, fechaLlegada);
                     System.out.println("Edition successfully completed.");
                     return true;
                 case 2:
@@ -206,6 +205,7 @@ public class PublicacionVista {
                             for (Oferta offer : offerPost) {
                                 System.out.println(offer.toString());
                             }
+                            menuOfertas(offerPost, userPosts.get(op - 1));
                         }
                     }
                     break;
@@ -283,6 +283,48 @@ public class PublicacionVista {
         }
     }
 
+    public void menuOfertas(ArrayList<Oferta> offerPost, Publicacion publicacion) {
+        int op = 0, numOferta = 0;
+        while (op < 1 || op > 3) {
+            for (Oferta offer : offerPost) {
+                System.out.println(offer.toString());
+            }
+            try {
+                System.out.println("1. Accept offer");
+                System.out.println("2. Reject offer");
+                System.out.println("3. Go back");
+                op = sc.nextInt();
+                sc.nextLine();
+            } catch (Exception e) {
+                System.err.println("The option \"" + op + "\" is not available");
+            }
+        }
+        switch (op) {
+            case 1:
+                System.out.println("Enter the number of the offer you want to accept: ");
+                numOferta = sc.nextInt();
+                sc.nextLine();
+                if (numOferta > offerPost.size() || numOferta < 0) {
+                    System.err.println("The offer number \"" + numOferta + "\" is not available");
+                } else {
+                    System.out.println(publicacionController.aceptarOferta(offerPost.get(numOferta - 1), publicacion));
+                }
+                break;
+            case 2:
+                System.out.println("Enter the number of the offer you want to reject: ");
+                numOferta = sc.nextInt();
+                sc.nextLine();
+                if (numOferta > offerPost.size() || numOferta < 0) {
+                    System.err.println("The offer number \"" + numOferta + "\" is not available");
+                } else {
+                    System.out.println("Reject offer.");
+                }
+                break;
+            case 3:
+                return;
+        }
+    }
+
     public String determinarOrigenViaje(String origen) {
         while (inusualString(origen)) {
             System.out.print("\nEnter the origin of the trip: ");
@@ -305,25 +347,50 @@ public class PublicacionVista {
         return destino;
     }
 
-    public Date determinarFechaVuelo(Date fechaIda, Calendar fechaDeIda, DateFormat dateFormat) {
-        int year = 0;
+    public LocalDate determinarFechaVuelo(LocalDate fechaIda, DateTimeFormatter dateFormatter) {
+        LocalDate fechaDelSistema = LocalDate.now();
         while (true) {
             try {
                 System.out.print("Enter the flight departure date: ");
-                fechaIda = dateFormat.parse(sc.nextLine());
-                fechaDeIda.setTime(fechaIda);
-                year = fechaDeIda.get(Calendar.YEAR);
-                if (year < 2024) {
-                    throw new Exception("The year cannot be less than the current one.");
+                fechaIda = LocalDate.parse(sc.nextLine(), dateFormatter);
+                if (fechaIda.isAfter(fechaDelSistema)) {
+                    return fechaIda;
+                } else if (fechaIda.isBefore(fechaDelSistema)) {
+                    System.err.println("The date entered is not valid because it is prior to the current date.");
+                    continue;
+                } else {
+                    System.out.println("La otra fecha es igual a la fecha del sistema.");
+                    return fechaIda;
                 }
-                break;
-            } catch (ParseException e) {
+            } catch (DateTimeParseException e) {
                 System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
             } catch (Exception e) {
                 System.out.println((e.getMessage()));
             }
         }
-        return fechaIda;
+    }
+
+    public LocalDate determinarFechaLlegada(LocalDate fechaIda, LocalDate fechaLlegada,
+            DateTimeFormatter dateFormatter) {
+        while (true) {
+            try {
+                System.out.print("Enter the flight departure date: ");
+                fechaLlegada = LocalDate.parse(sc.nextLine(), dateFormatter);
+                if (fechaLlegada.isAfter(fechaIda)) {
+                    return fechaLlegada;
+                } else if (fechaLlegada.isBefore(fechaIda)) {
+                    System.err.println("The date entered is not valid because it is prior to the flight date.");
+                    continue;
+                } else {
+                    System.out.println("La otra fecha es igual a la fecha del sistema.");
+                    return fechaLlegada;
+                }
+            } catch (DateTimeParseException e) {
+                System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
+            } catch (Exception e) {
+                System.out.println((e.getMessage()));
+            }
+        }
     }
 
     public String determinarCategoriaVuelo(String categoria) {
@@ -355,10 +422,12 @@ public class PublicacionVista {
         Double peso = 0.0;
         while (true) {
             try {
-                if(categoria.equals("Cabin")){
-                    System.out.print("Enter the weight of the available luggage in kilograms(kitten 10 kg - maximum 16 kg): ");
-                }else{
-                    System.out.print("Enter the weight of the available luggage in kilograms(kitten 20 kg - maximum 36 kg): ");
+                if (categoria.equals("Cabin")) {
+                    System.out.print(
+                            "Enter the weight of the available luggage in kilograms(kitten 10 kg - maximum 16 kg): ");
+                } else {
+                    System.out.print(
+                            "Enter the weight of the available luggage in kilograms(kitten 20 kg - maximum 36 kg): ");
                 }
                 pesoEquipaje = sc.nextLine();
                 if (inusualString(pesoEquipaje)) {
@@ -451,11 +520,16 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume(kitten "+ ((Double)(volumen * (0.1))) +" cm^3 - maximum "+ ((Double)(volumen * (0.8))) +" cm^3)");
+                            System.out.println("Enter the occupied volume(kitten " + ((Double) (volumen * (0.1)))
+                                    + " cm^3 - maximum " + ((Double) (volumen * (0.8))) + " cm^3)");
                             voluOcu = sc.nextDouble();
-                            if (voluOcu > ((Double)(volumen * (0.8))) || voluOcu < ((Double)(volumen * (0.1)))) {
+                            if (voluOcu > ((Double) (volumen * (0.8))) || voluOcu < ((Double) (volumen * (0.1)))) {
                                 throw new Exception(
-                                        "The volume of occupied baggage cannot be less than 10%("+ ((Double)(volumen * (0.1))) +") of the total volume nor more than 80%("+ ((Double)(volumen * (0.8))) +") of the total volume. Please try again.");
+                                        "The volume of occupied baggage cannot be less than 10%("
+                                                + ((Double) (volumen * (0.1)))
+                                                + ") of the total volume nor more than 80%("
+                                                + ((Double) (volumen * (0.8)))
+                                                + ") of the total volume. Please try again.");
                             }
                             break;
                         } catch (InputMismatchException eMismatch) {
@@ -525,7 +599,8 @@ public class PublicacionVista {
 
                     while (true) {
                         try {
-                            System.out.println("Enter the occupied volume(kitten "+ (volumen * (1 / 10)) +" cm^3 - maximum "+ (volumen * (8 / 10)) +" cm^3)");
+                            System.out.println("Enter the occupied volume(kitten " + (volumen * (1 / 10))
+                                    + " cm^3 - maximum " + (volumen * (8 / 10)) + " cm^3)");
                             voluOcu = sc.nextDouble();
                             if (voluOcu > (volumen * (8 / 10)) || voluOcu < (volumen * (1 / 10))) {
                                 throw new Exception(
