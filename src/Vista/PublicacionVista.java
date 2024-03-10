@@ -44,6 +44,19 @@ public class PublicacionVista {
 
     }
 
+    public boolean verPublicacionesActivas() {
+        ArrayList<Publicacion> publicacionesActivas = publicacionController.returnActivePublications();
+        if (publicacionesActivas == null) {
+            System.out.println("No posts available");
+            return false;
+        }
+        for (Publicacion publicacion : publicacionesActivas) {
+            System.out.println(publicacion.toString());
+        }
+        System.out.println("\n");
+        return true;
+    }
+
     public boolean verPublicacionesDelUsuario(ArrayList<Publicacion> publicacionesUser) {
         if (publicacionesUser == null) {
             System.out.println("No posts available");
@@ -145,6 +158,30 @@ public class PublicacionVista {
 
         }
 
+    }
+
+    public void menuPostActives(int idUserValid) {
+        int op = 0;
+        while (op < 1 || op > 2) {
+            try {
+                verPublicacionesActivas();
+                System.out.println("1. Create offers.");
+                System.out.println("2. Go back.");
+                op = sc.nextInt();
+                sc.nextLine();
+            } catch (Exception e) {
+                System.err.println("The option \"" + op + "\" is not valid. Please try again.");
+            }
+        }
+        switch (op) {
+            case 1:
+                
+                break;
+            case 2:
+
+                break;
+
+        }
     }
 
     public void userPostMenu(int idUserValid, OfertaControl controllerOferta) {
@@ -324,6 +361,8 @@ public class PublicacionVista {
                 return;
         }
     }
+
+    // VALIDACIONES
 
     public String determinarOrigenViaje(String origen) {
         while (inusualString(origen)) {

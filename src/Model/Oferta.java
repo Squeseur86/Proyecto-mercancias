@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Oferta {
@@ -8,11 +9,11 @@ public class Oferta {
 	private String tamaño;
 	private boolean fragil;
 	private int valor;
-	private Date fechaCreacion;
+	private LocalDate fechaCreacion;
 	private int id;
 	private int idUser;
 	
-	public Oferta(String descripcion, String pesoOfe, String tamaño,boolean fragil,int valor,Date fechaCreacion, int id,int idUser)
+	public Oferta(String descripcion, String pesoOfe, String tamaño,boolean fragil,int valor, LocalDate fechaCreacion, int id,int idUser)
 	{
 		this.descripcion = descripcion;
 		this.fechaCreacion = fechaCreacion;
@@ -87,11 +88,11 @@ public class Oferta {
 		this.valor = valor;
 	}
 
-	public Date getFechaCreacion() {
+	public LocalDate getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(Date fechaCreacion) {
+	public void setFechaCreacion(LocalDate fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
 
