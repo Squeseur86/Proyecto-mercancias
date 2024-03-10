@@ -105,6 +105,7 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
+									if(publiController.listarPublicaciones().size()!=0){
 									for (Publicacion publicacion : publiController.listarPublicaciones()) {
 										System.out.println(publicacion.toString());
 									}
@@ -116,12 +117,17 @@ public class Runner {
 											System.out.println(oferta.verListadoOfertas().get(i).toString());
 										}
 									}
-
+									}else {
+										System.out.println("there is no post now");
+									}
+									if(oferta.verListadoOfertas().size()!=0) {
+										
 									opcseguro = 0;
 									System.out.println("Which offer do you want accept?");
 									System.out.println("0 for none");
 									op = sc.nextInt();
 									sc.nextLine();
+									
 
 									while (opcseguro == 0) {
 										System.out.println("Oferta aceptada :" + oferta.verOferta());
@@ -137,6 +143,7 @@ public class Runner {
 											default:
 												System.err.println("This option is invalid");
 										}
+									}
 									}
 
 									break;
