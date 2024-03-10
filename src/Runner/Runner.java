@@ -4,6 +4,7 @@ package Runner;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -34,7 +35,7 @@ public class Runner {
 		
 		PublicacionVista publicacionVista = new PublicacionVista(publiController, ofertaVista);
 
-		Date fechaIda = null;
+		LocalDate fechaIda = null;
 		TelefonoController telefonoController = new TelefonoController();
 		UsuarioController usuarios = new UsuarioController();
 		UserView userView = new UserView(usuarios, telefonoController);
@@ -201,9 +202,9 @@ public class Runner {
 										while (true) {
 											try {
 												System.out.print("Enter the date: ");
-												fechaIda = dateFormat.parse(sc.nextLine());
+												fechaIda = LocalDate.parse(sc.nextLine());
 												break;
-											} catch (ParseException e) {
+											} catch (Exception e) {
 												System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
 											}
 										}
@@ -334,9 +335,9 @@ public class Runner {
 														while (true) {
 															try {
 																System.out.print("Enter the date: ");
-																fechaIda = dateFormat.parse(sc.nextLine());
+																fechaIda = LocalDate.parse(sc.nextLine());
 																break;
-															} catch (ParseException e) {
+															} catch (Exception e) {
 																System.err.println(
 																		"\n" + "Enter the date in format: yyyy/mm/dd.");
 															}
