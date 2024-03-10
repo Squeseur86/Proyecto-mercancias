@@ -117,17 +117,22 @@ public class Runner {
 									publicacionVista.userPostMenu(idUserValid, oferta);
 									break;
 								case 4:
+									op =-2;
 									con = 0;
-									System.out.println(publiController.listarPublicaciones().size());
 									for (Publicacion pubicacion : publiController.listarPublicaciones()) {
 										System.out.println(pubicacion.toString());
 									}
+									while(op < 1) {
+									try {
 									System.out.println("Which publication do you want to bid on?");
-
 									op = sc.nextInt();
+										
+									}catch(Exception e) {
 									sc.nextLine();
+									}
+									}
 
-									if (publiController.listarPublicaciones().get(op - 1) != null) {
+									if (publiController.listarPublicaciones().get(op - 1) != null || publiController.listarPublicaciones().size()>0){
 										System.out.println("Enter the description of the offer");
 										descripcion = sc.nextLine();
 										while (pesoOfe == "") {
