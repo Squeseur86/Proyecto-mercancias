@@ -26,7 +26,7 @@ public class OfertaView {
         return false;
     }
 
-    public void createOffer(Publicacion publicacion, int iduser) {
+    public void createOffer(Publicacion publicacion, int idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
         int valor = 0;
@@ -36,7 +36,7 @@ public class OfertaView {
         pesoOferta = validarPesoEquipaje(espacioOferta, publicacion.getPesoEquipaje());
         fragil = validarFragil();
         valor = validarPrecio();
-        ofertaControl.crearOferta(descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacion.getId(), valor);
+        ofertaControl.crearOferta(descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacion.getId(), idUser);
     }
 
     private String validarDescripcion() {

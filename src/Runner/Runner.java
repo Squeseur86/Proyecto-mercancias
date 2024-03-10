@@ -16,6 +16,7 @@ import Controller.TelefonoController;
 import Controller.UsuarioController;
 import Model.Oferta;
 import Model.Publicacion;
+import Vista.OfertaView;
 import Vista.PublicacionVista;
 import Vista.UserView;
 
@@ -27,8 +28,11 @@ public class Runner {
 		boolean userDelete = false;
 
 		// DATOS PUBLICACION
+		OfertaControl oferta = new OfertaControl();
 		PublicacionController publiController = new PublicacionController();
-		PublicacionVista publicacionVista = new PublicacionVista(publiController);
+		OfertaView ofertaVista = new OfertaView(sc, oferta);
+		
+		PublicacionVista publicacionVista = new PublicacionVista(publiController, ofertaVista);
 
 		Date fechaIda = null;
 		TelefonoController telefonoController = new TelefonoController();
@@ -36,7 +40,7 @@ public class Runner {
 		UserView userView = new UserView(usuarios, telefonoController);
 		// USUARIO TEST
 		usuarios.crearUsuario("j", "123");
-		OfertaControl oferta = new OfertaControl();
+		
 		// FORMATEAR ENTRADA DATE
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -105,47 +109,7 @@ public class Runner {
 									break;
 								case 2:
 									// SE DEBEN VER LAS PUBLICACIONES EN LA APP
-									if(publiController.listarPublicaciones().size()!=0){
-									for (Publicacion publicacion : publiController.listarPublicaciones()) {
-										System.out.println(publicacion.toString());
-									}
-									System.out.println("Which publication do you want to see offers from?");
-									op = sc.nextInt();
-									for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-										if (publiController.listarPublicaciones().get(op - 1).getId() == oferta
-												.verListadoOfertas().get(i).getId()) {
-											System.out.println(oferta.verListadoOfertas().get(i).toString());
-										}
-									}
-									}else {
-										System.out.println("there is no post now");
-									}
-									if(oferta.verListadoOfertas().size()!=0) {
-										
-									opcseguro = 0;
-									System.out.println("Which offer do you want accept?");
-									System.out.println("0 for none");
-									op = sc.nextInt();
-									sc.nextLine();
-									
-
-									while (opcseguro == 0) {
-										System.out.println("Oferta aceptada :" + oferta.verOferta());
-										System.out.println("Estas seguro 1. si / 2. no");
-										opcseguro = sc.nextInt();
-										switch (opcseguro) {
-											case 1:
-												System.out.println("offer accept");
-												break;
-											case 2:
-												System.out.println("Offer not accepted");
-												break;
-											default:
-												System.err.println("This option is invalid");
-										}
-									}
-									}
-
+									publicacionVista.menuPostActives(idUserValid);
 									break;
 								case 3:
 									// MENU PARA PUBLICACIONES DEL USUARIO

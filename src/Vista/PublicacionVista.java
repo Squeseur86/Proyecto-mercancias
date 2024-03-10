@@ -21,9 +21,11 @@ import Model.Publicacion;
 public class PublicacionVista {
     private Scanner sc = new Scanner(System.in);
     private PublicacionController publicacionController;
+    private OfertaView ofertaVista;
 
-    public PublicacionVista(PublicacionController publicacionController) {
+    public PublicacionVista(PublicacionController publicacionController, OfertaView ofertaVista) {
         this.publicacionController = publicacionController;
+        this.ofertaVista =ofertaVista;
     }
 
     public static boolean inusualString(String string) {
@@ -161,7 +163,8 @@ public class PublicacionVista {
     }
 
     public void menuPostActives(int idUserValid) {
-        int op = 0;
+        int op = 0, numPublicacion = 0;
+        ArrayList<Publicacion> publicacionesActivas = publicacionController.returnActivePublications();
         while (op < 1 || op > 2) {
             try {
                 verPublicacionesActivas();
@@ -173,14 +176,21 @@ public class PublicacionVista {
                 System.err.println("The option \"" + op + "\" is not valid. Please try again.");
             }
         }
+        
         switch (op) {
             case 1:
-                
+                verPublicacionesActivas();
+                System.out.println("Enter the number of the publication to which you wish to make an offer.: ");
+                numPublicacion = sc.nextInt();
+                sc.nextLine();
+                if (numPublicacion > publicacionesActivas.size() || numPublicacion < 0) {
+                    System.err.println("The publication number \"" + numPublicacion + "\" is not available");
+                } else {
+                    ofertaVista.createOffer(publicacionesActivas.get(numPublicacion-1), idUserValid);
+                } 
                 break;
             case 2:
-
-                break;
-
+                return;
         }
     }
 
