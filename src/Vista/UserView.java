@@ -135,8 +135,25 @@ public class UserView {
                 sc.nextLine();
                 switch (opDni) {
                     case 1:
-                        System.out.print("Enter your identification card number: ");
-                        dni = sc.nextLine();
+                		int c = 0; 
+                    	while(dni.length()!=10) {
+                    		if(c >0) {
+                    			System.err.println("needs 10 characters(numbers)");
+                    		}
+                            System.out.print("Enter your identification card number: ");
+                            dni = sc.nextLine();
+                            for (int i = 0; i < dni.length(); i++)
+                            {
+                                char d = dni.charAt(i);
+                                if (d < '0' || d > '9') {
+                                	dni = "2";
+                                }else {
+                                }
+
+                            }              
+                        c++;
+                    	}
+                        
                         if (inusualString(dni)) {
                             System.err.println(
                                     "The identification card  \"" + dni + "\" is not valid, please try again.");
@@ -145,8 +162,29 @@ public class UserView {
                         }
                         break;
                     case 2:
-                        System.out.print("Enter your passport number: ");
-                        dni = sc.nextLine();
+                		int cp = 0; 
+                    	while(dni.length()!=8) {
+                    		if(cp >0) {
+                    			System.err.println("needs 8 characters(2 letter and 6 numbers)");
+                    		}
+                            System.out.print("Enter your passport number: ");
+                            dni = sc.nextLine();
+                            for (int i = 0; i < dni.length()-6; i++)  {
+                                char d = dni.charAt(i);
+                                if (d < 'A' || d > 'Z') {
+                                	dni = "2";
+                                }
+                            }    
+                            for (int i = 2; i < dni.length(); i++)  {
+                                char d = dni.charAt(i);
+                                if (d < '0' || d > '9') {
+                                	dni = "2";
+                                }
+                            }    
+                            
+                        cp++;
+                    	}
+
                         if (inusualString(dni)) {
                             System.err.println(
                                     "The passport  \"" + dni + "\" is not valid, please try again.");
@@ -155,8 +193,24 @@ public class UserView {
                         }
                         break;
                     case 3:
-                        System.out.print("Enter your immigration card number: ");
-                        dni = sc.nextLine();
+                		int e = 0; 
+                    	while(dni.length()!=6) {
+                    		if(e >0) {
+                    			System.err.println("needs 6 characters(numbers)");
+                    		}
+                            System.out.print("Enter your immigration card number: ");
+                            dni = sc.nextLine();
+                            for (int i = 0; i < dni.length(); i++)
+                            {
+                                char d = dni.charAt(i);
+                                if (d < '0' || d > '9') {
+                                	dni = "2";
+                                }else {
+                                }
+
+                            }              
+                        e++;
+                    	}
                         if (inusualString(dni)) {
                             System.err.println(
                                     "The immigration card  \"" + dni + "\" is not valid, please try again.");
@@ -311,13 +365,20 @@ public class UserView {
 
     public String validarUserName(String userName, boolean edit) {
         while (true) {
-            if (edit == false) {
-                System.out.print("Enter a username: ");
-            } else {
-                System.out.print("Enter a username(if you want to keep your current password, press enter): ");
-            }
+    		int c = 0; 
+        	while(userName.length()<5) {
+        		if(c >0) {
+        			System.err.println("minimum 5 characters");
+        		}
+        		if (edit == false) {
+        			System.out.print("Enter a username: ");
+        		} else {
+        			System.out.print("Enter a username(if you want to keep your current password, press enter): ");
+        		}
             userName = sc.nextLine();
-            if (userName.isEmpty() && edit == true) {
+            c++;
+        	}
+            if (userName.isEmpty() && edit == true ) {
                 return "";
             }
             if (inusualString(userName)) {
