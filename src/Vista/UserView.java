@@ -2,6 +2,8 @@ package Vista;
 
 import java.util.Date;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Controller.TelefonoController;
 import Controller.UsuarioController;
@@ -18,11 +20,48 @@ public class UserView {
         this.telController = telController;
     }
 
+    private static boolean validarUserName(String cadena) {
+        // Verificar si contiene caracteres especiales diferentes de '_' o '-'
+        if (cadena.matches(".*[^a-zA-Z0-9_-].*")) {
+            return false;
+        }
+        if (cadena.contains(" ")) {
+            return false;
+        }
+        if (cadena.length() < 5) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarDocumentoIdentidad(String dni) {
+        String formato = "\\d{10}";
+        Pattern patron = Pattern.compile(formato);
+        Matcher verificarPatron = patron.matcher(dni);
+        return verificarPatron.matches();
+    }
+
+    private boolean validarTarjetaInmigracion(String dni) {
+        String formato = "\\d{6}";
+        Pattern patron = Pattern.compile(formato);
+        Matcher verificarPatron = patron.matcher(dni);
+        return verificarPatron.matches();
+    }
+
+    private static boolean validarPasaporte(String pasaporte) {
+        String formato = "[A-Z]{2}\\d{6}";
+        Pattern patron = Pattern.compile(formato);
+        Matcher verificarPatron = patron.matcher(pasaporte);
+        return verificarPatron.matches();
+    }
+
     public static boolean inusualString(String string) {
-        if (string.isEmpty())
+        if (string.isEmpty()) {
             return true;
-        if (string.trim().isEmpty())
+        }
+        if (string.trim().isEmpty()) {
             return true;
+        }
         return false;
     }
 
@@ -84,11 +123,20 @@ public class UserView {
                 case 1:
                     for (Usuario user : usuariosController.arrayListUser()) {
                         if (user.getId() == idUser) {
+                            if (!userName.isEmpty()) {
+                                user.setUserName(userName);
+                            }
+                            if (!email.isEmpty()) {
+                                user.setEmail(email);
+                            }
+                            if (!password.isEmpty()) {
+                                user.setPassword(password);
+                            }
+                            if (!fullName.isEmpty()) {
+                                user.setFullName(fullName);
+                            }
                             user.setDni(dni);
                             user.setPhoneNumber(telefono);
-                            user.setEmail(email);
-                            user.setFullName(fullName);
-                            user.setPassword(password);
                             user.setUpdateAT(fechaIda);
                             return "User successfully updated";
                         }
@@ -135,87 +183,37 @@ public class UserView {
                 sc.nextLine();
                 switch (opDni) {
                     case 1:
-                		int c = 0; 
-                    	while(dni.length()!=10) {
-                    		if(c >0) {
-                    			System.err.println("needs 10 characters(numbers)");
-                    		}
-                            System.out.print("Enter your identification card number: ");
+                        while (true) {
+                            System.out.print("Enter your identification card number(10 numbers): ");
                             dni = sc.nextLine();
-                            for (int i = 0; i < dni.length(); i++)
-                            {
-                                char d = dni.charAt(i);
-                                if (d < '0' || d > '9') {
-                                	dni = "2";
-                                }else {
-                                }
-
-                            }              
-                        c++;
-                    	}
-                        
-                        if (inusualString(dni)) {
-                            System.err.println(
-                                    "The identification card  \"" + dni + "\" is not valid, please try again.");
-                        } else {
-                            return dni;
+                            if (validarDocumentoIdentidad(dni)) {
+                                return dni;
+                            } else {
+                                System.err.println(
+                                        "The identification card  \"" + dni + "\" is not valid, please try again.");
+                            }
                         }
-                        break;
                     case 2:
-                		int cp = 0; 
-                    	while(dni.length()!=8) {
-                    		if(cp >0) {
-                    			System.err.println("needs 8 characters(2 letter and 6 numbers)");
-                    		}
-                            System.out.print("Enter your passport number: ");
+                        while (true) {
+                            System.out.print("Enter your passport number(2 letter and 6 numbers): ");
                             dni = sc.nextLine();
-                            for (int i = 0; i < dni.length()-6; i++)  {
-                                char d = dni.charAt(i);
-                                if (d < 'A' || d > 'Z') {
-                                	dni = "2";
-                                }
-                            }    
-                            for (int i = 2; i < dni.length(); i++)  {
-                                char d = dni.charAt(i);
-                                if (d < '0' || d > '9') {
-                                	dni = "2";
-                                }
-                            }    
-                            
-                        cp++;
-                    	}
-
-                        if (inusualString(dni)) {
-                            System.err.println(
-                                    "The passport  \"" + dni + "\" is not valid, please try again.");
-                        } else {
-                            return dni;
+                            if (validarPasaporte(dni)) {
+                                return dni;
+                            } else {
+                                System.err.println(
+                                        "The passport  \"" + dni + "\" is not valid, please try again.");
+                            }
                         }
-                        break;
                     case 3:
-                		int e = 0; 
-                    	while(dni.length()!=6) {
-                    		if(e >0) {
-                    			System.err.println("needs 6 characters(numbers)");
-                    		}
-                            System.out.print("Enter your immigration card number: ");
+                        while (true) {
+                            System.out.print("Enter your immigration card (6 numbers): ");
                             dni = sc.nextLine();
-                            for (int i = 0; i < dni.length(); i++)
-                            {
-                                char d = dni.charAt(i);
-                                if (d < '0' || d > '9') {
-                                	dni = "2";
-                                }else {
-                                }
-
-                            }              
-                        e++;
-                    	}
-                        if (inusualString(dni)) {
-                            System.err.println(
-                                    "The immigration card  \"" + dni + "\" is not valid, please try again.");
-                        } else {
-                            return dni;
+                            if (validarTarjetaInmigracion(dni)) {
+                                return dni;
+                            } else {
+                                System.err.println(
+                                        "The immigration card  \"" + dni + "\" is not valid, please try again.");
+                            }
                         }
                     case 4:
                         return "Not added";
@@ -340,16 +338,16 @@ public class UserView {
                 System.err.println("The email \"" + email + "\" is not valid. Please try again.");
                 continue;
             }
-            if(!email.contains("@")){
+            if (!email.contains("@")) {
                 System.err.println("The email \"" + email + "\" is not valid. Please try again.");
                 continue;
             }
             String[] emailParts = email.split("@");
-            if(emailParts.length>2 || emailParts.length<2){
+            if (emailParts.length > 2 || emailParts.length < 2) {
                 System.err.println("The email \"" + email + "\" is not valid. Please try again.");
                 continue;
             }
-            if(inusualString(emailParts[0])){
+            if (inusualString(emailParts[0])) {
                 System.err.println("The email \"" + email + "\" is not valid. Please try again.");
                 continue;
             }
@@ -365,23 +363,20 @@ public class UserView {
 
     public String validarUserName(String userName, boolean edit) {
         while (true) {
-    		int c = 0; 
-        	while(userName.length()<5) {
-        		if(c >0) {
-        			System.err.println("minimum 5 characters");
-        		}
-        		if (edit == false) {
-        			System.out.print("Enter a username: ");
-        		} else {
-        			System.out.print("Enter a username(if you want to keep your current password, press enter): ");
-        		}
+            if (edit == false) {
+                System.out.print("Enter your username, it must have 5 different characters of spaces or special characters(minimum 5 characters): ");
+            } else {
+                System.out.print("Enter your username, it must have 5 different characters of spaces or special characters(if you want to keep your current password, press enter): ");
+            }
             userName = sc.nextLine();
-            c++;
-        	}
-            if (userName.isEmpty() && edit == true ) {
+            if (userName.isEmpty() && edit == true) {
                 return "";
             }
             if (inusualString(userName)) {
+                System.err.println("The user name \"" + userName + "\" is not valid. Please try again.");
+                continue;
+            }
+            if(!validarUserName(userName)){
                 System.err.println("The user name \"" + userName + "\" is not valid. Please try again.");
                 continue;
             }
