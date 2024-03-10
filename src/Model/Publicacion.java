@@ -1,23 +1,24 @@
 package Model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Publicacion {
 	private String origen;
 	private String destino;
-	private Date fechaIda;
+	private LocalDate fechaIda;
+	private LocalDate fechaLlegada;
 	private String categoria;
 	private String pesoEquipaje;
 	private String EspacioEquipaje;
 	private int id;
 	private int idUser;
 	private boolean isActive;
-	public Publicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
+	public Publicacion(String origen, String destino, LocalDate fechaIda, LocalDate fechaLlegada, String categoria, String pesoEquipaje,
 			String espacioEquipaje, int id, int idUser) {
-		super();
 		this.origen = origen;
 		this.destino = destino;
 		this.fechaIda = fechaIda;
+		this.fechaLlegada = fechaLlegada;
 		this.categoria = categoria;
 		this.pesoEquipaje = pesoEquipaje;
 		this.EspacioEquipaje = espacioEquipaje;
@@ -47,10 +48,10 @@ public class Publicacion {
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-	public Date getFechaIda() {
+	public LocalDate getFechaIda() {
 		return fechaIda;
 	}
-	public void setFechaIda(Date fechaIda) {
+	public void setFechaIda(LocalDate fechaIda) {
 		this.fechaIda = fechaIda;
 	}
 	public String getCategoria() {
@@ -65,6 +66,14 @@ public class Publicacion {
 	public void setPesoEquipaje(String pesoEquipaje) {
 		this.pesoEquipaje = pesoEquipaje;
 	}
+	
+	public LocalDate getFechaLlegada(){
+		return fechaLlegada;	
+	}
+	public void setFechaLlegada(LocalDate fechaLlegada){
+		this.fechaLlegada = fechaLlegada;
+	}
+
 	public String getEspacioEquipaje() {
 		return EspacioEquipaje;
 	}
@@ -91,7 +100,6 @@ public class Publicacion {
 				+ categoria + ", pesoEquipaje=" + pesoEquipaje + ", EspacioEquipaje=" + EspacioEquipaje + "]";
 	}
 	public Publicacion() {
-		// TODO Auto-generated constructor stub
 	}
 	
 }

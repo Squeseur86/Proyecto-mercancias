@@ -1,7 +1,7 @@
 package Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 import Model.Oferta;
 import Model.Publicacion;
@@ -10,10 +10,9 @@ public class PublicacionController {
 
 	private ArrayList<Publicacion> publicaciones = new ArrayList<Publicacion>();
 
-	public void crearPublicacion(String origen, String destino, Date fechaIda, String categoria, String pesoEquipaje,
+	public void crearPublicacion(String origen, String destino, LocalDate fechaIda, LocalDate fechaLlegada, String categoria, String pesoEquipaje,
 			String espacioEquipaje, int id, int idUserValid) {
-		publicaciones.add(new Publicacion(origen, destino, fechaIda, categoria, pesoEquipaje,
-				espacioEquipaje, id,idUserValid));
+		publicaciones.add(new Publicacion(origen, destino, fechaIda, fechaLlegada, categoria, pesoEquipaje, espacioEquipaje, id, idUserValid));
 	}
 
 	public int returnId(int index) {
@@ -82,10 +81,11 @@ public class PublicacionController {
 		return publicacionesUser;
 	}
 
-	public void editarPublicacion(Publicacion publicacionEditar, String origen, String categoria, String destino, String espacioEquipaje, String pesoEquipaje, Date fechaIda) {
+	public void editarPublicacion(Publicacion publicacionEditar, String origen, String categoria, String destino, String espacioEquipaje, String pesoEquipaje, LocalDate fechaIda, LocalDate fechaLlegada) {
 		publicacionEditar.setOrigen(origen);
 		publicacionEditar.setCategoria(categoria);
 		publicacionEditar.setDestino(destino);
+		publicacionEditar.setFechaLlegada(fechaLlegada);
 		publicacionEditar.setEspacioEquipaje(espacioEquipaje);
 		publicacionEditar.setFechaIda(fechaIda);
 		publicacionEditar.setPesoEquipaje(pesoEquipaje);
