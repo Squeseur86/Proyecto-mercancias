@@ -215,6 +215,7 @@ public class PublicacionVista {
                     existPosts = verPublicacionesDelUsuario(userPosts);
                     System.out.println("1. View offers for a publication.");
                     System.out.println("2. Edit a publication.");
+                    System.out.println("3. Delete a publication.");
                     System.out.println("4. Go back.");
                     System.out.print("Enter the number of the option you wish to perform: ");
                     optionMenuMyPost = sc.nextInt();
@@ -341,16 +342,14 @@ public class PublicacionVista {
 
     public void menuOfertas(ArrayList<Oferta> offerPost,int idUser, Publicacion publicacion) {
         int op = 0, numOferta = 0;
-        while (op < 1 || op > 5) {
+        while (op < 1 || op > 3) {
             for (Oferta offer : offerPost) {
                 System.out.println(offer.toString());
             }
             try {
                 System.out.println("1. Accept offer");
                 System.out.println("2. Reject offer");
-                System.out.println("3. Accept offer");
-                System.out.println("4. Reject offer");
-                System.out.println("5. Go back");
+                System.out.println("3. Go back");
                 op = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
@@ -379,13 +378,41 @@ public class PublicacionVista {
                 }
                 break;
             case 3:
-            	ofertaVista.editOffer (publicacion,idUser);
-            	break;
-            case 4:
-            	ofertaVista.deleteOffer(idUser);
-            	break;
-            case 5:
                 return;
+        }
+    }
+    
+    public void myOfertasMenu(int idUserValid) {
+    	
+          int optionMenuMyPost = 0, op = 0, postEdit = 0;
+        while (true) {
+            optionMenuMyPost = 0;
+            while (optionMenuMyPost < 1 || optionMenuMyPost > 4) {
+                try {
+                    
+                    System.out.println("1. View my offerts ");
+                    System.out.println("2. Edit a ofert.");
+                    System.out.println("3. Delete a ofert");
+                    System.out.println("4. Go back.");
+                    System.out.print("Enter the number of the option you wish to perform: ");
+                    optionMenuMyPost = sc.nextInt();
+                    sc.nextLine();
+                } catch (Exception e) {
+                    System.err.println("The \"" + optionMenuMyPost + "\" option is not available.");
+                }
+            }
+            switch (optionMenuMyPost) {
+                case 1: // VER OFERTA
+                	ofertaVista.listarOfertas(idUserValid);
+                	break;
+                case 2:
+             
+                    ofertaVista.editOffer(idUserValid);
+                	break;
+                case 3:
+                	ofertaVista.deleteOffer(idUserValid);
+                	break;
+            }
         }
     }
 

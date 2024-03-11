@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Controller.OfertaControl;
+import Controller.PublicacionController;
 import Model.Oferta;
 import Model.Publicacion;
 
@@ -18,6 +19,8 @@ public class OfertaView {
         this.ofertaControl = ofertaControl;
     }
 
+    private PublicacionController publicacionController;
+    
     public static boolean inusualString(String string) {
         if (string.isEmpty())
             return true;
@@ -25,8 +28,17 @@ public class OfertaView {
             return true;
         return false;
     }
-    
-    public void editOffer(Publicacion publicacion, int idUser) {
+    public void listarOfertas(int idUser)
+    {
+    	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
+			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+				System.out.print((i+1));
+				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
+			}
+    	}
+		
+    }
+    public void editOffer(int idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
         int valor = 0;
@@ -44,11 +56,11 @@ public class OfertaView {
 			if (idUser == ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
 					.getIdUser()) {
 				descripcion = validarDescripcion();
-			    espacioOferta = validarVolumenEquipaje(publicacion);
-			    pesoOferta = validarPesoEquipaje(espacioOferta, publicacion.getPesoEquipaje());
+			    espacioOferta = validarVolumenEquipaje(publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()));
+			    pesoOferta = validarPesoEquipaje(espacioOferta, publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()).getPesoEquipaje());
 			    fragil = validarFragil();
 			    valor = validarPrecio();
-			    ofertaControl.editOferta(indexOfferEdit,descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacion.getId(), idUser);
+			    ofertaControl.editOferta(indexOfferEdit,descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()).getId() ,idUser);
 			}
         }
     }

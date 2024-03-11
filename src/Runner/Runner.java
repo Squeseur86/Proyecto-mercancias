@@ -97,7 +97,8 @@ public class Runner {
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
 							System.out.println("4. View my profile");
-							System.out.println("5. Close section");
+							System.out.println("5. View my offerts");
+							System.out.println("6. Close section");
 
 							System.out.print("Enter the number of the option you wish to perform: ");
 							opMenuPrincipal = sc.nextInt();
@@ -150,6 +151,9 @@ public class Runner {
 									op = 0;
 									break;
 								case 5:
+									publicacionVista.myOfertasMenu(idUserValid);
+									break;
+								case 6:
 
 									opc = 0;
 									break;
