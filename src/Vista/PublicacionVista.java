@@ -515,10 +515,11 @@ public class PublicacionVista {
                 case "Cabin":
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the broad luggage(minimum 10 cm - maximum 20 cm): ");
                             ancho = sc.nextDouble();
-                            sc.nextLine();
+                            
                             if (ancho > 20 || ancho < 10) {
                                 throw new Exception(
                                         "The width of the luggage cannot be greater than 20 cm and less than 10 cm. Please try again.");
@@ -526,16 +527,19 @@ public class PublicacionVista {
                             break;
                         } catch (InputMismatchException eMismatch) {
                             System.err.println("The broad luggage \"" + ancho + "\" is not valid. Please try again.");
+                           
                         } catch (Exception e) {
                             System.err.println(e.getMessage());
+                            
                         }
                     }
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the long luggage(minimum 25 cm - maximum 35 cm): ");
                             largo = sc.nextDouble();
-                            sc.nextLine();
+                            
                             if (largo > 35 || largo < 25) {
                                 throw new Exception(
                                         "The length of the luggage cannot be greater than 35 cm and less than 25 cm. Please try again.");
@@ -549,10 +553,11 @@ public class PublicacionVista {
                     }
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the high luggage (minimum 25 cm - maximum 45 cm): ");
                             altura = sc.nextDouble();
-                            sc.nextLine();
+                            
                             if (altura > 45 || altura < 25) {
                                 throw new Exception(
                                         "The high of the luggage cannot be greater than 45 cm and less than 25 cm. Please try again.");
@@ -568,6 +573,7 @@ public class PublicacionVista {
                     volumen = (ancho * largo * altura);
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.println("Enter the occupied volume(minimum " + ((Double) (volumen * (0.1)))
                                     + " cm^3 - maximum " + ((Double) (volumen * (0.8))) + " cm^3)");
@@ -594,6 +600,7 @@ public class PublicacionVista {
                     return String.valueOf(volumen);
                 case "Store":
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the broad luggage (minimum 20 cm - maximum 36 cm): ");
                             ancho = sc.nextDouble();
@@ -611,6 +618,7 @@ public class PublicacionVista {
                     }
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the long luggage(minimum 30 cm - maximum 47 cm): ");
                             largo = sc.nextDouble();
@@ -628,6 +636,7 @@ public class PublicacionVista {
                     }
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.print("Enter the high luggage(minimum 75 cm - maximum 60 cm): ");
                             altura = sc.nextDouble();
@@ -647,6 +656,7 @@ public class PublicacionVista {
                     volumen = (ancho * largo * altura);
 
                     while (true) {
+                    	sc.nextLine();
                         try {
                             System.out.println("Enter the occupied volume(minimum " + (volumen * (1 / 10))
                                     + " cm^3 - maximum " + (volumen * (8 / 10)) + " cm^3)");

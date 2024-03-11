@@ -91,14 +91,13 @@ public class Runner {
 							}
 						}
 						opMenuPrincipal = 0;
-						while (opMenuPrincipal != 7) { // MENU UNA VEZ QUE INICIA SESION.
+						while (opMenuPrincipal != 5) { // MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
-							System.out.println("4. Create offers");
-							System.out.println("5. Edit or delete offers");
-							System.out.println("6. View my profile");
-							System.out.println("7. Close section");
+					
+							System.out.println("4. View my profile");
+							System.out.println("5. Close section");
 
 							System.out.print("Enter the number of the option you wish to perform: ");
 							opMenuPrincipal = sc.nextInt();
@@ -115,265 +114,8 @@ public class Runner {
 									// MENU PARA PUBLICACIONES DEL USUARIO
 									publicacionVista.userPostMenu(idUserValid, oferta);
 									break;
+		
 								case 4:
-									con = 0;
-									System.out.println(publiController.listarPublicaciones().size());
-									for (Publicacion pubicacion : publiController.listarPublicaciones()) {
-										System.out.println(pubicacion.toString());
-									}
-									System.out.println("Which publication do you want to bid on?");
-
-									op = sc.nextInt();
-									sc.nextLine();
-
-									if (publiController.listarPublicaciones().get(op - 1) != null) {
-										System.out.println("Enter the description of the offer");
-										descripcion = sc.nextLine();
-										while (pesoOfe == "") {
-											System.out.println("ienter the weight of your shipment");
-											pesoOfe = sc.nextLine();
-											double psOf = Double.parseDouble(pesoOfe);
-											double pesoe = Double.parseDouble(publiController.listarPublicaciones()
-													.get(op - 1).getPesoEquipaje());
-											if (psOf >= pesoe || psOf < 0) {
-												System.err.println("Weight is not valid");
-												pesoOfe = "";
-											} else {
-												System.out.println("Weight valid");
-											}
-										}
-										while (tamaño == "") {
-											System.out.println("enter the size of your shipment");
-											System.out.print("Enter the broad luggage : ");
-											ancho = sc.nextDouble();
-											sc.nextLine();
-											while (ancho < 0) {
-												System.err.print("The broad is invalid. Enter the broad luggage : ");
-												ancho = sc.nextDouble();
-												sc.nextLine();
-											}
-											System.out.print("Enter the loang luggage : ");
-											largo = sc.nextDouble();
-											sc.nextLine();
-											while (largo < 0) {
-												System.err.print("The loang is invalid. Enter the loang luggage : ");
-												ancho = sc.nextDouble();
-												sc.nextLine();
-											}
-											System.out.print("Enter the high luggage : ");
-											alto = sc.nextDouble();
-											sc.nextLine();
-											while (alto < 0) {
-												System.err.print("The high is invalid. Enter the high luggage : ");
-												ancho = sc.nextDouble();
-												sc.nextLine();
-											}
-											volumen = ancho * largo * alto;
-											tamaño = String.valueOf(volumen);
-											double tam = Double.parseDouble(tamaño);
-											double volPub = Double.parseDouble(publiController.listarPublicaciones()
-													.get(op - 1).getEspacioEquipaje());
-											if (tam >= volPub) {
-												System.err.println("The size is invalid");
-												tamaño = "";
-											} else {
-												System.out.println("size valid");
-											}
-										}
-										System.out.print("Your shipment is fragile 1 for yes 2 for no");
-										op = sc.nextInt();
-										sc.nextLine();
-										while (op != 1 && op != 2) {
-											switch (op) {
-												case 1:
-													fragil = true;
-													break;
-												case 2:
-													fragil = false;
-													break;
-												default:
-													System.out.println("wrong value");
-											}
-										}
-										System.out.println("enter your offer price");
-										valor = sc.nextInt();
-										sc.nextLine();
-										while (true) {
-											try {
-												System.out.print("Enter the date: ");
-												fechaIda = dateFormat.parse(sc.nextLine());
-												break;
-											} catch (ParseException e) {
-												System.err.println("\n" + "Enter the date in format: yyyy/mm/dd.");
-											}
-										}
-
-										while (opof != 1 && opof != 2) {
-											System.out.println("You´re sure?, 1.yes, 2.delete");
-											opof = sc.nextInt();
-											sc.nextLine();
-											switch (opof) {
-												case 1:
-													if (oferta.crearOferta(descripcion, pesoOfe, tamaño, fragil, valor,
-															fechaIda,
-															publiController.returnId(con), idUserValid)) {
-														System.out.println("offer created successfully");
-													} else {
-														System.err.println("error creating offer");
-													}
-													break;
-												case 2:
-													descripcion = "";
-													tamaño = "";
-													fragil = false;
-													valor = 0;
-													fechaIda = null;
-													break;
-												default:
-													System.err.println("Wrong value");
-											}
-										}
-									}
-									break;
-								case 5:
-									while (opOffer == 0) {
-										System.out.println("what do you want to do?");
-										System.out.println("1. edit offer");
-										System.out.println("2. delete offer");
-										opOffer = sc.nextInt();
-										
-										switch (opOffer) {
-											case 1:
-												for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-													if (idUserValid == oferta.verListadoOfertas().get(i).getId()) {
-														System.out
-																.println(oferta.verListadoOfertas().get(i).toString());
-													}
-													System.out.println("Which offer do you want to edit");
-													int indexOfferEdit = 0;
-													indexOfferEdit = sc.nextInt();
-													sc.nextLine();
-													if (idUserValid == oferta.verListadoOfertas().get(indexOfferEdit)
-															.getId()) {
-														System.out.println("Enter the description of the offer");
-														descripcion = sc.nextLine();
-														while (pesoOfe == "") {
-															System.out.println("ienter the weight of your shipment");
-															pesoOfe = sc.nextLine();
-															double psOf = Double.parseDouble(pesoOfe);
-															double pesoe = Double
-																	.parseDouble(publiController.listarPublicaciones()
-																			.get(op - 1).getPesoEquipaje());
-															if (psOf >= pesoe || psOf < 0) {
-																System.err.println("Weight is not valid");
-																pesoOfe = "";
-															} else {
-																System.out.println("Weight valid");
-															}
-														}
-														while (tamaño == "") {
-															System.out.println("enter the size of your shipment");
-															System.out.print("Enter the broad luggage : ");
-															ancho = sc.nextDouble();
-															sc.nextLine();
-															while (ancho < 0) {
-																System.err.print(
-																		"The broad is invalid. Enter the broad luggage : ");
-																ancho = sc.nextDouble();
-																sc.nextLine();
-															}
-															System.out.print("Enter the loang luggage : ");
-															largo = sc.nextDouble();
-															sc.nextLine();
-															while (largo < 0) {
-																System.err.print(
-																		"The loang is invalid. Enter the loang luggage : ");
-																ancho = sc.nextDouble();
-																sc.nextLine();
-															}
-															System.out.print("Enter the high luggage : ");
-															alto = sc.nextDouble();
-															sc.nextLine();
-															while (alto < 0) {
-																System.err.print(
-																		"The high is invalid. Enter the high luggage : ");
-																ancho = sc.nextDouble();
-																sc.nextLine();
-															}
-															volumen = ancho * largo * alto;
-															tamaño = String.valueOf(volumen);
-															double tam = Double.parseDouble(tamaño);
-															double volPub = Double
-																	.parseDouble(publiController.listarPublicaciones()
-																			.get(op - 1).getEspacioEquipaje());
-															if (tam >= volPub) {
-																System.err.println("The size is invalid");
-																tamaño = "";
-															} else {
-																System.out.println("size valid");
-															}
-														}
-														System.out.print("Your shipment is fragile 1 for yes 2 for no");
-														op = sc.nextInt();
-														sc.nextLine();
-														while (op != 1 && op != 2) {
-															switch (op) {
-																case 1:
-																	fragil = true;
-																	break;
-																case 2:
-																	fragil = false;
-																	break;
-																default:
-																	System.out.println("wrong value");
-															}
-														}
-														System.out.println("enter your offer price");
-														valor = sc.nextInt();
-														sc.nextLine();
-														while (true) {
-															try {
-																System.out.print("Enter the date: ");
-																fechaIda = dateFormat.parse(sc.nextLine());
-																break;
-															} catch (ParseException e) {
-																System.err.println(
-																		"\n" + "Enter the date in format: yyyy/mm/dd.");
-															}
-														}
-														if (oferta.editOferta(indexOfferEdit, descripcion, pesoOfe,
-																tamaño,
-																fragil, valor, fechaIda, publiController.returnId(con),
-																idUserValid)) {
-															System.out.println("offer created successfully");
-														} else {
-															System.err.println("error creating offer");
-														}
-													}
-												}
-												break;
-											case 2:
-												for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-													if (idUserValid == oferta.verListadoOfertas().get(i).getId()) {
-														System.out
-																.println(oferta.verListadoOfertas().get(i).toString());
-													}
-
-													System.out.println("Which offer do you want to edit");
-													int indexOfferdelet = 0;
-													indexOfferdelet = sc.nextInt();
-													sc.nextLine();
-													if (idUserValid == oferta.verListadoOfertas()
-															.get(indexOfferdelet - 1).getId()) {
-														oferta.borrarOferta(indexOfferdelet - 1);
-													}
-
-												}
-												break;
-										}
-									}
-									break;
-								case 6:
 									op = 0;
 									while (op != 3) {
 										try {
@@ -406,7 +148,7 @@ public class Runner {
 									}
 									op = 0;
 									break;
-								case 7:
+								case 5:
 									opc = 0;
 									break;
 								default:

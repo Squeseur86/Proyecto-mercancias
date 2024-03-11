@@ -99,10 +99,11 @@ public class OfertaView {
         while (true) {
 
             while (true) {
+            	sc.nextLine();
                 try {
-                    System.out.print("Enter the broad luggage(kitten 10 cm - maximum 20 cm): ");
+                    System.out.print("Enter the broad luggage(minimum 10 cm - maximum 20 cm): ");
                     ancho = sc.nextDouble();
-                    sc.nextLine();
+                    
                     if (ancho > 20 || ancho < 10) {
                         throw new Exception(
                                 "The width of the luggage cannot be greater than 20 cm and less than 10 cm. Please try again.");
@@ -115,10 +116,11 @@ public class OfertaView {
                 }
             }
             while (true) {
+            	sc.nextLine();
                 try {
-                    System.out.print("Enter the long luggage(kitten 25 cm - maximum 35 cm): ");
+                    System.out.print("Enter the long luggage(minimum 25 cm - maximum 35 cm): ");
                     largo = sc.nextDouble();
-                    sc.nextLine();
+                   
                     if (largo > 35 || largo < 25) {
                         throw new Exception(
                                 "The length of the luggage cannot be greater than 35 cm and less than 25 cm. Please try again.");
@@ -131,10 +133,11 @@ public class OfertaView {
                 }
             }
             while (true) {
+            	sc.nextLine();
                 try {
-                    System.out.print("Enter the high luggage (kitten 25 cm - maximum 45 cm): ");
+                    System.out.print("Enter the high luggage (minimum 25 cm - maximum 45 cm): ");
                     altura = sc.nextDouble();
-                    sc.nextLine();
+                    
                     if (altura > 45 || altura < 25) {
                         throw new Exception(
                                 "The high of the luggage cannot be greater than 45 cm and less than 25 cm. Please try again.");
