@@ -92,7 +92,7 @@ public class Runner {
 							}
 						}
 						opMenuPrincipal = 0;
-						while (opMenuPrincipal != 5) { // MENU UNA VEZ QUE INICIA SESION.
+						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
