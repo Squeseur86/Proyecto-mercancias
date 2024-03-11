@@ -55,6 +55,7 @@ public class PublicacionVista {
         int cont;
         cont=0;
         for (Publicacion publicacion : publicacionesActivas) {
+        	cont++;
         	System.out.print(cont);
             System.out.print(publicacion.toString());
         }
@@ -384,7 +385,9 @@ public class PublicacionVista {
     
     public void myOfertasMenu(int idUserValid) {
     	
-          int optionMenuMyPost = 0, op = 0, postEdit = 0;
+          int optionMenuMyPost = 0;
+          int op = 0, numPublicacion = 0;
+          ArrayList<Publicacion> publicacionesActivas = publicacionController.returnActivePublications();
         while (true) {
             optionMenuMyPost = 0;
             while (optionMenuMyPost < 1 || optionMenuMyPost > 4) {
@@ -406,12 +409,14 @@ public class PublicacionVista {
                 	ofertaVista.listarOfertas(idUserValid);
                 	break;
                 case 2:
-             
-                    ofertaVista.editOffer(idUserValid);
+                	
+                    ofertaVista.editOffer(publicacionesActivas, idUserValid);
                 	break;
                 case 3:
                 	ofertaVista.deleteOffer(idUserValid);
                 	break;
+                case 4:
+                	return;
             }
         }
     }
