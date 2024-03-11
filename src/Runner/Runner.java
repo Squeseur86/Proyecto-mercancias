@@ -93,6 +93,8 @@ public class Runner {
 						}
 						opMenuPrincipal = 0;
 						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
+							while(opMenuPrincipal<1 || opMenuPrincipal >6) {	
+								try {
 							System.out.println("1. Create publication.");
 							System.out.println("2. View posts.");
 							System.out.println("3. View my posts");
@@ -102,7 +104,12 @@ public class Runner {
 
 							System.out.print("Enter the number of the option you wish to perform: ");
 							opMenuPrincipal = sc.nextInt();
-							sc.nextLine();
+								}catch (Exception e) {
+									System.err.println("The \"" + opc + "\" option is not available");
+									sc.next();
+								}
+								sc.nextLine();
+							}
 							switch (opMenuPrincipal) {
 								case 1:// CREAR PUBLICACION.
 									publicacionVista.vistaCrearPublicacion(idUserValid);
