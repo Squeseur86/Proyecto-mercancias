@@ -93,6 +93,7 @@ public class Runner {
 						}
 						opMenuPrincipal = 0;
 						while (opMenuPrincipal != 6) { // MENU UNA VEZ QUE INICIA SESION.
+							opMenuPrincipal = 0;
 							while(opMenuPrincipal<1 || opMenuPrincipal >6) {	
 								try {
 							System.out.println("1. Create publication.");

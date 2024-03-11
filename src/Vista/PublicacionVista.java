@@ -128,6 +128,7 @@ public class PublicacionVista {
                 System.err.println("The option \"" + opPublicacion + "\" is not valid. Please try again.");
             }
         }
+        return;
     }
 
     public boolean vistaEditarPublicacion(Publicacion publicacion) {
