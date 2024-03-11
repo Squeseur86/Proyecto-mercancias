@@ -99,9 +99,16 @@ public class PublicacionVista {
 
         // CONFIRMACION:
         while (true) {
+        	while(opPublicacion <1 || opPublicacion >2) {
+        	try {
             System.out.print("Do you want to post (Yes: Enter 1. No: Enter 2.): ");
             opPublicacion = sc.nextInt();
-            sc.nextLine();
+        	}catch(Exception e) {
+        		System.err.println("is not avaliable");    
+                sc.next();
+        		}
+        	}
+        	sc.nextLine();
             if (opPublicacion == 1 || opPublicacion == 2) {
                 switch (opPublicacion) {
                     case 1:
@@ -144,8 +151,15 @@ public class PublicacionVista {
         // FIN EDICION PUBLICACION
         // CONFIRMACION:
         while (true) {
+            while(opPublicacion == 0) {
+            	try {
             System.out.print("Do you want to edit (Yes: Enter 1. No: Enter 2.): ");
             opPublicacion = sc.nextInt();
+            	}catch(Exception e) {
+            		System.err.print("Is not valid");
+            		sc.nextLine();
+            	}
+
             sc.nextLine();
             switch (opPublicacion) {
                 case 1:
@@ -161,6 +175,7 @@ public class PublicacionVista {
                     System.err.println("The option \"" + opPublicacion + "\" is not valid. Please try again.");
                     break;
             }
+            }
 
         }
 
@@ -169,6 +184,7 @@ public class PublicacionVista {
     public void menuPostActives(int idUserValid) {
         int op = 0, numPublicacion = 0;
         ArrayList<Publicacion> publicacionesActivas = publicacionController.returnActivePublications();
+        while(op !=2) {
         while (op < 1 || op > 2) {
             try {
                 verPublicacionesActivas();
@@ -201,7 +217,10 @@ public class PublicacionVista {
                 } 
                 break;
             case 2:
+            	
                 return;
+            	default:
+            	   System.err.println("is not avaliable");        }
         }
     }
 

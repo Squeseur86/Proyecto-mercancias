@@ -30,85 +30,47 @@ public class OfertaView {
     }
     public void listarOfertas(int idUser)
     {
-    	int cont = 0;
     	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
 			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
 				System.out.print((i+1));
 				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
-				cont++;
 			}
-    	}
-    	if(cont==0)
-    	{
-    		System.out.println("There is no offerts");
     	}
 		
     }
-    public boolean existOfertas(int idUser)
-    {
-    	int cont = 0;
-    	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
-				System.out.print((i+1));
-				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
-				cont++;
-			}
-    	}
-    	if(cont==0)
-    	{
-    		System.out.println("There is no offerts");
-    		return false;
-    	}else {
-    		return true;
-    	}
-		
-    }
-    public void editOffer(ArrayList<Publicacion> publicacion,int idUser) {
+    public void editOffer(int idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
-        int valor = 0; int indexPu=0;
-        
-        
+        int valor = 0;
         LocalDate fechaDeOferta = LocalDate.now();
-        if(existOfertas(idUser)) {
-        	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-    			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
-    				System.out.print((i+1));
-    				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
-    				}
-            	}
-    			System.out.println("Which offer do you want to edit");
-    			int indexOfferEdit = 0;
-    			indexOfferEdit = sc.nextInt();
-    			for(int i=0;i<publicacion.size();i++)
-    	        {
-    	        	if(publicacion.get(i).getId()==ofertaControl.verListadoOfertas().get(indexOfferEdit-1).getId())
-    	        	{
-    	        		indexPu=i;
-    	        	}
-    	        }
-    			sc.nextLine();
-    			if (idUser == ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
-    					.getIdUser()) {
-    				descripcion = validarDescripcion();
-    				espacioOferta = validarVolumenEquipaje(publicacion.get(indexPu));
-    		        pesoOferta = validarPesoEquipaje(espacioOferta, publicacion.get(indexPu).getPesoEquipaje());
-    			    fragil = validarFragil();
-    			    valor = validarPrecio();
-    			    ofertaControl.editOferta((indexOfferEdit-1),descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacion.get(indexPu).getId() ,idUser);
-    			}
-            }else {
-        	System.out.println("There is no offerts");
+        
+        for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
+			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+				System.out.print((i+1));
+				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
+			}
+			System.out.println("Which offer do you want to edit");
+			int indexOfferEdit = 0;
+			indexOfferEdit = sc.nextInt();
+			sc.nextLine();
+			if (idUser == ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
+					.getIdUser()) {
+				descripcion = validarDescripcion();
+			    espacioOferta = validarVolumenEquipaje(publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()));
+			    pesoOferta = validarPesoEquipaje(espacioOferta, publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()).getPesoEquipaje());
+			    fragil = validarFragil();
+			    valor = validarPrecio();
+			    ofertaControl.editOferta(indexOfferEdit,descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacionController.retornarPorId(ofertaControl.verListadoOfertas().get(indexOfferEdit).getId()).getId() ,idUser);
+			}
         }
     }
     public void deleteOffer(int idUser) {
-    	if(existOfertas(idUser)) {
-    		for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
+    	 for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
     			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
     				System.out.print((i+1));
     				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
     			}
-    	 }
+
     			System.out.println("Which offer do you want to edit");
     			int indexOfferdelet = 0;
     			indexOfferdelet = sc.nextInt();
@@ -118,9 +80,8 @@ public class OfertaView {
     				ofertaControl.borrarOferta(indexOfferdelet - 1);
     			}
 
+    		}
 
-    	}
-    	 
     }
    
     
@@ -141,7 +102,7 @@ public class OfertaView {
         String descripcion = "";
         while (true) {
             System.out.print("Enter the description of your offer (at least 5 words): ");
-            descripcion = sc.nextLine();
+            descripcion = sc.next();
             if (inusualString(descripcion)) {
                 System.err.println("The entry \"" + descripcion + "\" is not valid. Please try again.");
                 continue;
@@ -161,7 +122,7 @@ public class OfertaView {
         Double peso = 0.0;
         while (true) {
             try {
-                System.out.print(
+                System.out.println(
                         "Enter the weight of the available luggage in kilograms(The available weight of the publication is: "
                                 + pesoDisponiDouble + "): ");
                 pesoEquipaje = sc.nextLine();
