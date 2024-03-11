@@ -43,7 +43,7 @@ public class OfertaView {
         String descripcion = "";
         while (true) {
             System.out.print("Enter the description of your offer (at least 5 words): ");
-            descripcion = sc.nextLine();
+            descripcion = sc.next();
             if (inusualString(descripcion)) {
                 System.err.println("The entry \"" + descripcion + "\" is not valid. Please try again.");
                 continue;

@@ -52,8 +52,11 @@ public class PublicacionVista {
             System.out.println("No posts available");
             return false;
         }
+        int cont;
+        cont=0;
         for (Publicacion publicacion : publicacionesActivas) {
-            System.out.println(publicacion.toString());
+        	System.out.print(cont);
+            System.out.print(publicacion.toString());
         }
         System.out.println("\n");
         return true;

@@ -117,25 +117,27 @@ public class Runner {
 									break;
 									
 								case 4:
-									while (opOffer == 0) {
+									opOffer=0;
+									while (opOffer != 3){
 										System.out.println("what do you want to do?");
 										System.out.println("1. edit offer");
 										System.out.println("2. delete offer");
+										System.out.println("3. go back");
 										opOffer = sc.nextInt();
 										
 										switch (opOffer) {
 											case 1:
 												for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-													if (idUserValid == oferta.verListadoOfertas().get(i).getId()) {
-														System.out
-																.println(oferta.verListadoOfertas().get(i).toString());
+													if (idUserValid == oferta.verListadoOfertas().get(i).getIdUser()) {
+														System.out.print((i+1));
+														System.out.print(oferta.verListadoOfertas().get(i).toString());
 													}
 													System.out.println("Which offer do you want to edit");
 													int indexOfferEdit = 0;
 													indexOfferEdit = sc.nextInt();
 													sc.nextLine();
-													if (idUserValid == oferta.verListadoOfertas().get(indexOfferEdit)
-															.getId()) {
+													if (idUserValid == oferta.verListadoOfertas().get(indexOfferEdit-1)
+															.getIdUser()) {
 														System.out.println("Enter the description of the offer");
 														descripcion = sc.nextLine();
 														while (pesoOfe == "") {
@@ -232,12 +234,13 @@ public class Runner {
 														}
 													}
 												}
+												opOffer=0;
 												break;
 											case 2:
 												for (int i = 0; i < oferta.verListadoOfertas().size(); i++) {
-													if (idUserValid == oferta.verListadoOfertas().get(i).getId()) {
-														System.out
-																.println(oferta.verListadoOfertas().get(i).toString());
+													if (idUserValid == oferta.verListadoOfertas().get(i).getIdUser()) {
+														System.out.print((i+1));
+														System.out.print(oferta.verListadoOfertas().get(i).toString());
 													}
 
 													System.out.println("Which offer do you want to edit");
@@ -245,12 +248,20 @@ public class Runner {
 													indexOfferdelet = sc.nextInt();
 													sc.nextLine();
 													if (idUserValid == oferta.verListadoOfertas()
-															.get(indexOfferdelet - 1).getId()) {
+															.get(indexOfferdelet - 1).getIdUser()) {
 														oferta.borrarOferta(indexOfferdelet - 1);
 													}
 
 												}
+												opOffer=0;
 												break;
+												
+											case 3:
+												break;
+												
+										default:
+										System.out.println("option invalid please try again ");
+										opOffer=0;
 										}
 									}
 									break;
