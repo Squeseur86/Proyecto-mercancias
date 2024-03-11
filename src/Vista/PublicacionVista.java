@@ -673,6 +673,9 @@ public class PublicacionVista {
                             System.out.println("Enter the occupied volume(minimum " + ((Double) (volumen * (0.1)))
                                     + " cm^3 - maximum " + ((Double) (volumen * (0.8))) + " cm^3)");
                             voluOcu = sc.nextDouble();
+                            if(voluOcu == 0.0){
+                                break;
+                            }
                             if (voluOcu > ((Double) (volumen * (0.8))) || voluOcu < ((Double) (volumen * (0.1)))) {
                                 throw new Exception(
                                         "The volume of occupied baggage cannot be less than 10%("
@@ -753,10 +756,13 @@ public class PublicacionVista {
                     while (true) {
                     	sc.nextLine();
                         try {
-                            System.out.println("Enter the occupied volume(minimum " + (volumen * (1 / 10))
-                                    + " cm^3 - maximum " + (volumen * (8 / 10)) + " cm^3)");
+                            System.out.println("Enter the occupied volume(minimum " + ((Double) (volumen * (0.1)))
+                                    + " cm^3 - maximum " + ((Double) (volumen * (0.8))) + " cm^3)");
                             voluOcu = sc.nextDouble();
-                            if (voluOcu > (volumen * (8 / 10)) || voluOcu < (volumen * (1 / 10))) {
+                            if(voluOcu == 0.0){
+                                break;
+                            }
+                            if (voluOcu > ((Double) (volumen * (0.8))) || voluOcu < ((Double) (volumen * (0.1)))) {
                                 throw new Exception(
                                         "The volume of occupied baggage cannot be less than 10% of the total volume nor more than 80% of the total volume. Please try again.");
                             }
