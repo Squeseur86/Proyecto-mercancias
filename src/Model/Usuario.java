@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Usuario {
@@ -10,15 +11,15 @@ public class Usuario {
     private String dni;
     private String fullName;
     private String password;
-    private Date createdAT;
-    private Date updatedAT;
+    private LocalDate createdAT;
+    private LocalDate updatedAT;
 
     public Usuario(String userName, String password){
         this.userName = userName;
         this.password = password;
     }
     public Usuario(int id, String userName, String email, Telefono phoneNumber, String dni,
-            String fullName, String password, Date createdAT, Date updatedAT) {
+            String fullName, String password, LocalDate createdAT, LocalDate updatedAT) {
         this.id = id;
         this.userName = userName;
         this.fullName = fullName;
@@ -59,11 +60,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public void setCreatedAT(Date createdAT) {
+    public void setCreatedAT(LocalDate createdAT) {
         this.createdAT = createdAT;
     }
 
-    public void setUpdateAT(Date updateAT) {
+    public void setUpdateAT(LocalDate updateAT) {
         this.updatedAT = updateAT;
     }
 
@@ -97,26 +98,25 @@ public class Usuario {
         return password;
     }
 
-    public Date getCreatedAT() {
+    public LocalDate getCreatedAT() {
         return createdAT;
     }
 
-    public Date getUpdateAT() {
+    public LocalDate getUpdateAT() {
         return updatedAT;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" +
+        return "Usuario: " +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", dni='" + dni + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", password='" + password + '\'' +
-                ", createdAt=" + createdAT +
-                ", updatedAt=" + updatedAT +
-                '}';
+                " userName='" + userName + '\n' +
+                " email='" + email + '\n' +
+                " phoneNumber=" + phoneNumber +
+                " dni='" + dni + '\n' +
+                " fullName='" + fullName + '\n' +
+                " password='" + password + '\n' +
+                " createdAt=" + createdAT +
+                " updatedAt=" + updatedAT ;
     }
 }

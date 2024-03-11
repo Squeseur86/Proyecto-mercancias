@@ -1,5 +1,6 @@
 package Vista;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -67,7 +68,7 @@ public class UserView {
 
     public void signUp() {
         String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
-        Date fechaIda = null;
+        LocalDate fechaIda = LocalDate.now();
         Telefono telefono;
 
         userName = validarUserName(userName, false);
@@ -104,7 +105,6 @@ public class UserView {
     public String editUser(int idUser) {
         int op = 0;
         String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
-        Date fechaIda = null;
         Telefono telefono;
         userName = validarUserName(userName, true);
         email = validarEmail(email, true);
@@ -137,7 +137,7 @@ public class UserView {
                             }
                             user.setDni(dni);
                             user.setPhoneNumber(telefono);
-                            user.setUpdateAT(fechaIda);
+                            user.setUpdateAT(LocalDate.now());
                             return "User successfully updated";
                         }
                     }

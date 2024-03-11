@@ -1,5 +1,6 @@
 package Controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class UsuarioController {
         return null;
     }
 
-    public void crearUsuario(String userName, String email,Telefono telefono, String dni, String fullName, String password, Date createdAT, Date updateAT) {
+    public void crearUsuario(String userName, String email,Telefono telefono, String dni, String fullName, String password, LocalDate createdAT, LocalDate updateAT) {
         int id = generarID();
         usuarios.add(new Usuario(id, userName, email,telefono, dni, fullName, password, createdAT, updateAT));
     }
