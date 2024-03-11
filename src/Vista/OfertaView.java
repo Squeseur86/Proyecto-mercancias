@@ -278,12 +278,12 @@ public class OfertaView {
     private Boolean validarFragil() {
         int op = 0;
         while (true) {
+        	 sc.nextLine();
             try {
                 System.out.println("Is your equipment fragile?");
                 System.out.println("1. Yes");
                 System.out.println("2. No");
                 op = sc.nextInt();
-                sc.nextLine();
                 switch (op) {
                     case 1:
                         return true;
@@ -300,11 +300,13 @@ public class OfertaView {
 
     private int validarPrecio() {
         int valor = 0;
+        
         while (true) {
+        	sc.nextLine();
             try {
                 System.out.print("Enter the value of your offer: ");
                 valor = sc.nextInt();
-                sc.nextLine();
+                
                 return valor;
                 }
             catch (Exception e) {

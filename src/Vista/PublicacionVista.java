@@ -260,7 +260,10 @@ public class PublicacionVista {
                         if (offerPost == null) {
                             System.out.println("No offers.");
                         } else {
+                        	int cont=0;
                             for (Oferta offer : offerPost) {
+                            	cont++;
+                            	System.out.println(cont);
                                 System.out.println(offer.toString());
                             }
                             menuOfertas(offerPost,idUserValid, userPosts.get(op - 1));
@@ -365,6 +368,7 @@ public class PublicacionVista {
                 if (numOferta > offerPost.size() || numOferta < 0) {
                     System.err.println("The offer number \"" + numOferta + "\" is not available");
                 } else {
+        
                     System.out.println(publicacionController.aceptarOferta(offerPost.get(numOferta - 1), publicacion));
                 }
                 break;
@@ -516,12 +520,13 @@ public class PublicacionVista {
     public String determinarCategoriaVuelo(String categoria) {
         int opCat = 0;
         while (true) {
+        	sc.nextLine();
             try {
                 System.out.println("Category: ");
                 System.out.println("1. Cabin\n 2. Store");
                 System.out.println("Enter the category of the trip: ");
                 opCat = sc.nextInt();
-                sc.nextLine();
+                
                 switch (opCat) {
                     case 1:
                         categoria = "Cabin";
