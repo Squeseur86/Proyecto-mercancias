@@ -174,16 +174,23 @@ public class PublicacionVista {
                 sc.nextLine();
             } catch (Exception e) {
                 System.err.println("The option \"" + op + "\" is not valid. Please try again.");
+                sc.nextLine();
             }
         }
         
         switch (op) {
             case 1:
                 verPublicacionesActivas();
+                while(numPublicacion == 0) {
+                try {
                 System.out.println("Enter the number of the publication to which you wish to make an offer.: ");
                 numPublicacion = sc.nextInt();
+                }catch(Exception e) {
+                System.err.println("is not avaliable");
                 sc.nextLine();
-                if (numPublicacion > publicacionesActivas.size() || numPublicacion < 0) {
+                }
+                }
+                if (numPublicacion > publicacionesActivas.size() || numPublicacion < 0 || publicacionesActivas.size()==0) {
                     System.err.println("The publication number \"" + numPublicacion + "\" is not available");
                 } else {
                     ofertaVista.createOffer(publicacionesActivas.get(numPublicacion-1), idUserValid);
