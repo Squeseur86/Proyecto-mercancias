@@ -386,8 +386,19 @@ public class PublicacionVista {
 
     public String determinarOrigenViaje(String origen) {
         while (inusualString(origen)) {
-            System.out.print("\nEnter the origin of the trip: ");
-            origen = sc.nextLine();
+        	while(origen== "") {
+                System.out.print("Enter the origen of the trip, the avilable countries: ");
+                System.out.println("Argentina, Spain, Panama, Colombia, Honduras, Brasil, United States, Mexico, Croacia, Italy ");
+                origen = sc.nextLine();
+                if(origen.contains("Argentina")||origen.contains("Spain") ||origen.contains("Panama")|| origen.contains("Colombia" ) 
+                		|| origen.contains("Honduras") || origen.contains("Brasil") || origen.contains("United States") ||
+                		origen.contains("Mexico") || origen.contains("Croacia") || origen.contains("Italy")){
+                	System.out.println("The origen is avilable");
+                }else {
+                	System.err.println("the origin of the trip is not avilable");
+                	origen = "";
+                }
+            	}
             if (inusualString(origen)) {
                 System.err.println("The entry \"" + origen + "\" is not valid. Please try again.");
             }
@@ -397,8 +408,19 @@ public class PublicacionVista {
 
     public String determinarDestinoViaje(String destino) {
         while (inusualString(destino)) {
-            System.out.print("Enter the destination of the trip: ");
+        	while(destino == "") {
+            System.out.print("Enter the destination of the trip, the avilable countries: ");
+            System.out.println("Argentina, Spain, Panama, Colombia, Honduras, Brasil, United States, Mexico, Croacia, Italy ");
             destino = sc.nextLine();
+            if(destino.contains("Argentina")||destino.contains("Spain") ||destino.contains("Panama")|| destino.contains("Colombia" ) 
+            		|| destino.contains("Honduras") || destino.contains("Brasil") || destino.contains("United States") ||
+            		destino.contains("Mexico") || destino.contains("Croacia") || destino.contains("Italy")){
+            	System.out.println("The destination is avilable");
+            }else {
+            	System.err.println("the destination is not avilable");
+            	destino = "";
+            }
+        	}
             if (inusualString(destino)) {
                 System.err.println("The entry \"" + destino + "\" is not valid. Please try again.");
             }
