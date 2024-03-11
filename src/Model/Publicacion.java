@@ -96,8 +96,8 @@ public class Publicacion {
 	}
 	@Override
 	public String toString() {
-		return "Publicacion [origen=" + origen + ", destino=" + destino + ", fechaIda=" + fechaIda + ", categoria="
-				+ categoria + ", pesoEquipaje=" + pesoEquipaje + ", EspacioEquipaje=" + EspacioEquipaje + "]";
+		return "Origin =" + origen + ", Destination =" + destino + ", Takeoff date=" + fechaIda + ", Category ="
+				+ categoria + ", Luggage weight =" + pesoEquipaje + ", Luggage space=" + EspacioEquipaje;
 	}
 	public Publicacion() {
 	}
