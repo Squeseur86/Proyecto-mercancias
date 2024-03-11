@@ -215,7 +215,6 @@ public class PublicacionVista {
                     existPosts = verPublicacionesDelUsuario(userPosts);
                     System.out.println("1. View offers for a publication.");
                     System.out.println("2. Edit a publication.");
-                    System.out.println("3. Delete a post.");
                     System.out.println("4. Go back.");
                     System.out.print("Enter the number of the option you wish to perform: ");
                     optionMenuMyPost = sc.nextInt();
@@ -262,7 +261,7 @@ public class PublicacionVista {
                             for (Oferta offer : offerPost) {
                                 System.out.println(offer.toString());
                             }
-                            menuOfertas(offerPost, userPosts.get(op - 1));
+                            menuOfertas(offerPost,idUserValid, userPosts.get(op - 1));
                         }
                     }
                     break;
@@ -340,16 +339,18 @@ public class PublicacionVista {
         }
     }
 
-    public void menuOfertas(ArrayList<Oferta> offerPost, Publicacion publicacion) {
+    public void menuOfertas(ArrayList<Oferta> offerPost,int idUser, Publicacion publicacion) {
         int op = 0, numOferta = 0;
-        while (op < 1 || op > 3) {
+        while (op < 1 || op > 5) {
             for (Oferta offer : offerPost) {
                 System.out.println(offer.toString());
             }
             try {
                 System.out.println("1. Accept offer");
                 System.out.println("2. Reject offer");
-                System.out.println("3. Go back");
+                System.out.println("3. Accept offer");
+                System.out.println("4. Reject offer");
+                System.out.println("5. Go back");
                 op = sc.nextInt();
                 sc.nextLine();
             } catch (Exception e) {
@@ -378,6 +379,12 @@ public class PublicacionVista {
                 }
                 break;
             case 3:
+            	ofertaVista.editOffer (publicacion,idUser);
+            	break;
+            case 4:
+            	ofertaVista.deleteOffer(idUser);
+            	break;
+            case 5:
                 return;
         }
     }

@@ -25,7 +25,54 @@ public class OfertaView {
             return true;
         return false;
     }
+    
+    public void editOffer(Publicacion publicacion, int idUser) {
+        String descripcion = "", espacioOferta = "", pesoOferta = "";
+        boolean fragil = false;
+        int valor = 0;
+        LocalDate fechaDeOferta = LocalDate.now();
+        
+        for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
+			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+				System.out.print((i+1));
+				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
+			}
+			System.out.println("Which offer do you want to edit");
+			int indexOfferEdit = 0;
+			indexOfferEdit = sc.nextInt();
+			sc.nextLine();
+			if (idUser == ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
+					.getIdUser()) {
+				descripcion = validarDescripcion();
+			    espacioOferta = validarVolumenEquipaje(publicacion);
+			    pesoOferta = validarPesoEquipaje(espacioOferta, publicacion.getPesoEquipaje());
+			    fragil = validarFragil();
+			    valor = validarPrecio();
+			    ofertaControl.editOferta(indexOfferEdit,descripcion, pesoOferta, espacioOferta, fragil, valor, fechaDeOferta, publicacion.getId(), idUser);
+			}
+        }
+    }
+    public void deleteOffer(int idUser) {
+    	 for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
+    			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+    				System.out.print((i+1));
+    				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
+    			}
 
+    			System.out.println("Which offer do you want to edit");
+    			int indexOfferdelet = 0;
+    			indexOfferdelet = sc.nextInt();
+    			sc.nextLine();
+    			if (idUser == ofertaControl.verListadoOfertas()
+    					.get(indexOfferdelet - 1).getIdUser()) {
+    				ofertaControl.borrarOferta(indexOfferdelet - 1);
+    			}
+
+    		}
+
+    }
+   
+    
     public void createOffer(Publicacion publicacion, int idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
