@@ -76,7 +76,7 @@ public class PublicacionVista {
     }
 
     // PRINT'S
-    public void vistaCrearPublicacion(int idUserValid) {
+    public void vistaCrearPublicacion(String idUserValid) {
         // DATOS PUBLICACION
         String origen = "", destino = "", categoria = "", pesoEquipaje = "", espacioEquipaje = "";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -181,7 +181,7 @@ public class PublicacionVista {
 
     }
 
-    public void menuPostActives(int idUserValid) {
+    public void menuPostActives(String idUserValid) {
         int op = 0, numPublicacion = 0;
         ArrayList<Publicacion> publicacionesActivas = publicacionController.returnActivePublications();
         while(op !=2) {
@@ -224,7 +224,7 @@ public class PublicacionVista {
         }
     }
 
-    public void userPostMenu(int idUserValid, OfertaControl controllerOferta) {
+    public void userPostMenu(String idUserValid, OfertaControl controllerOferta) {
         ArrayList<Publicacion> userPosts = publicacionController.retornarPorIdUser(idUserValid);
         int optionMenuMyPost = 0, op = 0, postEdit = 0;
         boolean existPosts;
@@ -236,6 +236,7 @@ public class PublicacionVista {
                     System.out.println("1. View offers for a publication.");
                     System.out.println("2. Edit a publication.");
                     System.out.println("3. Delete a publication.");
+
                     System.out.println("4. Go back.");
                     System.out.print("Enter the number of the option you wish to perform: ");
                     optionMenuMyPost = sc.nextInt();
@@ -363,7 +364,7 @@ public class PublicacionVista {
         }
     }
 
-    public void menuOfertas(ArrayList<Oferta> offerPost,int idUser, Publicacion publicacion) {
+    public void menuOfertas(ArrayList<Oferta> offerPost,String idUser, Publicacion publicacion) {
         int op = 0, numOferta = 0;
         while (op < 1 || op > 3) {
             for (Oferta offer : offerPost) {
@@ -406,7 +407,7 @@ public class PublicacionVista {
         }
     }
     
-    public void myOfertasMenu(int idUserValid) {
+    public void myOfertasMenu(String idUserValid) {
     	
           int optionMenuMyPost = 0;
           int op = 0, numPublicacion = 0;

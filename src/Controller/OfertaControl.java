@@ -12,7 +12,7 @@ public class OfertaControl {
 	Oferta of = new Oferta();
 	ArrayList<Oferta> ofertas = new ArrayList<Oferta>();
 		public boolean crearOferta(String descripcion,String pesoOfe, String tamaño, boolean fragil, int valor, LocalDate fechaCreacion
-			,int id,int idUser){
+			,int id,String idUser){
 			try {
 				ofertas.add(new Oferta( descripcion,pesoOfe, tamaño, fragil, valor, fechaCreacion,id,idUser));
 				return true;
@@ -28,7 +28,7 @@ public class OfertaControl {
 		}
 
 		public boolean editOferta(int index,String descripcion,String pesoOfe, String tamaño, boolean fragil, int valor, LocalDate fechaCreacion
-				,int id,int idUser){
+				,int id,String idUser){
 				try {
 					ofertas.set(index, (new Oferta( descripcion,pesoOfe, tamaño, fragil, valor, fechaCreacion,id,idUser)));
 					return true;

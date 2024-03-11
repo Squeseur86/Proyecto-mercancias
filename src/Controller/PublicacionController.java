@@ -11,7 +11,7 @@ public class PublicacionController {
 	private ArrayList<Publicacion> publicaciones = new ArrayList<Publicacion>();
 
 	public void crearPublicacion(String origen, String destino, LocalDate fechaIda, LocalDate fechaLlegada, String categoria, String pesoEquipaje,
-			String espacioEquipaje, int id, int idUserValid) {
+			String espacioEquipaje, int id, String idUserValid) {
 		publicaciones.add(new Publicacion(origen, destino, fechaIda, fechaLlegada, categoria, pesoEquipaje, espacioEquipaje, id, idUserValid));
 	}
 
@@ -71,10 +71,10 @@ public class PublicacionController {
 		return publicaciones.get(index-1);
 	}
 
-	public ArrayList<Publicacion> retornarPorIdUser(int idUserValid){
+	public ArrayList<Publicacion> retornarPorIdUser(String idUserValid){
 		ArrayList<Publicacion> publicacionesUser = new ArrayList<Publicacion>();
 		for(Publicacion publicacion: publicaciones){
-			if(publicacion.getUserId()==idUserValid){
+			if(publicacion.getUserId().equals(idUserValid)){
 				publicacionesUser.add(publicacion);
 			}
 		}

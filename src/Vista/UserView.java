@@ -80,7 +80,7 @@ public class UserView {
         usuariosController.crearUsuario(userName, email, telefono, dni, fullName, password, fechaIda, fechaIda);
     }
 
-    public String borrarUser(int idUser) {
+    public String borrarUser(String idUser) {
         int op = 0;
         while (true) {
             System.out.println("Are you sure you want to delete your account:\r\n" +
@@ -90,7 +90,7 @@ public class UserView {
             op = sc.nextInt();
             switch (op) {
                 case 1:
-                    usuariosController.arrayListUser().removeIf(user -> user.getId() == idUser);
+                    usuariosController.arrayListUser().removeIf(user -> user.getId().equals(idUser));
                     return "User deleted successfully";
                 case 2:
                     return "Operation cancelled";
@@ -102,7 +102,7 @@ public class UserView {
         }
     }
 
-    public String editUser(int idUser) {
+    public String editUser(String idUser) {
         int op = 0;
         String userName = "", email = "", password = "", phoneNumber = "", dni = "", fullName = "";
         Telefono telefono;
@@ -122,7 +122,7 @@ public class UserView {
             switch (op) {
                 case 1:
                     for (Usuario user : usuariosController.arrayListUser()) {
-                        if (user.getId() == idUser) {
+                        if (user.getId().equals(idUser)) {
                             if (!userName.isEmpty()) {
                                 user.setUserName(userName);
                             }

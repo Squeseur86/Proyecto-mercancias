@@ -11,10 +11,10 @@ public class Publicacion {
 	private String pesoEquipaje;
 	private String EspacioEquipaje;
 	private int id;
-	private int idUser;
+	private String idUser;
 	private boolean isActive;
 	public Publicacion(String origen, String destino, LocalDate fechaIda, LocalDate fechaLlegada, String categoria, String pesoEquipaje,
-			String espacioEquipaje, int id, int idUser) {
+			String espacioEquipaje, int id, String idUser) {
 		this.origen = origen;
 		this.destino = destino;
 		this.fechaIda = fechaIda;
@@ -81,10 +81,10 @@ public class Publicacion {
 		EspacioEquipaje = espacioEquipaje;
 	}
 
-	public int getUserId(){
+	public String getUserId(){
 		return idUser;
 	}
-	public void setUserId(int userId){
+	public void setUserId(String userId){
 		this.idUser = userId;
 	}
 

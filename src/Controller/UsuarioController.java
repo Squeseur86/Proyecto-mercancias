@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 import Model.Telefono;
 import Model.Usuario;
@@ -16,9 +17,9 @@ public class UsuarioController {
         usuarios.add(new Usuario(userName, password));
     }
 
-    public Usuario returnForId(int id){
+    public Usuario returnForId(String id){
         for(Usuario user: usuarios){
-            if(user.getId() == id){
+            if(user.getId().equals(id)){
                 return user;
             }
         }
@@ -26,7 +27,7 @@ public class UsuarioController {
     }
 
     public void crearUsuario(String userName, String email,Telefono telefono, String dni, String fullName, String password, LocalDate createdAT, LocalDate updateAT) {
-        int id = generarID();
+        String id = UUID.randomUUID().toString();
         usuarios.add(new Usuario(id, userName, email,telefono, dni, fullName, password, createdAT, updateAT));
     }
 
@@ -56,9 +57,4 @@ public class UsuarioController {
         return this.usuarios;
     }
 
-    public int generarID() {
-        Random random = new Random();
-        return 10000 + random.nextInt(90000); // NUMERO ALEATORIO DE 10000 A 99999
-
-    }
 }

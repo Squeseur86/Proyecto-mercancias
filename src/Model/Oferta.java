@@ -11,9 +11,9 @@ public class Oferta {
 	private int valor;
 	private LocalDate fechaCreacion;
 	private int id;
-	private int idUser;
+	private String idUser;
 	
-	public Oferta(String descripcion, String pesoOfe, String tamaño,boolean fragil,int valor, LocalDate fechaCreacion, int id,int idUser)
+	public Oferta(String descripcion, String pesoOfe, String tamaño,boolean fragil,int valor, LocalDate fechaCreacion, int id,String idUser)
 	{
 		this.descripcion = descripcion;
 		this.fechaCreacion = fechaCreacion;
@@ -36,11 +36,11 @@ public class Oferta {
 	}
 
 
-	public int getIdUser() {
+	public String getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(String idUser) {
 		this.idUser = idUser;
 	}
 

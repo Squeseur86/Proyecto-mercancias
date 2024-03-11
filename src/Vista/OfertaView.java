@@ -28,11 +28,11 @@ public class OfertaView {
             return true;
         return false;
     }
-    public void listarOfertas(int idUser)
+    public void listarOfertas(String idUser)
     {
     	int cont = 0;
     	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+			if (idUser.equals(ofertaControl.verListadoOfertas().get(i).getIdUser())) {
 				System.out.print((i+1));
 				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
 				cont++;
@@ -44,11 +44,11 @@ public class OfertaView {
     	}
 		
     }
-    public boolean existOfertas(int idUser)
+    public boolean existOfertas(String idUser)
     {
     	int cont = 0;
     	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+			if (idUser.equals(ofertaControl.verListadoOfertas().get(i).getIdUser())) {
 				System.out.print((i+1));
 				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
 				cont++;
@@ -63,7 +63,7 @@ public class OfertaView {
     	}
 		
     }
-    public void editOffer(ArrayList<Publicacion> publicacion,int idUser) {
+    public void editOffer(ArrayList<Publicacion> publicacion,String idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
         int valor = 0; int indexPu=0;
@@ -72,7 +72,7 @@ public class OfertaView {
         LocalDate fechaDeOferta = LocalDate.now();
         if(existOfertas(idUser)) {
         	for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-    			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+    			if (idUser.equals(ofertaControl.verListadoOfertas().get(i).getIdUser())) {
     				System.out.print((i+1));
     				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
     				}
@@ -88,8 +88,8 @@ public class OfertaView {
     	        	}
     	        }
     			sc.nextLine();
-    			if (idUser == ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
-    					.getIdUser()) {
+    			if (idUser.equals(ofertaControl.verListadoOfertas().get(indexOfferEdit-1)
+                .getIdUser())) {
     				descripcion = validarDescripcion();
     				espacioOferta = validarVolumenEquipaje(publicacion.get(indexPu));
     		        pesoOferta = validarPesoEquipaje(espacioOferta, publicacion.get(indexPu).getPesoEquipaje());
@@ -101,10 +101,10 @@ public class OfertaView {
         	System.out.println("There is no offerts");
         }
     }
-    public void deleteOffer(int idUser) {
+    public void deleteOffer(String idUser) {
     	if(existOfertas(idUser)) {
     		for (int i = 0; i < ofertaControl.verListadoOfertas().size(); i++) {
-    			if (idUser == ofertaControl.verListadoOfertas().get(i).getIdUser()) {
+    			if (idUser.equals(ofertaControl.verListadoOfertas().get(i).getIdUser())) {
     				System.out.print((i+1));
     				System.out.print(ofertaControl.verListadoOfertas().get(i).toString());
     			}
@@ -113,8 +113,8 @@ public class OfertaView {
     			int indexOfferdelet = 0;
     			indexOfferdelet = sc.nextInt();
     			sc.nextLine();
-    			if (idUser == ofertaControl.verListadoOfertas()
-    					.get(indexOfferdelet - 1).getIdUser()) {
+    			if (idUser.equals(ofertaControl.verListadoOfertas()
+                .get(indexOfferdelet - 1).getIdUser())) {
     				ofertaControl.borrarOferta(indexOfferdelet - 1);
     			}
 
@@ -124,7 +124,7 @@ public class OfertaView {
     }
    
     
-    public void createOffer(Publicacion publicacion, int idUser) {
+    public void createOffer(Publicacion publicacion, String idUser) {
         String descripcion = "", espacioOferta = "", pesoOferta = "";
         boolean fragil = false;
         int valor = 0;
